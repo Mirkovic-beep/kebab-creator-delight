@@ -1,59 +1,71 @@
-import { Phone, MapPin, ExternalLink } from "lucide-react";
+import { ArrowRight, MapPin, Phone } from "lucide-react";
+import { Link } from "react-router-dom";
+
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { restaurantInfo } from "@/data/menu";
 
 const ContactSection = () => {
   return (
-    <section id="contacto" className="py-24 px-6 bg-background">
-      <div className="max-w-4xl mx-auto text-center">
-        <p className="text-gold font-body tracking-[0.3em] uppercase text-sm mb-3">Encuéntranos</p>
-        <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6">
-          Ven a Visitarnos
-        </h2>
-        <p className="text-muted-foreground font-body text-lg mb-12 max-w-2xl mx-auto">
-          Estamos en el corazón de Rivas-Vaciamadrid. ¡Te esperamos con los brazos abiertos y la parrilla encendida!
-        </p>
+    <section id="contacto" className="bg-background px-6 py-20">
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-3xl">
+            <p className="mb-3 text-sm uppercase tracking-[0.3em] text-gold">Contacto</p>
+            <h2 className="font-display text-4xl font-bold text-foreground md:text-5xl">
+              Encuentranos o haz tu pedido.
+            </h2>
+            <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+              Texto breve sobre telefono, ubicacion y acceso rapido a la carta.
+            </p>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <a
-            href="tel:917139980"
-            className="bg-card border border-border rounded-lg p-6 hover:border-gold/40 transition-colors group"
-          >
-            <Phone className="w-8 h-8 text-gold mx-auto mb-3 group-hover:scale-110 transition-transform" />
-            <p className="font-display text-lg font-semibold text-foreground">Llámanos</p>
-            <p className="text-muted-foreground text-sm mt-1">917 13 99 80</p>
-          </a>
-          <a
-            href="https://maps.google.com/?q=Bar+DejaVu+Kebab+Rivas"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-card border border-border rounded-lg p-6 hover:border-gold/40 transition-colors group"
-          >
-            <MapPin className="w-8 h-8 text-gold mx-auto mb-3 group-hover:scale-110 transition-transform" />
-            <p className="font-display text-lg font-semibold text-foreground">Cómo Llegar</p>
-            <p className="text-muted-foreground text-sm mt-1">Ver en Google Maps</p>
-          </a>
-          <a
-            href="https://bar-dejavu-kebab.es"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-card border border-border rounded-lg p-6 hover:border-gold/40 transition-colors group"
-          >
-            <ExternalLink className="w-8 h-8 text-gold mx-auto mb-3 group-hover:scale-110 transition-transform" />
-            <p className="font-display text-lg font-semibold text-foreground">Menú Online</p>
-            <p className="text-muted-foreground text-sm mt-1">bar-dejavu-kebab.es</p>
-          </a>
+          <Button asChild className="gradient-gold h-12 rounded-xl px-6 text-gold-foreground">
+            <Link to="/nosotros#contacto">
+              Mas informacion
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </Button>
         </div>
 
-        <div className="rounded-lg overflow-hidden border border-border">
-          <iframe
-            title="Ubicación Bar DejaVu Kebab Rivas"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3040.5!2d-3.54!3d40.35!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zQmFyIERlamFWdSBLZWJhYiBSaXZhcw!5e0!3m2!1ses!2ses!4v1600000000000"
-            width="100%"
-            height="350"
-            style={{ border: 0 }}
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
+        <div className="grid gap-5 md:grid-cols-3">
+          <Card className="rounded-[28px] border-border/60 bg-card/80">
+            <CardContent className="p-6">
+              <Phone className="h-8 w-8 text-gold" />
+              <p className="mt-4 text-sm uppercase tracking-[0.24em] text-gold">Telefono</p>
+              <a
+                href={`tel:${restaurantInfo.phone}`}
+                className="mt-2 block font-display text-2xl font-semibold transition-colors hover:text-gold"
+              >
+                {restaurantInfo.phone}
+              </a>
+              <p className="mt-2 text-sm text-muted-foreground">Reservas, recogida y confirmaciones.</p>
+            </CardContent>
+          </Card>
+
+          <Card className="rounded-[28px] border-border/60 bg-card/80">
+            <CardContent className="p-6">
+              <MapPin className="h-8 w-8 text-gold" />
+              <p className="mt-4 text-sm uppercase tracking-[0.24em] text-gold">Ubicacion</p>
+              <p className="mt-2 font-display text-2xl font-semibold">{restaurantInfo.name}</p>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {restaurantInfo.address}, {restaurantInfo.city}
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="rounded-[28px] border-border/60 bg-card/80">
+            <CardContent className="flex h-full flex-col p-6">
+              <p className="text-sm uppercase tracking-[0.24em] text-gold">Pedir ahora</p>
+              <h3 className="mt-4 font-display text-3xl font-bold">Acceso rapido</h3>
+              <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
+                Texto breve sobre carta completa y pedido directo.
+              </p>
+              <Button asChild className="gradient-gold mt-6 h-11 rounded-xl text-gold-foreground">
+                <Link to="/carta">Abrir carta</Link>
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </section>

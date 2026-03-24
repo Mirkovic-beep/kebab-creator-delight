@@ -1,83 +1,105 @@
-import donerImg from "@/assets/doner.jpg";
-import lahmacunImg from "@/assets/lahmacun.jpg";
-import falafelImg from "@/assets/falafel.jpg";
-import adanaImg from "@/assets/adana.jpg";
+import { ArrowRight, Sparkles } from "lucide-react";
+import { Link } from "react-router-dom";
 
-const dishes = [
-  {
-    name: "Döner Kebab",
-    description: "Carne marinada asada lentamente en espetón vertical, servida con pan pita, ensalada fresca y salsa yogur.",
-    price: "8,50 €",
-    image: donerImg,
-  },
-  {
-    name: "Lahmacun",
-    description: "La 'pizza turca': masa fina crujiente con carne picada especiada, hierbas frescas y un toque de limón.",
-    price: "7,00 €",
-    image: lahmacunImg,
-  },
-  {
-    name: "Adana Kebab",
-    description: "Brocheta de carne picada de cordero con especias picantes, asada a la brasa y servida con bulgur.",
-    price: "12,00 €",
-    image: adanaImg,
-  },
-  {
-    name: "Falafel Platter",
-    description: "Croquetas crujientes de garbanzos con hummus casero, ensalada fresca, pan pita y salsa tahini.",
-    price: "9,50 €",
-    image: falafelImg,
-  },
-];
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { menuCategories, menuProducts } from "@/data/menu";
+import { formatCurrency } from "@/lib/menu";
+import { cn } from "@/lib/utils";
+
+const categoryTones = {
+  gold: "border-gold/30 bg-gold/10",
+  ember: "border-primary/30 bg-primary/10",
+  olive: "border-emerald-500/30 bg-emerald-500/10",
+  sand: "border-amber-200/20 bg-amber-100/5",
+  copper: "border-orange-500/30 bg-orange-500/10",
+  stone: "border-slate-300/20 bg-slate-200/5",
+} as const;
+
+const featuredProducts = menuProducts.filter((product) => product.featured).slice(0, 3);
 
 const MenuSection = () => {
   return (
-    <section id="carta" className="py-24 px-6 bg-background">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <p className="text-gold font-body tracking-[0.3em] uppercase text-sm mb-3">Nuestra Carta</p>
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground">
-            Especialidades Turcas
-          </h2>
-          <div className="w-24 h-0.5 bg-gold mx-auto mt-6" />
+    <section id="destacados" className="bg-background px-6 py-24">
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-14 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-3xl">
+            <p className="mb-3 text-sm uppercase tracking-[0.3em] text-gold">Carta destacada</p>
+            <h2 className="font-display text-4xl font-bold text-foreground md:text-5xl">
+              Una seleccion breve para abrir apetito.
+            </h2>
+            <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
+              Texto placeholder para destacar categorias y productos principales.
+            </p>
+          </div>
+
+          <Button asChild className="gradient-gold h-12 rounded-xl px-6 text-gold-foreground">
+            <Link to="/carta">
+              Entrar a la carta
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </Button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {dishes.map((dish) => (
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {menuCategories.slice(0, 3).map((category) => (
             <div
-              key={dish.name}
-              className="group bg-card rounded-lg overflow-hidden border border-border hover:border-gold/40 transition-colors duration-300"
+              key={category.id}
+              className={cn(
+                "rounded-[28px] border p-5 shadow-[0_18px_60px_rgba(0,0,0,0.12)] transition-transform hover:-translate-y-1",
+                categoryTones[category.tone],
+              )}
             >
-              <div className="aspect-[4/3] overflow-hidden">
-                <img
-                  src={dish.image}
-                  alt={dish.name}
-                  loading="lazy"
-                  width={640}
-                  height={640}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <div className="p-6">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-display text-2xl font-semibold text-foreground">{dish.name}</h3>
-                  <span className="text-gold font-display text-xl font-semibold">{dish.price}</span>
-                </div>
-                <p className="text-muted-foreground font-body text-sm leading-relaxed">{dish.description}</p>
-              </div>
+              <p className="text-sm uppercase tracking-[0.24em] text-gold">{category.note}</p>
+              <h3 className="mt-2 font-display text-2xl font-semibold text-foreground">{category.name}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{category.description}</p>
             </div>
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <a
-            href="https://bar-dejavu-kebab.es"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="gradient-gold text-gold-foreground font-body font-semibold px-8 py-4 rounded-lg text-lg hover:opacity-90 transition-opacity inline-block"
-          >
-            Ver Menú Completo
-          </a>
+        <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {featuredProducts.map((product) => (
+            <Card key={product.id} className="group overflow-hidden rounded-[30px] border-border/60 bg-card/85 shadow-[0_18px_60px_rgba(0,0,0,0.16)]">
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  loading="lazy"
+                  width={640}
+                  height={640}
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+                <div className="absolute left-4 top-4 flex flex-wrap gap-2">
+                  {product.featured ? <Badge className="bg-gold text-gold-foreground">Destacado</Badge> : null}
+                  {product.bestseller ? <Badge className="bg-primary text-primary-foreground">Top ventas</Badge> : null}
+                </div>
+              </div>
+              <CardContent className="space-y-4 p-6">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-sm uppercase tracking-[0.24em] text-gold">{product.highlight}</p>
+                    <h3 className="mt-2 font-display text-3xl font-semibold text-foreground">{product.name}</h3>
+                  </div>
+                  <span className="font-display text-2xl font-semibold text-gold">{formatCurrency(product.price)}</span>
+                </div>
+                <p className="text-sm leading-relaxed text-muted-foreground">{product.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {product.tags.slice(0, 3).map((tag) => (
+                    <Badge key={tag} variant="outline" className="border-border/60 bg-background/35 text-foreground">
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        <div className="mt-10 flex items-center gap-2 text-sm uppercase tracking-[0.24em] text-gold">
+          <Sparkles className="h-4 w-4" />
+          Explora la carta completa para ver toda la seleccion.
         </div>
       </div>
     </section>

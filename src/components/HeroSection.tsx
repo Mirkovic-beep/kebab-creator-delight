@@ -1,46 +1,124 @@
+import { ArrowRight, Clock3, MapPin, ShieldCheck, Sparkles } from "lucide-react";
+import { Link } from "react-router-dom";
+
 import heroImage from "@/assets/hero-kebab.jpg";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { menuProducts, restaurantInfo } from "@/data/menu";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 pb-20 pt-28">
       <img
         src={heroImage}
         alt="Delicioso kebab turco del Bar DejaVu"
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover"
         width={1920}
         height={1080}
       />
       <div className="absolute inset-0 gradient-overlay" />
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-        <p className="text-gold font-body tracking-[0.3em] uppercase text-sm mb-4 animate-fade-in">
-          Especialidades Turcas en Rivas-Vaciamadrid
-        </p>
-        <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-foreground mb-6 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-          Bar DejaVu
-          <span className="block text-gold text-3xl md:text-4xl lg:text-5xl font-semibold mt-2">
-            Kebab Rivas
-          </span>
-        </h1>
-        <p className="font-body text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10 animate-fade-in" style={{ animationDelay: "0.4s" }}>
-          Auténticos sabores de Turquía elaborados con recetas tradicionales y los mejores ingredientes frescos
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: "0.6s" }}>
-          <a
-            href="#carta"
-            className="gradient-gold text-gold-foreground font-body font-semibold px-8 py-4 rounded-lg text-lg hover:opacity-90 transition-opacity"
-          >
-            Ver la Carta
-          </a>
-          <a
-            href="tel:917139980"
-            className="border border-gold text-gold font-body font-semibold px-8 py-4 rounded-lg text-lg hover:bg-gold hover:text-gold-foreground transition-colors"
-          >
-            Reservar Mesa
-          </a>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(210,162,73,0.24),_transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(181,83,41,0.2),_transparent_30%)]" />
+      <div className="relative z-10 mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[1.1fr,0.9fr] lg:items-end">
+        <div className="max-w-4xl">
+          <div className="mb-6 flex flex-wrap gap-3">
+            <Badge className="bg-gold text-gold-foreground">Especialidades turcas en Rivas</Badge>
+            <Badge variant="outline" className="border-gold/30 bg-background/20 text-gold">
+              Ingredientes frescos
+            </Badge>
+          </div>
+          <p className="mb-4 text-sm uppercase tracking-[0.3em] text-gold">
+            Cocina turca, parrilla y recetas con caracter
+          </p>
+          <h1 className="font-display text-5xl font-bold text-foreground md:text-7xl lg:text-8xl">
+            Bar DejaVu
+            <span className="mt-2 block text-3xl font-semibold text-gold md:text-5xl">
+              Sabor, ambiente y cocina al momento
+            </span>
+          </h1>
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
+            Texto principal sobre el local, las especialidades y la experiencia del espacio.
+          </p>
+          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+            <Button asChild className="gradient-gold h-12 rounded-xl px-8 text-base text-gold-foreground">
+              <Link to="/carta">
+                Abrir carta completa
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              className="h-12 rounded-xl border-gold/40 bg-background/25 px-8 text-base text-gold hover:bg-gold hover:text-gold-foreground"
+            >
+              <Link to={{ pathname: "/", hash: "#contacto" }}>Ver contacto</Link>
+            </Button>
+          </div>
+
+          <div className="mt-10 grid max-w-2xl gap-4 sm:grid-cols-2">
+            <div className="rounded-3xl border border-border/60 bg-background/35 p-4 backdrop-blur-sm">
+              <p className="text-sm uppercase tracking-[0.24em] text-gold">Carta</p>
+              <p className="mt-2 font-display text-3xl font-bold">{menuProducts.length}+</p>
+              <p className="mt-1 text-sm text-muted-foreground">Texto breve sobre variedad de carta y platos destacados.</p>
+            </div>
+            <div className="rounded-3xl border border-border/60 bg-background/35 p-4 backdrop-blur-sm">
+              <p className="text-sm uppercase tracking-[0.24em] text-gold">Pedidos</p>
+              <p className="mt-2 font-display text-3xl font-bold">3</p>
+              <p className="mt-1 text-sm text-muted-foreground">Texto breve sobre servicio, horarios y opciones de pedido.</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid gap-4 lg:justify-self-end">
+          <div className="rounded-[30px] border border-border/60 bg-background/45 p-6 shadow-[0_18px_60px_rgba(0,0,0,0.2)] backdrop-blur-sm">
+            <p className="text-sm uppercase tracking-[0.3em] text-gold">Nuestra cocina</p>
+            <div className="mt-5 grid gap-4">
+              <div className="flex items-start gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-gold/30 bg-gold/10">
+                  <Sparkles className="h-5 w-5 text-gold" />
+                </div>
+                <div>
+                  <p className="font-display text-2xl font-semibold">Sabores destacados</p>
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                    Texto breve sobre especialidades de la casa y sabor caracteristico.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-gold/30 bg-gold/10">
+                  <Clock3 className="h-5 w-5 text-gold" />
+                </div>
+                <div>
+                  <p className="font-display text-2xl font-semibold">Preparacion al momento</p>
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                    Texto breve sobre ingredientes, preparacion y producto al momento.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-gold/30 bg-gold/10">
+                  <ShieldCheck className="h-5 w-5 text-gold" />
+                </div>
+                <div>
+                  <p className="font-display text-2xl font-semibold">Ambiente y servicio</p>
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                    Texto breve sobre ambiente, servicio y experiencia en local.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 rounded-3xl border border-border/60 bg-background/35 p-4 backdrop-blur-sm">
+            <MapPin className="h-5 w-5 text-gold" />
+            <p className="text-sm text-muted-foreground">
+              {restaurantInfo.address}, {restaurantInfo.city}
+            </p>
+          </div>
         </div>
       </div>
+
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <svg className="w-6 h-6 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="h-6 w-6 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
         </svg>
       </div>

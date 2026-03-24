@@ -60,13 +60,30 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground;
+    background-image:
+      radial-gradient(circle at top left, rgba(210, 162, 73, 0.08), transparent 28%),
+      radial-gradient(circle at bottom right, rgba(181, 83, 41, 0.12), transparent 26%);
     font-family: var(--font-body);
+    min-height: 100vh;
+  }
+
+  #root {
+    min-height: 100vh;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
+  }
+
+  ::selection {
+    background: hsla(38, 70%, 55%, 0.3);
+    color: hsl(var(--foreground));
   }
 }
 

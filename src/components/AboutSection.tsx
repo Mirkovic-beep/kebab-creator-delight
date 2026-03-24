@@ -1,80 +1,114 @@
 import terrazaImg from "@/assets/terraza.jpg";
-import { MapPin, Phone, Clock, Wifi, UtensilsCrossed, TreePine } from "lucide-react";
+import { Clock3, MapPin, Phone, ShieldCheck, Sparkles, TreePine, UtensilsCrossed, Wifi } from "lucide-react";
+
+import { Card, CardContent } from "@/components/ui/card";
+import { experienceHighlights, restaurantInfo } from "@/data/menu";
 
 const services = [
-  { icon: TreePine, label: "Terraza" },
-  { icon: Wifi, label: "Wi-Fi Gratis" },
-  { icon: UtensilsCrossed, label: "Menú Infantil" },
-];
-
-const hours = [
-  { day: "Lunes", time: "12:00 – 00:00" },
-  { day: "Martes", time: "12:00 – 00:00" },
-  { day: "Miércoles", time: "19:00 – 00:00" },
-  { day: "Jueves", time: "12:00 – 00:00" },
-  { day: "Viernes", time: "12:00 – 01:00" },
-  { day: "Sábado", time: "12:00 – 01:00" },
-  { day: "Domingo", time: "12:00 – 00:00" },
+  { icon: TreePine, label: "Terraza activa", detail: "Comida en exterior con ambiente relajado" },
+  { icon: Wifi, label: "Wi-Fi gratis", detail: "Ideal para comidas largas o esperas cortas" },
+  { icon: UtensilsCrossed, label: "Menu amplio", detail: "Clasicos, parrilla, veggie y postres" },
+  { icon: ShieldCheck, label: "Servicio directo", detail: "Recogida, delivery y pedidos para llevar" },
 ];
 
 const AboutSection = () => {
   return (
-    <section id="nosotros" className="py-24 px-6 bg-muted">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="rounded-lg overflow-hidden">
+    <section id="nosotros" className="bg-muted/40 px-6 py-24">
+      <div className="mx-auto max-w-6xl">
+        <div className="grid gap-10 lg:grid-cols-[0.95fr,1.05fr] lg:items-center">
+          <div className="relative overflow-hidden rounded-[34px] border border-border/60 shadow-[0_22px_80px_rgba(0,0,0,0.18)]">
             <img
               src={terrazaImg}
               alt="Terraza del Bar DejaVu Kebab Rivas"
               loading="lazy"
               width={1280}
               height={720}
-              className="w-full h-full object-cover rounded-lg"
+              className="h-full w-full object-cover"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/15 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-6">
+              <div className="rounded-[28px] border border-border/60 bg-background/55 p-5 backdrop-blur-sm">
+                <p className="text-sm uppercase tracking-[0.24em] text-gold">El local</p>
+                <h3 className="mt-2 font-display text-3xl font-semibold">Texto destacado sobre el ambiente del local.</h3>
+              </div>
+            </div>
           </div>
 
           <div>
-            <p className="text-gold font-body tracking-[0.3em] uppercase text-sm mb-3">Sobre Nosotros</p>
-            <h2 className="font-display text-4xl font-bold text-foreground mb-6">
-              Un rincón de Turquía en Rivas
+            <p className="mb-3 text-sm uppercase tracking-[0.3em] text-gold">Nosotros</p>
+            <h2 className="font-display text-4xl font-bold text-foreground md:text-5xl">
+              Una propuesta cercana, calida y pensada para disfrutar.
             </h2>
-            <p className="text-muted-foreground font-body leading-relaxed mb-8">
-              En Bar DejaVu Kebab llevamos años ofreciendo los mejores sabores de la cocina turca en
-              Rivas-Vaciamadrid. Nuestras recetas auténticas, ingredientes frescos y la pasión por la
-              gastronomía hacen de cada visita una experiencia inolvidable. Disfruta en nuestra acogedora
-              terraza o en el interior de nuestro local.
+            <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
+              Texto placeholder sobre historia, cocina, servicio y ambiente del restaurante.
             </p>
 
-            <div className="flex gap-6 mb-8">
+            <div className="mt-8 grid gap-4 md:grid-cols-2">
               {services.map((service) => (
-                <div key={service.label} className="flex flex-col items-center gap-2">
-                  <div className="w-12 h-12 rounded-full bg-card border border-border flex items-center justify-center">
-                    <service.icon className="w-5 h-5 text-gold" />
-                  </div>
-                  <span className="text-xs text-muted-foreground font-body">{service.label}</span>
+                <Card key={service.label} className="rounded-[26px] border-border/60 bg-card/80">
+                  <CardContent className="p-5">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-gold/30 bg-gold/10">
+                      <service.icon className="h-5 w-5 text-gold" />
+                    </div>
+                    <h3 className="mt-4 font-display text-2xl font-semibold">{service.label}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{service.detail}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            <div className="mt-8 grid gap-4 md:grid-cols-3">
+              {experienceHighlights.map((highlight) => (
+                <div key={highlight.title} className="rounded-3xl border border-border/60 bg-background/35 p-5">
+                  <p className="text-sm uppercase tracking-[0.24em] text-gold">{highlight.title}</p>
+                  <p className="mt-3 font-display text-3xl font-bold text-foreground">{highlight.value}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{highlight.description}</p>
                 </div>
               ))}
             </div>
 
-            <div className="space-y-3 text-sm font-body">
-              <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-gold mt-0.5 shrink-0" />
-                <span className="text-foreground">C/ Manuela Malasaña & C/ Margarita Xirgu, 28523 Rivas-Vaciamadrid, Madrid</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-gold shrink-0" />
-                <a href="tel:917139980" className="text-foreground hover:text-gold transition-colors">917 13 99 80</a>
-              </div>
-              <div className="flex items-start gap-3">
-                <Clock className="w-5 h-5 text-gold mt-0.5 shrink-0" />
-                <div className="text-foreground">
-                  <p className="font-semibold mb-1">Horario</p>
-                  {hours.map((h) => (
-                    <div key={h.day} className="flex justify-between gap-8 text-muted-foreground">
-                      <span>{h.day}</span>
-                      <span>{h.time}</span>
+            <div className="mt-8 rounded-[30px] border border-border/60 bg-card/80 p-6">
+              <div className="grid gap-4 md:grid-cols-[1fr,1fr]">
+                <div className="flex items-start gap-3">
+                  <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-gold" />
+                  <div>
+                    <p className="text-sm uppercase tracking-[0.24em] text-gold">Direccion</p>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      {restaurantInfo.address}, {restaurantInfo.city}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Phone className="mt-0.5 h-5 w-5 shrink-0 text-gold" />
+                  <div>
+                    <p className="text-sm uppercase tracking-[0.24em] text-gold">Telefono</p>
+                    <a href={`tel:${restaurantInfo.phone}`} className="mt-2 block text-sm text-muted-foreground transition-colors hover:text-gold">
+                      {restaurantInfo.phone}
+                    </a>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 md:col-span-2">
+                  <Clock3 className="mt-0.5 h-5 w-5 shrink-0 text-gold" />
+                  <div className="w-full">
+                    <p className="text-sm uppercase tracking-[0.24em] text-gold">Horario</p>
+                    <div className="mt-3 grid gap-2 md:grid-cols-2">
+                      {restaurantInfo.openingHours.map((hour) => (
+                        <div key={hour.day} className="flex items-center justify-between rounded-2xl border border-border/60 bg-background/25 px-4 py-3 text-sm">
+                          <span>{hour.day}</span>
+                          <span className="text-muted-foreground">{hour.time}</span>
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 md:col-span-2">
+                  <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-gold" />
+                  <div>
+                    <p className="text-sm uppercase tracking-[0.24em] text-gold">Cobertura</p>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      {restaurantInfo.serviceAreas.join(", ")}. Texto breve sobre zonas de servicio y atencion en la zona.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

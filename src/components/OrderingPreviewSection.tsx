@@ -8,17 +8,17 @@ const steps = [
   {
     icon: CookingPot,
     title: "Explora la carta",
-    description: "Texto breve sobre platos, categorias y seleccion inicial.",
+    description: "Revisa platos, categorias y precios antes de decidir.",
   },
   {
     icon: ClipboardCheck,
     title: "Configura el pedido",
-    description: "Texto breve sobre extras, salsas y combinaciones disponibles.",
+    description: "Elige extras, salsas y cualquier nota para cocina.",
   },
   {
     icon: Send,
     title: "Cierra por canal directo",
-    description: "Texto breve sobre recogida, reparto y confirmacion del pedido.",
+    description: "Decide si lo quieres para recoger o a domicilio.",
   },
 ];
 
@@ -33,7 +33,7 @@ const OrderingPreviewSection = () => {
               Pide como prefieras
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-              Texto placeholder sobre recogida, entrega y pedido directo.
+              Consulta la carta, personaliza el pedido y elige si lo quieres para recoger o a domicilio.
             </p>
           </div>
 

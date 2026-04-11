@@ -246,7 +246,7 @@ const CartPanel = ({
         <div className="rounded-3xl border border-border/60 bg-background/20 p-4">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-gold">Cobertura actual</p>
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-            {restaurantInfo.serviceAreas.join(", ")}. Texto breve sobre zonas de reparto y disponibilidad.
+            {restaurantInfo.serviceAreas.join(", ")}. Reparto habitual en estas zonas segun disponibilidad y horario.
           </p>
           <div className="mt-4">
             <Button asChild variant="link" className="h-auto p-0 text-gold">

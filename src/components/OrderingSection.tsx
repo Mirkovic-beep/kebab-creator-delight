@@ -18,7 +18,7 @@ const OrderingSection = () => {
             Una forma comoda de elegir, personalizar y pedir.
           </h2>
           <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
-            Texto placeholder sobre recogida, entrega y experiencia de pedido.
+            Consulta la carta, ajusta extras y elige si prefieres recoger, pedir a domicilio o comer en el local.
           </p>
         </div>
 
@@ -52,7 +52,7 @@ const OrderingSection = () => {
               </CardHeader>
               <CardContent className="space-y-5">
                 <p className="text-sm leading-relaxed text-muted-foreground">
-                  Texto placeholder sobre canales de pedido y opciones disponibles.
+                  Trabajamos con recogida en local, servicio a domicilio en zonas cercanas y atencion directa en sala.
                 </p>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="rounded-2xl border border-border/60 bg-background/30 p-4">
@@ -62,8 +62,8 @@ const OrderingSection = () => {
                   </div>
                   <div className="rounded-2xl border border-border/60 bg-background/30 p-4">
                     <p className="text-sm uppercase tracking-[0.24em] text-gold">Canales</p>
-                    <p className="mt-2 font-display text-3xl font-bold">2</p>
-                    <p className="mt-1 text-xs text-muted-foreground">Atencion directa del local</p>
+                    <p className="mt-2 font-display text-3xl font-bold">3</p>
+                    <p className="mt-1 text-xs text-muted-foreground">Local, recogida y reparto</p>
                   </div>
                 </div>
                 <Button asChild className="gradient-gold h-12 rounded-xl px-6 text-gold-foreground">

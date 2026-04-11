@@ -15,7 +15,7 @@ const AboutPage = () => {
               Conoce el espacio, el ambiente y la atencion del local.
             </h1>
             <p className="mt-5 max-w-3xl text-lg leading-relaxed text-muted-foreground">
-              Texto placeholder sobre historia, servicio y experiencia del restaurante.
+              Informacion del local, horarios y forma de atender pedidos, recogidas y servicio en sala.
             </p>
           </section>
         </div>

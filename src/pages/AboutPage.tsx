@@ -1,7 +1,7 @@
-import AboutSection from "@/components/AboutSection";
-import ContactDetailSection from "@/components/ContactDetailSection";
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
+import AboutSection from "@/features/marketing/components/AboutSection";
+import ContactDetailSection from "@/features/marketing/components/ContactDetailSection";
+import Footer from "@/features/layout/components/Footer";
+import Navbar from "@/features/layout/components/Navbar";
 
 const AboutPage = () => {
   return (

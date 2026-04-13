@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
-import OrderingSection from "@/components/OrderingSection";
-import { Button } from "@/components/ui/button";
+import Footer from "@/features/layout/components/Footer";
+import Navbar from "@/features/layout/components/Navbar";
+import OrderingSection from "@/features/marketing/components/OrderingSection";
+import { Button } from "@/shared/ui/button";
 
 const OrderingPage = () => {
   return (

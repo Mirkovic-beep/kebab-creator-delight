@@ -4,12 +4,11 @@ import { Link } from "react-router-dom";
 import adanaImage from "@/assets/adana.jpg";
 import heroImage from "@/assets/hero-kebab.jpg";
 import terraceImage from "@/assets/terraza.jpg";
-import Footer from "@/components/Footer";
-import MenuProductCard from "@/components/MenuProductCard";
-import Navbar from "@/components/Navbar";
-import { Button } from "@/components/ui/button";
-import { menuProducts, restaurantInfo } from "@/data/menu";
-import { formatCurrency } from "@/lib/menu";
+import Footer from "@/features/layout/components/Footer";
+import MenuProductCard from "@/features/menu/components/MenuProductCard";
+import Navbar from "@/features/layout/components/Navbar";
+import { Button } from "@/shared/ui/button";
+import { menuProducts, restaurantInfo } from "@/features/menu/data";
 
 const featuredProducts = menuProducts.filter((product) => product.featured || product.bestseller).slice(0, 3);
 
@@ -18,12 +17,6 @@ const housePrinciples = [
   "Salsas, panes y extras con foco en sabor y ritmo de servicio",
   "Carta compacta, clara y facil de pedir",
   "Alergenos visibles dentro de cada plato",
-] as const;
-
-const quickFacts = [
-  { label: "Platos", value: `${menuProducts.length}+` },
-  { label: "Desde", value: formatCurrency(Math.min(...menuProducts.map((product) => product.price))) },
-  { label: "Telefono", value: "91 713 99 80" },
 ] as const;
 
 const Index = () => {
@@ -35,8 +28,8 @@ const Index = () => {
 
       <main className="pb-6">
         <section className="px-5 py-3 sm:px-6 sm:py-4 lg:px-8 lg:py-4">
-          <div className="mx-auto grid max-w-7xl overflow-hidden border border-black/12 lg:min-h-[470px] lg:grid-cols-[0.46fr_0.54fr] xl:min-h-[510px]">
-            <article className="flex flex-col justify-between bg-[#cfa066] px-7 py-6 sm:px-9 sm:py-7 lg:px-10 lg:py-7">
+          <div className="mx-auto grid max-w-7xl border border-black/12 lg:min-h-[470px] lg:grid-cols-[0.46fr_0.54fr] lg:overflow-hidden xl:min-h-[510px]">
+            <article className="flex flex-col justify-between bg-[#cfa066] px-6 py-5 sm:px-9 sm:py-7 lg:px-10 lg:py-7">
               <div>
                 <p className="editorial-kicker text-black/58">Kebab turco / Rivas-Vaciamadrid</p>
                 <h1 className="mt-3 font-display text-[clamp(3.15rem,6.4vw,5.45rem)] leading-[0.88] text-black">
@@ -64,17 +57,20 @@ const Index = () => {
                 </div>
               </div>
 
-              <div className="mt-6 grid gap-4 border-t border-black/15 pt-4 sm:grid-cols-3">
-                {quickFacts.map((fact) => (
-                  <div key={fact.label}>
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-black/58">{fact.label}</p>
-                    <p className="mt-2 font-display text-[1.85rem] leading-none text-black sm:text-[2.05rem]">{fact.value}</p>
-                  </div>
-                ))}
+              <div className="mt-6 border-t border-black/15 pt-4">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-black/58">Pedidos y reservas</p>
+                <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                  <a href={`tel:${restaurantInfo.phone}`} className="font-display text-[1.95rem] leading-none text-black hover:text-black/76 sm:text-[2.15rem]">
+                    91 713 99 80
+                  </a>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-black/58">
+                    Local, recogida y domicilio
+                  </p>
+                </div>
               </div>
             </article>
 
-            <article className="relative min-h-[360px] bg-black sm:min-h-[420px] lg:min-h-0">
+            <article className="relative min-h-[300px] bg-black sm:min-h-[420px] lg:min-h-0">
               <img
                 src={heroImage}
                 alt="Platos servidos sobre mesa clara"
@@ -83,7 +79,7 @@ const Index = () => {
                 height={1200}
               />
               <div className="gradient-overlay absolute inset-0" />
-              <div className="absolute inset-x-0 bottom-0 grid gap-3 px-5 pb-4 pt-12 text-white sm:px-7 sm:pb-6 lg:grid-cols-[1fr_auto] lg:items-end lg:px-6 lg:pt-14 xl:px-8">
+              <div className="absolute inset-x-0 bottom-0 grid gap-3 px-4 pb-4 pt-10 text-white sm:px-7 sm:pb-6 lg:grid-cols-[1fr_auto] lg:items-end lg:px-6 lg:pt-14 xl:px-8">
                 <div>
                   <p className="editorial-kicker text-white/72">DejaVu Kebab</p>
                   <p className="mt-2 max-w-[20rem] font-display text-[2.35rem] leading-none sm:max-w-[22rem] sm:text-[2.7rem] lg:max-w-[19rem] lg:text-[2.4rem] xl:max-w-[21rem] xl:text-[2.65rem]">

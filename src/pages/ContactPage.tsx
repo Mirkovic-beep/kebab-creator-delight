@@ -1,10 +1,10 @@
 import { MapPin, Phone } from "lucide-react";
 
 import terraceImage from "@/assets/terraza.jpg";
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
-import { Button } from "@/components/ui/button";
-import { restaurantInfo } from "@/data/menu";
+import Footer from "@/features/layout/components/Footer";
+import Navbar from "@/features/layout/components/Navbar";
+import { Button } from "@/shared/ui/button";
+import { restaurantInfo } from "@/features/menu/data";
 
 const ContactPage = () => {
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(restaurantInfo.mapsQuery)}`;

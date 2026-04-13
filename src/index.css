@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Raleway:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;600;700&family=Bebas+Neue&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -6,52 +6,52 @@
 
 @layer base {
   :root {
-    --background: 30 15% 7%;
-    --foreground: 38 30% 90%;
+    --background: 44 28% 95%;
+    --foreground: 30 12% 6%;
 
-    --card: 30 12% 12%;
-    --card-foreground: 38 30% 90%;
+    --card: 40 20% 98%;
+    --card-foreground: 30 12% 6%;
 
-    --popover: 30 12% 12%;
-    --popover-foreground: 38 30% 90%;
+    --popover: 40 20% 98%;
+    --popover-foreground: 30 12% 6%;
 
-    --primary: 15 70% 45%;
-    --primary-foreground: 38 30% 95%;
+    --primary: 30 12% 6%;
+    --primary-foreground: 40 20% 98%;
 
-    --secondary: 38 50% 55%;
-    --secondary-foreground: 30 15% 7%;
+    --secondary: 35 54% 60%;
+    --secondary-foreground: 30 12% 6%;
 
-    --muted: 30 10% 18%;
-    --muted-foreground: 38 15% 60%;
+    --muted: 38 18% 89%;
+    --muted-foreground: 28 8% 30%;
 
-    --accent: 38 50% 55%;
-    --accent-foreground: 30 15% 7%;
+    --accent: 35 54% 60%;
+    --accent-foreground: 30 12% 6%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 30 12% 20%;
-    --input: 30 12% 20%;
-    --ring: 15 70% 45%;
+    --border: 30 14% 79%;
+    --input: 30 14% 79%;
+    --ring: 35 54% 60%;
 
-    --radius: 0.5rem;
+    --radius: 0rem;
 
-    --gold: 38 70% 55%;
-    --gold-foreground: 30 15% 7%;
-    --cream: 38 30% 90%;
-    --warm-dark: 30 15% 7%;
+    --gold: 35 54% 60%;
+    --gold-foreground: 30 12% 6%;
+    --cream: 44 28% 95%;
+    --warm-dark: 30 12% 6%;
 
-    --font-display: 'Playfair Display', Georgia, serif;
-    --font-body: 'Raleway', sans-serif;
+    --font-display: "Bebas Neue", Impact, sans-serif;
+    --font-body: "Archivo Narrow", "Arial Narrow", sans-serif;
 
-    --sidebar-background: 30 12% 10%;
-    --sidebar-foreground: 38 30% 90%;
-    --sidebar-primary: 15 70% 45%;
-    --sidebar-primary-foreground: 38 30% 95%;
-    --sidebar-accent: 30 10% 18%;
-    --sidebar-accent-foreground: 38 30% 90%;
-    --sidebar-border: 30 12% 20%;
-    --sidebar-ring: 15 70% 45%;
+    --sidebar-background: 40 20% 98%;
+    --sidebar-foreground: 30 12% 6%;
+    --sidebar-primary: 30 12% 6%;
+    --sidebar-primary-foreground: 40 20% 98%;
+    --sidebar-accent: 35 54% 60%;
+    --sidebar-accent-foreground: 30 12% 6%;
+    --sidebar-border: 30 14% 79%;
+    --sidebar-ring: 35 54% 60%;
   }
 }
 
@@ -65,10 +65,10 @@
   }
 
   body {
-    @apply bg-background text-foreground;
-    background-image:
-      radial-gradient(circle at top left, rgba(210, 162, 73, 0.08), transparent 28%),
-      radial-gradient(circle at bottom right, rgba(181, 83, 41, 0.12), transparent 26%);
+    @apply bg-background text-foreground antialiased;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0)),
+      hsl(var(--background));
     font-family: var(--font-body);
     min-height: 100vh;
   }
@@ -82,8 +82,14 @@
   }
 
   ::selection {
-    background: hsla(38, 70%, 55%, 0.3);
+    background: hsla(32, 44%, 46%, 0.2);
     color: hsl(var(--foreground));
+  }
+}
+
+@layer components {
+  .surface-panel {
+    @apply border border-black/10 bg-card;
   }
 }
 
@@ -91,19 +97,76 @@
   .text-gold {
     color: hsl(var(--gold));
   }
+
   .bg-gold {
     background-color: hsl(var(--gold));
   }
+
   .font-display {
     font-family: var(--font-display);
   }
+
   .font-body {
     font-family: var(--font-body);
   }
-  .gradient-overlay {
-    background: linear-gradient(180deg, hsla(30, 15%, 7%, 0.3) 0%, hsla(30, 15%, 7%, 0.85) 100%);
+
+  .brand-wordmark {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0.035em;
+    line-height: 0.82;
+    text-transform: uppercase;
   }
+
+  .checker-divider {
+    height: 12px;
+    background-image:
+      linear-gradient(45deg, rgba(10, 10, 10, 1) 25%, transparent 25%),
+      linear-gradient(-45deg, rgba(10, 10, 10, 1) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, rgba(10, 10, 10, 1) 75%),
+      linear-gradient(-45deg, transparent 75%, rgba(10, 10, 10, 1) 75%);
+    background-position: 0 0, 0 6px, 6px -6px, -6px 0;
+    background-size: 12px 12px;
+  }
+
+  .editorial-kicker {
+    @apply text-[11px] font-semibold uppercase tracking-[0.28em];
+  }
+
+  .section-label {
+    @apply inline-flex items-center border border-black/10 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-primary;
+  }
+
+  .gradient-overlay {
+    background: linear-gradient(180deg, rgba(12, 11, 10, 0.04) 0%, rgba(12, 11, 10, 0.72) 100%);
+  }
+
   .gradient-gold {
-    background: linear-gradient(135deg, hsl(38, 70%, 55%) 0%, hsl(15, 70%, 45%) 100%);
+    background: linear-gradient(135deg, hsl(35, 54%, 60%) 0%, hsl(31, 34%, 43%) 100%);
+  }
+
+  .compact-lines-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .summary-reset {
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .summary-reset::-webkit-details-marker {
+    display: none;
+  }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 }

@@ -16,7 +16,7 @@ const ContactDetailSection = () => {
             Toda la informacion del local en un solo lugar.
           </h2>
           <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
-            Texto placeholder sobre ubicacion, reservas y canales de contacto.
+            Direccion, telefono, zonas de reparto y acceso rapido a la carta en un solo sitio.
           </p>
         </div>
 
@@ -25,9 +25,9 @@ const ContactDetailSection = () => {
             <Card className="rounded-[30px] border-border/60 bg-card/85 shadow-[0_18px_60px_rgba(0,0,0,0.16)]">
               <CardContent className="p-6">
                 <Badge className="bg-gold text-gold-foreground">Contacto directo</Badge>
-                <h3 className="mt-4 font-display text-3xl font-bold">Reserva o pide cuando quieras</h3>
+                <h3 className="mt-4 font-display text-3xl font-bold">Llama o pide cuando quieras</h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  Texto breve sobre telefono, WhatsApp y atencion del local.
+                  Llamanos para consultar horario, recogida, reparto o alergenos.
                 </p>
                 <div className="mt-5 grid gap-3">
                   <Button asChild className="gradient-gold h-12 rounded-xl text-gold-foreground">
@@ -63,7 +63,7 @@ const ContactDetailSection = () => {
                   <p className="mt-4 text-sm uppercase tracking-[0.24em] text-gold">Telefono</p>
                   <p className="mt-2 font-display text-2xl font-semibold">{restaurantInfo.phone}</p>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    Atencion para reservas, recogidas y confirmaciones de pedido.
+                    Atencion para pedidos, recogidas y consultas.
                   </p>
                 </CardContent>
               </Card>
@@ -89,7 +89,7 @@ const ContactDetailSection = () => {
               <p className="text-sm uppercase tracking-[0.24em] text-gold">Ubicacion</p>
               <h3 className="mt-2 font-display text-3xl font-bold">Como llegar</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Texto breve sobre ubicacion y referencia del local.
+                Consulta la ubicacion exacta del local y abre la ruta en un clic.
               </p>
             </div>
             <div className="aspect-[4/3] overflow-hidden border-b border-border/60">

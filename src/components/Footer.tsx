@@ -1,41 +1,51 @@
 import { Link } from "react-router-dom";
 
+import BrandLogo from "@/components/BrandLogo";
+import CheckerDivider from "@/components/CheckerDivider";
 import { menuProducts, restaurantInfo } from "@/data/menu";
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="border-t border-border/60 bg-muted/40 px-6 py-10">
-      <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1fr,auto] lg:items-end">
-        <div>
-          <p className="font-display text-3xl font-bold text-foreground">
-            DejaVu <span className="text-gold">Kebab</span>
-          </p>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-            Texto placeholder sobre el local, la cocina y la experiencia de servicio.
-          </p>
-          <div className="mt-5 flex flex-wrap gap-4 text-sm text-muted-foreground">
-            <span>{restaurantInfo.city}</span>
-            <span>{restaurantInfo.phone}</span>
-            <span>{menuProducts.length}+ opciones en carta</span>
+    <footer className="px-5 pb-10 pt-16 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl border-t border-black/10 pt-8">
+        <div className="grid gap-8 md:grid-cols-[1fr_auto_auto] md:items-start">
+          <div className="max-w-lg">
+            <p className="editorial-kicker text-black/55">DejaVu Kebab</p>
+            <p className="mt-4 text-base leading-7 text-black/70">
+              Kebab turco, parrilla y especialidades hechas al momento en Rivas-Vaciamadrid. Carta clara, producto directo
+              y alergenos visibles en cada plato.
+            </p>
+          </div>
+
+          <div className="space-y-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-black/72">
+            <Link to={{ pathname: "/", hash: "#manifiesto" }} className="block hover:text-black">
+              Nosotros
+            </Link>
+            <Link to="/carta" className="block hover:text-black">
+              Carta
+            </Link>
+            <Link to="/contacto" className="block hover:text-black">
+              Contacto
+            </Link>
+          </div>
+
+          <div className="space-y-2 text-right text-[11px] font-semibold uppercase tracking-[0.24em] text-black/72">
+            <p>{restaurantInfo.city}</p>
+            <a href={`tel:${restaurantInfo.phone}`} className="block hover:text-black">
+              {restaurantInfo.phone}
+            </a>
+            <p>{menuProducts.length}+ platos en carta</p>
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-4 text-sm uppercase tracking-[0.18em] text-muted-foreground">
-          <Link to="/" className="transition-colors hover:text-gold">
-            Inicio
-          </Link>
-          <Link to="/carta" className="transition-colors hover:text-gold">
-            Carta
-          </Link>
-          <Link to="/pedido-online" className="transition-colors hover:text-gold">
-            Pedidos
-          </Link>
-          <Link to="/nosotros" className="transition-colors hover:text-gold">
-            Nosotros
-          </Link>
-          <Link to={{ pathname: "/", hash: "#contacto" }} className="transition-colors hover:text-gold">
-            Contacto
-          </Link>
+        <div className="mt-12">
+          <BrandLogo size="lg" subtitle="Cocina turca en Rivas" />
+          <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-black/55">
+            {restaurantInfo.name} {currentYear} todos los derechos reservados
+          </p>
+          <CheckerDivider className="mt-5" />
         </div>
       </div>
     </footer>

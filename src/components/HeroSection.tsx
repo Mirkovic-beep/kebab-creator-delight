@@ -36,7 +36,8 @@ const HeroSection = () => {
             </span>
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-            Texto principal sobre el local, las especialidades y la experiencia del espacio.
+            Durums, kebabs, platos de parrilla, lahmacun y falafel preparados al momento en Rivas, con opciones para
+            comer en local, recoger o pedir a domicilio.
           </p>
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
             <Button asChild className="gradient-gold h-12 rounded-xl px-8 text-base text-gold-foreground">
@@ -58,12 +59,12 @@ const HeroSection = () => {
             <div className="rounded-3xl border border-border/60 bg-background/35 p-4 backdrop-blur-sm">
               <p className="text-sm uppercase tracking-[0.24em] text-gold">Carta</p>
               <p className="mt-2 font-display text-3xl font-bold">{menuProducts.length}+</p>
-              <p className="mt-1 text-sm text-muted-foreground">Texto breve sobre variedad de carta y platos destacados.</p>
+              <p className="mt-1 text-sm text-muted-foreground">Kebabs, platos, horno turco, entrantes y postres.</p>
             </div>
             <div className="rounded-3xl border border-border/60 bg-background/35 p-4 backdrop-blur-sm">
               <p className="text-sm uppercase tracking-[0.24em] text-gold">Pedidos</p>
               <p className="mt-2 font-display text-3xl font-bold">3</p>
-              <p className="mt-1 text-sm text-muted-foreground">Texto breve sobre servicio, horarios y opciones de pedido.</p>
+              <p className="mt-1 text-sm text-muted-foreground">Recogida, reparto y servicio directo en el local.</p>
             </div>
           </div>
         </div>
@@ -79,7 +80,7 @@ const HeroSection = () => {
                 <div>
                   <p className="font-display text-2xl font-semibold">Sabores destacados</p>
                   <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                    Texto breve sobre especialidades de la casa y sabor caracteristico.
+                    Kebab, durum, parrilla y especialidades turcas en una carta facil de recorrer.
                   </p>
                 </div>
               </div>
@@ -90,7 +91,7 @@ const HeroSection = () => {
                 <div>
                   <p className="font-display text-2xl font-semibold">Preparacion al momento</p>
                   <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                    Texto breve sobre ingredientes, preparacion y producto al momento.
+                    Carne al trompo, panes tostados y platos servidos segun pedido.
                   </p>
                 </div>
               </div>
@@ -101,7 +102,7 @@ const HeroSection = () => {
                 <div>
                   <p className="font-display text-2xl font-semibold">Ambiente y servicio</p>
                   <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                    Texto breve sobre ambiente, servicio y experiencia en local.
+                    Sala, terraza y atencion directa para dudas, recogidas y pedidos.
                   </p>
                 </div>
               </div>

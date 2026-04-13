@@ -2,97 +2,110 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, Phone, X } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+import BrandLogo from "@/components/BrandLogo";
+import CheckerDivider from "@/components/CheckerDivider";
 import { cn } from "@/lib/utils";
 
-const links = [
-  { to: "/", label: "Inicio" },
+const navigationItems = [
+  { to: { pathname: "/", hash: "#manifiesto" }, label: "Nosotros" },
   { to: "/carta", label: "Carta" },
-  { to: "/pedido-online", label: "Pedidos" },
-  { to: "/nosotros", label: "Nosotros" },
-  { to: { pathname: "/", hash: "#contacto" }, label: "Contacto" },
+  { to: "/contacto", label: "Contacto" },
 ] as const;
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
 
-  return (
-    <nav className="fixed left-0 right-0 top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
-      <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between px-6">
-        <Link to="/" className="group flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-gold/30 bg-gold/10 text-gold">
-            DV
-          </div>
-          <div>
-            <p className="font-display text-xl font-bold text-foreground">
-              DejaVu <span className="text-gold">Kebab</span>
-            </p>
-            <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground group-hover:text-foreground">
-              Rivas-Vaciamadrid
-            </p>
-          </div>
-        </Link>
+  const isActive = (item: (typeof navigationItems)[number]) => {
+    if (typeof item.to === "string") {
+      return location.pathname === item.to;
+    }
 
-        <div className="hidden items-center gap-8 md:flex">
-          {links.map((link) => (
-            <Link
-              key={link.label}
-              to={link.to}
-              className={cn(
-                "font-body text-sm uppercase tracking-wide text-muted-foreground transition-colors hover:text-gold",
-                location.pathname === "/carta" && link.label === "Carta"
-                  ? "text-gold"
-                  : location.pathname === "/pedido-online" && link.label === "Pedidos"
-                    ? "text-gold"
-                    : location.pathname === "/nosotros" && link.label === "Nosotros"
-                      ? "text-gold"
-                      : "",
-              )}
+    return location.pathname === item.to.pathname && location.hash === item.to.hash;
+  };
+
+  return (
+    <header className="border-b border-black/10 bg-background">
+      <div className="mx-auto max-w-7xl px-5 pb-4 pt-5 sm:px-6 lg:px-8">
+        <div className="grid gap-4 md:grid-cols-[auto_1fr_auto] md:items-start">
+          <Link to="/" onClick={() => setOpen(false)} className="w-fit">
+            <BrandLogo size="sm" />
+          </Link>
+
+          <div className="hidden px-6 pt-3 md:block">
+            <p className="mx-auto max-w-md border-t border-black/12 pt-3 text-center text-[10px] font-semibold uppercase tracking-[0.26em] text-black/55">
+              Kebab turco, parrilla y platos al momento en una carta con caracter propio.
+            </p>
+          </div>
+
+          <div className="hidden items-start justify-end gap-6 pt-3 md:flex">
+            <nav className="flex items-center gap-6">
+              {navigationItems.map((item) => (
+                <Link
+                  key={item.label}
+                  to={item.to}
+                  className={cn(
+                    "font-display text-[1.65rem] uppercase leading-none text-black/60 transition-colors hover:text-black",
+                    isActive(item) ? "text-black" : "",
+                  )}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+
+            <a
+              href="tel:917139980"
+              className="inline-flex items-center gap-2 border border-black px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-black"
             >
-              {link.label}
-            </Link>
-          ))}
-          <Button asChild className="gradient-gold rounded-xl px-5 text-sm text-gold-foreground">
-            <Link to="/carta">Pedir ahora</Link>
-          </Button>
+              <Phone className="h-3.5 w-3.5" />
+              91 713 99 80
+            </a>
+          </div>
+
+          <button
+            type="button"
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
+            aria-label={open ? "Cerrar navegacion" : "Abrir navegacion"}
+            onClick={() => setOpen((current) => !current)}
+            className="absolute right-5 top-6 inline-flex h-12 w-12 items-center justify-center border border-black text-black md:hidden"
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
 
-        <button onClick={() => setOpen((current) => !current)} className="text-foreground md:hidden">
-          {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        {open ? (
+          <div id="mobile-navigation" className="mt-5 border-t border-black/10 pt-5 md:hidden">
+            <nav className="grid gap-2">
+              {navigationItems.map((item) => (
+                <Link
+                  key={item.label}
+                  to={item.to}
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    "border border-black/10 px-4 py-3 font-display text-[1.8rem] uppercase leading-none text-black/80",
+                    isActive(item) ? "bg-black text-background" : "bg-white",
+                  )}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+
+            <a
+              href="tel:917139980"
+              className="mt-4 inline-flex items-center gap-2 border border-black bg-[#cfa066] px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-black"
+            >
+              <Phone className="h-3.5 w-3.5" />
+              Llamar al local
+            </a>
+          </div>
+        ) : null}
       </div>
 
-      {open && (
-        <div className="border-b border-border bg-background px-6 py-5 md:hidden">
-          <div className="space-y-3">
-            {links.map((link) => (
-              <Link
-                key={link.label}
-                to={link.to}
-                onClick={() => setOpen(false)}
-                className="block rounded-xl border border-border/60 bg-card/60 px-4 py-3 font-body text-sm uppercase tracking-wide text-muted-foreground transition-colors hover:border-gold/40 hover:text-gold"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
-          <div className="mt-4 grid gap-3">
-            <Button asChild className="gradient-gold w-full rounded-xl text-gold-foreground">
-              <Link to="/carta" onClick={() => setOpen(false)}>
-                Pedir ahora
-              </Link>
-            </Button>
-            <Button asChild variant="outline" className="w-full rounded-xl border-border/60">
-              <a href="tel:917139980">
-                <Phone className="mr-2 h-4 w-4" />
-                Llamar al local
-              </a>
-            </Button>
-          </div>
-        </div>
-      )}
-    </nav>
+      <CheckerDivider />
+    </header>
   );
 };
 

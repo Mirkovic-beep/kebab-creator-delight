@@ -16,7 +16,7 @@ const ContactSection = () => {
               Encuentranos o haz tu pedido.
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-              Texto breve sobre telefono, ubicacion y acceso rapido a la carta.
+              Telefono, direccion y acceso directo a la carta para pedir o venir al local.
             </p>
           </div>
 
@@ -39,7 +39,7 @@ const ContactSection = () => {
               >
                 {restaurantInfo.phone}
               </a>
-              <p className="mt-2 text-sm text-muted-foreground">Reservas, recogida y confirmaciones.</p>
+              <p className="mt-2 text-sm text-muted-foreground">Pedidos, recogida y consultas.</p>
             </CardContent>
           </Card>
 
@@ -59,7 +59,7 @@ const ContactSection = () => {
               <p className="text-sm uppercase tracking-[0.24em] text-gold">Pedir ahora</p>
               <h3 className="mt-4 font-display text-3xl font-bold">Acceso rapido</h3>
               <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
-                Texto breve sobre carta completa y pedido directo.
+                Entra en la carta y revisa platos, precios y alergenos.
               </p>
               <Button asChild className="gradient-gold mt-6 h-11 rounded-xl text-gold-foreground">
                 <Link to="/carta">Abrir carta</Link>

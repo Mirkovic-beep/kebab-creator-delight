@@ -8,17 +8,17 @@ const highlights = [
   {
     icon: MapPin,
     title: "Local con identidad",
-    description: "Texto breve sobre ubicacion y entorno del local.",
+    description: "Facil de encontrar en Rivas y comodo para recoger.",
   },
   {
     icon: Clock3,
     title: "Operacion clara",
-    description: "Texto breve sobre horario, sala y ritmo de servicio.",
+    description: "Horario amplio y servicio agil durante comidas y cenas.",
   },
   {
     icon: ShieldCheck,
     title: "Mas orden",
-    description: "Texto breve sobre ambiente, atencion y experiencia general.",
+    description: "Atencion directa, sala comoda y pedidos claros.",
   },
 ];
 
@@ -42,7 +42,7 @@ const AboutPreviewSection = () => {
             Un espacio comodo para comer y compartir.
           </h2>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            Texto placeholder sobre la historia del local, el ambiente y la propuesta del espacio.
+            Un local pensado para comer con calma, pedir para recoger o resolver rapido cualquier pedido del dia.
           </p>
 
           <div className="mt-8 grid gap-4">

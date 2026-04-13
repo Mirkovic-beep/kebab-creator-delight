@@ -18,7 +18,7 @@ const OrderingPage = () => {
               Elige tu pedido con calma y encuentra la opcion que mejor encaja contigo.
             </h1>
             <p className="mt-5 max-w-3xl text-lg leading-relaxed text-muted-foreground">
-              Texto placeholder sobre recogida, entrega y pedidos para llevar.
+              Consulta platos, personaliza extras y elige si lo quieres para recoger, a domicilio o para tomar en el local.
             </p>
             <Button asChild className="gradient-gold mt-8 h-12 rounded-xl px-6 text-gold-foreground">
               <Link to="/carta">

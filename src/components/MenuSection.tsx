@@ -30,7 +30,7 @@ const MenuSection = () => {
               Una seleccion breve para abrir apetito.
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
-              Texto placeholder para destacar categorias y productos principales.
+              Una seleccion breve de platos y categorias para orientarte antes de entrar en la carta completa.
             </p>
           </div>
 

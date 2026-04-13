@@ -29,7 +29,7 @@ const AboutSection = () => {
             <div className="absolute bottom-0 left-0 right-0 p-6">
               <div className="rounded-[28px] border border-border/60 bg-background/55 p-5 backdrop-blur-sm">
                 <p className="text-sm uppercase tracking-[0.24em] text-gold">El local</p>
-                <h3 className="mt-2 font-display text-3xl font-semibold">Texto destacado sobre el ambiente del local.</h3>
+                <h3 className="mt-2 font-display text-3xl font-semibold">Sala y terraza para comer con calma.</h3>
               </div>
             </div>
           </div>
@@ -37,10 +37,11 @@ const AboutSection = () => {
           <div>
             <p className="mb-3 text-sm uppercase tracking-[0.3em] text-gold">Nosotros</p>
             <h2 className="font-display text-4xl font-bold text-foreground md:text-5xl">
-              Una propuesta cercana, calida y pensada para disfrutar.
+              Un local comodo, con servicio directo y cocina al momento.
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
-              Texto placeholder sobre historia, cocina, servicio y ambiente del restaurante.
+              En DejaVu trabajamos una carta centrada en kebabs, parrilla, horno turco y opciones vegetarianas, con
+              servicio directo en sala, recogida y reparto cercano.
             </p>
 
             <div className="mt-8 grid gap-4 md:grid-cols-2">
@@ -106,7 +107,8 @@ const AboutSection = () => {
                   <div>
                     <p className="text-sm uppercase tracking-[0.24em] text-gold">Cobertura</p>
                     <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                      {restaurantInfo.serviceAreas.join(", ")}. Texto breve sobre zonas de servicio y atencion en la zona.
+                      {restaurantInfo.serviceAreas.join(", ")}. Reparto habitual en estas zonas segun disponibilidad del
+                      local.
                     </p>
                   </div>
                 </div>

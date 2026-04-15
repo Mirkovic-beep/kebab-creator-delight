@@ -27,26 +27,26 @@ const MenuPage = () => {
       <main className="pb-6">
         <section className="px-5 py-3 sm:px-6 sm:py-6 lg:px-8 lg:py-8">
           <div className="mx-auto max-w-7xl overflow-hidden border border-black/12 lg:grid lg:grid-cols-[0.44fr_0.56fr]">
-            <article className="bg-black px-5 py-5 text-white sm:px-10 sm:py-10 lg:px-12 lg:py-12">
-              <p className="editorial-kicker text-[#cfa066]">Carta</p>
+            <article className="bg-primary px-5 py-5 text-primary-foreground sm:px-10 sm:py-10 lg:px-12 lg:py-12">
+              <p className="editorial-kicker text-gold">Carta</p>
               <h1 className="mt-2 font-display text-[clamp(2.65rem,11vw,8rem)] leading-[0.9]">Carta completa.</h1>
-              <p className="mt-3 max-w-md text-[13px] leading-5 text-white/72 sm:text-lg sm:leading-8">
+              <p className="mt-3 max-w-md text-[13px] leading-5 text-primary-foreground/72 sm:text-lg sm:leading-8">
                 Carta sencilla de recorrer, con categorias claras y alergenos visibles en cada plato.
               </p>
 
               <div className="mt-4 grid grid-cols-2 gap-3 border-t border-white/12 pt-4 sm:mt-10 sm:pt-6">
                 <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/55">Categorias</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-primary-foreground/55">Categorias</p>
                   <p className="mt-2 font-display text-[1.9rem] leading-none sm:text-5xl">{menuCategories.length}</p>
                 </div>
                 <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/55">Platos</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-primary-foreground/55">Platos</p>
                   <p className="mt-2 font-display text-[1.9rem] leading-none sm:text-5xl">{menuProducts.length}+</p>
                 </div>
               </div>
             </article>
 
-            <article className="relative hidden min-h-[420px] bg-[#d8d2ca] lg:block">
+            <article className="relative hidden min-h-[420px] bg-muted lg:block">
               <img
                 src={heroImage}
                 alt="Producto servido sobre mesa"
@@ -55,7 +55,7 @@ const MenuPage = () => {
                 height={1200}
               />
               <div className="gradient-overlay absolute inset-0" />
-              <div className="absolute bottom-0 left-0 bg-[#cfa066] px-6 py-5 text-black sm:px-8 sm:py-6">
+              <div className="absolute bottom-0 left-0 bg-gold px-6 py-5 text-gold-foreground sm:px-8 sm:py-6">
                 <p className="editorial-kicker text-black/58">DejaVu Kebab</p>
                 <p className="mt-2 max-w-[15rem] font-display text-[2.2rem] leading-none sm:max-w-none sm:text-6xl">
                   Kebabs, platos y especialidades de la casa.
@@ -120,7 +120,7 @@ const MenuPage = () => {
                       "border px-4 py-4 text-left transition-colors",
                       category.id === activeCategory?.id
                         ? "border-black bg-black text-white"
-                        : "border-black/10 bg-white text-black hover:bg-[#f4efe7]",
+                        : "border-black/10 bg-white text-black hover:bg-gold/10",
                     )}
                   >
                     <div className="flex items-start justify-between gap-3">
@@ -158,7 +158,7 @@ const MenuPage = () => {
             </aside>
 
             <div className="space-y-4 sm:space-y-6">
-              <article className="border border-black/12 bg-[#f2e4cf] px-4 py-4 sm:px-8 sm:py-6">
+              <article className="border border-gold/30 bg-gold/10 px-4 py-4 sm:px-8 sm:py-6">
                 <p className="editorial-kicker text-black/55">{activeCategory?.note ?? "Carta"}</p>
                 <div className="mt-2 flex flex-col gap-2 lg:mt-3 lg:flex-row lg:items-end lg:justify-between">
                   <div className="max-w-3xl">
@@ -194,16 +194,16 @@ const MenuPage = () => {
                 </ul>
               </section>
 
-              <article className="flex flex-col gap-3 border border-black/12 bg-black px-4 py-4 text-white sm:flex-row sm:items-end sm:justify-between sm:px-8 sm:py-6">
+              <article className="flex flex-col gap-3 border border-black/12 bg-primary px-4 py-4 text-primary-foreground sm:flex-row sm:items-end sm:justify-between sm:px-8 sm:py-6">
                 <div className="max-w-2xl">
-                  <p className="editorial-kicker text-[#cfa066]">Siguiente paso</p>
+                  <p className="editorial-kicker text-gold">Siguiente paso</p>
                   <h3 className="mt-2 font-display text-[2rem] leading-none sm:mt-3 sm:text-5xl">
                     Si tienes dudas sobre un plato o un alergeno, te ayudamos.
                   </h3>
                 </div>
                 <Button
                   asChild
-                  className="h-10 border border-[#cfa066] bg-[#cfa066] px-5 text-[10px] font-semibold uppercase tracking-[0.22em] text-black hover:bg-[#cfa066]/90 sm:h-12 sm:px-6 sm:text-[11px] sm:tracking-[0.24em]"
+                  className="h-10 border border-gold bg-gold px-5 text-[10px] font-semibold uppercase tracking-[0.22em] text-gold-foreground hover:bg-gold/90 sm:h-12 sm:px-6 sm:text-[11px] sm:tracking-[0.24em]"
                 >
                   <Link to="/contacto">
                     Ir a contacto

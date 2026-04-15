@@ -32,7 +32,7 @@ function AllergenChip({ allergen }: { allergen: MenuAllergen }) {
     <span
       className={cn(
         "inline-flex items-center gap-2 border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
-        allergen.level === "contains" ? "border-black/15 bg-[#cfa066]/18 text-black" : "border-black/12 bg-white text-black/72",
+        allergen.level === "contains" ? "border-gold/30 bg-gold/20 text-black" : "border-black/12 bg-white text-black/72",
       )}
       aria-label={`${prefix} ${definition.name}`}
       title={`${prefix} ${definition.name}`}
@@ -63,7 +63,7 @@ export function ProductStatusBadges({
         <Badge className={cn("border-0 bg-black text-background", badgeClasses)}>Destacado</Badge>
       ) : null}
       {product.bestseller ? (
-        <Badge className={cn("border-0 bg-[#cfa066] text-black", badgeClasses)}>Top ventas</Badge>
+        <Badge className={cn("border-0 bg-gold text-gold-foreground", badgeClasses)}>Top ventas</Badge>
       ) : null}
       {product.vegetarian ? (
         <Badge variant="outline" className={cn("border-black/12 bg-white text-black/72", badgeClasses)}>
@@ -108,7 +108,7 @@ export function ProductAllergenCompactRow({
           <span
             key={`${allergen.id}-${allergen.level}`}
             className={cn(
-              "inline-flex items-center justify-center border border-black/12 bg-[#f5f0e8] text-black",
+              "inline-flex items-center justify-center border border-black/12 bg-muted/60 text-black",
               dense ? "h-7 w-7" : "h-8 w-8",
             )}
             title={`Contiene ${definition.name}`}

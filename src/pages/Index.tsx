@@ -10,7 +10,10 @@ import Navbar from "@/features/layout/components/Navbar";
 import { Button } from "@/shared/ui/button";
 import { menuProducts, restaurantInfo } from "@/features/menu/data";
 
-const featuredProducts = menuProducts.filter((product) => product.featured || product.bestseller).slice(0, 3);
+const featuredProductIds = ["turkish-specialties-kebab", "turkish-specialties-shawarma", "plates-plato-deja-vu"] as const;
+const featuredProducts = featuredProductIds
+  .map((productId) => menuProducts.find((product) => product.id === productId))
+  .filter((product) => Boolean(product));
 
 const housePrinciples = [
   "Kebabs, platos y raciones servidos al momento",
@@ -29,19 +32,19 @@ const Index = () => {
       <main className="pb-6">
         <section className="px-5 py-3 sm:px-6 sm:py-4 lg:px-8 lg:py-4">
           <div className="mx-auto grid max-w-7xl border border-black/12 lg:min-h-[470px] lg:grid-cols-[0.46fr_0.54fr] lg:overflow-hidden xl:min-h-[510px]">
-            <article className="flex flex-col justify-between bg-[#cfa066] px-6 py-5 sm:px-9 sm:py-7 lg:px-10 lg:py-7">
+            <article className="gradient-brand flex flex-col justify-between px-6 py-5 text-primary-foreground sm:px-9 sm:py-7 lg:px-10 lg:py-7">
               <div>
-                <p className="editorial-kicker text-black/58">Kebab turco / Rivas-Vaciamadrid</p>
-                <h1 className="mt-3 font-display text-[clamp(3.15rem,6.4vw,5.45rem)] leading-[0.88] text-black">
+                <p className="editorial-kicker text-primary-foreground/68">Kebab turco / Rivas-Vaciamadrid</p>
+                <h1 className="mt-3 font-display text-[clamp(3.15rem,6.4vw,5.45rem)] leading-[0.88] text-primary-foreground">
                   Kebabs, platos, burgers y menus al momento.
                 </h1>
-                <p className="mt-3 max-w-md text-[15px] leading-6 text-black/76 sm:text-base sm:leading-7">
+                <p className="mt-3 max-w-md text-[15px] leading-6 text-primary-foreground/78 sm:text-base sm:leading-7">
                   Kebab, shawarma, platos, raciones, hamburguesas, bocadillos, postres y bebidas en una carta amplia,
                   con precios claros y alergenos visibles en cada plato.
                 </p>
 
                 <div className="mt-5 flex flex-wrap gap-3">
-                  <Button asChild className="h-10 border border-black bg-black px-5 text-[11px] font-semibold uppercase tracking-[0.26em] text-background hover:bg-black/90">
+                  <Button asChild className="h-10 border border-gold bg-gold px-5 text-[11px] font-semibold uppercase tracking-[0.26em] text-gold-foreground hover:bg-gold/90">
                     <Link to="/carta">
                       Ver carta
                       <ArrowRight className="h-4 w-4" />
@@ -50,20 +53,23 @@ const Index = () => {
                   <Button
                     asChild
                     variant="outline"
-                    className="h-10 border border-black bg-transparent px-5 text-[11px] font-semibold uppercase tracking-[0.26em] text-black hover:bg-white/30"
+                    className="h-10 border border-white/18 bg-white/10 px-5 text-[11px] font-semibold uppercase tracking-[0.26em] text-primary-foreground hover:bg-white/16"
                   >
                     <Link to="/contacto">Contacto</Link>
                   </Button>
                 </div>
               </div>
 
-              <div className="mt-6 border-t border-black/15 pt-4">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-black/58">Pedidos y reservas</p>
+              <div className="mt-6 border-t border-white/14 pt-4">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-primary-foreground/68">Pedidos y reservas</p>
                 <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-                  <a href={`tel:${restaurantInfo.phone}`} className="font-display text-[1.95rem] leading-none text-black hover:text-black/76 sm:text-[2.15rem]">
+                  <a
+                    href={`tel:${restaurantInfo.phone}`}
+                    className="font-display text-[1.95rem] leading-none text-primary-foreground hover:text-primary-foreground/78 sm:text-[2.15rem]"
+                  >
                     91 713 99 80
                   </a>
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-black/58">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-primary-foreground/68">
                     Local, recogida y domicilio
                   </p>
                 </div>
@@ -96,13 +102,13 @@ const Index = () => {
 
         <section id="manifiesto" className="px-5 py-8 sm:px-6 lg:px-8">
           <div className="mx-auto grid max-w-7xl gap-6 lg:h-[640px] lg:items-stretch lg:grid-cols-[0.48fr_0.52fr] lgplus:h-[670px] xl:h-[700px]">
-            <article className="bg-black px-5 py-5 text-white sm:px-6 sm:py-6 lg:flex lg:h-full lg:flex-col lg:justify-between lg:overflow-hidden">
+            <article className="bg-primary px-5 py-5 text-primary-foreground sm:px-6 sm:py-6 lg:flex lg:h-full lg:flex-col lg:justify-between lg:overflow-hidden">
               <div>
-                <p className="editorial-kicker text-[#cfa066]">Nosotros</p>
+                <p className="editorial-kicker text-gold">Nosotros</p>
                 <h2 className="mt-2 font-display text-[clamp(2.1rem,4.2vw,3.25rem)] leading-[0.88]">
                   Kebab, platos, raciones y cocina de bar hecha al momento.
                 </h2>
-                <p className="mt-2.5 max-w-xl text-[13px] leading-5 text-white/72 sm:text-[14px] sm:leading-5">
+                <p className="mt-2.5 max-w-xl text-[13px] leading-5 text-primary-foreground/74 sm:text-[14px] sm:leading-5">
                   En DejaVu trabajamos con kebabs, platos, raciones, hamburguesas y menus servidos al momento. La carta
                   esta pensada para recorrer rapido y entender bien que incluye cada opcion.
                 </p>
@@ -110,7 +116,7 @@ const Index = () => {
 
               <ul className="mt-4 grid gap-2 lg:mt-5">
                 {housePrinciples.map((point) => (
-                  <li key={point} className="border-t border-white/12 pt-2 text-[10px] font-medium uppercase tracking-[0.1em] text-white/86 sm:text-[11px]">
+                  <li key={point} className="border-t border-white/12 pt-2 text-[10px] font-medium uppercase tracking-[0.1em] text-primary-foreground/86 sm:text-[11px]">
                     {point}
                   </li>
                 ))}
@@ -135,7 +141,7 @@ const Index = () => {
                   </div>
                 </article>
 
-                <article className="h-full bg-[#cfa066] px-4 py-4 sm:px-5 sm:py-5 lg:px-4 lg:py-4">
+                <article className="h-full bg-gold px-4 py-4 text-gold-foreground sm:px-5 sm:py-5 lg:px-4 lg:py-4">
                   <p className="editorial-kicker text-black/55">Contacto rapido</p>
                   <div className="mt-2.5 space-y-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-black/76 sm:text-[11px] sm:tracking-[0.18em]">
                     <a href={`tel:${restaurantInfo.phone}`} className="block hover:text-black">
@@ -227,16 +233,16 @@ const Index = () => {
             </article>
 
             <div className="space-y-6">
-              <article className="bg-black px-7 py-8 text-white sm:px-10">
-                <p className="editorial-kicker text-[#cfa066]">Local</p>
+              <article className="bg-primary px-7 py-8 text-primary-foreground sm:px-10">
+                <p className="editorial-kicker text-gold">Local</p>
                 <h3 className="mt-4 font-display text-5xl leading-none sm:text-6xl">Sala, terraza y servicio directo desde el local.</h3>
-                <p className="mt-4 max-w-xl text-lg leading-8 text-white/72">
+                <p className="mt-4 max-w-xl text-lg leading-8 text-primary-foreground/72">
                   Puedes llamar para hacer tu pedido, pasar a recogerlo o venir a comer con calma en el local o en la
                   terraza. Tambien atendemos reparto en zonas cercanas.
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-3">
-                  <Button asChild className="h-12 border border-[#cfa066] bg-[#cfa066] px-6 text-[11px] font-semibold uppercase tracking-[0.26em] text-black hover:bg-[#cfa066]/90">
+                  <Button asChild className="h-12 border border-gold bg-gold px-6 text-[11px] font-semibold uppercase tracking-[0.26em] text-gold-foreground hover:bg-gold/90">
                     <a href={`tel:${restaurantInfo.phone}`}>
                       <Phone className="h-4 w-4" />
                       Llamar
@@ -245,7 +251,7 @@ const Index = () => {
                   <Button
                     asChild
                     variant="outline"
-                    className="h-12 border border-white/18 bg-transparent px-6 text-[11px] font-semibold uppercase tracking-[0.26em] text-white hover:bg-white/8"
+                    className="h-12 border border-white/18 bg-transparent px-6 text-[11px] font-semibold uppercase tracking-[0.26em] text-primary-foreground hover:bg-white/8"
                   >
                     <a href={mapsUrl} target="_blank" rel="noreferrer">
                       <MapPin className="h-4 w-4" />

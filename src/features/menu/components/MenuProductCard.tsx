@@ -80,7 +80,7 @@ const MenuProductCard = ({
                     Info
                     <ChevronDown className="h-3.5 w-3.5" aria-hidden="true" />
                   </summary>
-                  <div className="mt-2 border border-black/10 bg-[#f8f4ee] p-3">
+                  <div className="mt-2 border border-black/10 bg-muted/55 p-3">
                     <p className="text-[12px] leading-5 text-black/72">{description}</p>
 
                     {visibleTags.length > 0 ? (
@@ -153,7 +153,7 @@ const MenuProductCard = ({
                 <ul className="flex flex-wrap gap-2" aria-label={`Etiquetas de ${product.name}`}>
                   {visibleTags.map((tag) => (
                     <li key={tag}>
-                      <Badge variant="outline" className="border-black/12 bg-[#f5f0e8] px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-black/72">
+                      <Badge variant="outline" className="border-black/12 bg-muted/60 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-black/72">
                         {tag}
                       </Badge>
                     </li>
@@ -191,7 +191,7 @@ const MenuProductCard = ({
           <div className="border-t border-white/10 bg-[#11100e] px-4 py-4 sm:px-6">
             <div className="flex items-start justify-between gap-4">
               <div className="min-w-0">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#cfa066]">{product.highlight}</p>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-gold">{product.highlight}</p>
                 <DialogTitle className="mt-2 font-display text-[2rem] leading-none text-white sm:text-[2.6rem]">
                   {product.name}
                 </DialogTitle>
@@ -199,7 +199,7 @@ const MenuProductCard = ({
                   Vista ampliada del producto. Pulsa fuera de la imagen o el boton de cierre para volver a la carta.
                 </DialogDescription>
               </div>
-              <p className="shrink-0 font-display text-2xl leading-none text-[#cfa066] sm:text-3xl">{formatCurrency(product.price)}</p>
+              <p className="shrink-0 font-display text-2xl leading-none text-gold sm:text-3xl">{formatCurrency(product.price)}</p>
             </div>
           </div>
         </DialogContent>

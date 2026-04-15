@@ -85,7 +85,7 @@ const Navbar = () => {
                   onClick={() => setOpen(false)}
                   className={cn(
                     "border border-black/10 px-4 py-3 font-display text-[1.8rem] uppercase leading-none text-black/80",
-                    isActive(item) ? "bg-black text-background" : "bg-white",
+                    isActive(item) ? "bg-primary text-primary-foreground" : "bg-white",
                   )}
                 >
                   {item.label}
@@ -95,7 +95,7 @@ const Navbar = () => {
 
             <a
               href="tel:917139980"
-              className="mt-4 inline-flex items-center gap-2 border border-black bg-[#cfa066] px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-black"
+              className="mt-4 inline-flex items-center gap-2 border border-gold bg-gold px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-gold-foreground"
             >
               <Phone className="h-3.5 w-3.5" />
               Llamar al local

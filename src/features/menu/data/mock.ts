@@ -740,7 +740,7 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
           {
             "id": "papas-locas",
             "title": "Papas Locas",
-            "description": "Patatas fritas, pulled pork, bacon, mix de quesos, salsas, chedar y kepchup.",
+            "description": "Patatas fritas con filetes de pollo, bacon, mezcla de queso rallado, salsa cheddar y ketchup.",
             "price": "16,50 €",
             "bestseller": true
           },

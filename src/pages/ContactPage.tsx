@@ -65,19 +65,22 @@ const ContactPage = () => {
             </article>
 
             <div className="space-y-6">
-              <article className="bg-black px-5 py-6 text-white sm:px-10 sm:py-8">
-                <p className="editorial-kicker text-[#cfa066]">Horario</p>
+              <article className="bg-primary px-5 py-6 text-primary-foreground sm:px-10 sm:py-8">
+                <p className="editorial-kicker text-gold">Horario</p>
                 <div className="mt-4 grid gap-3 sm:mt-5">
                   {restaurantInfo.openingHours.map((slot) => (
-                    <div key={slot.day} className="grid gap-1 border-t border-white/12 pt-3 text-[15px] font-semibold uppercase tracking-[0.12em] text-white/82 sm:grid-cols-[140px_1fr]">
+                    <div
+                      key={slot.day}
+                      className="grid gap-1 border-t border-white/12 pt-3 text-[15px] font-semibold uppercase tracking-[0.12em] text-primary-foreground/82 sm:grid-cols-[140px_1fr]"
+                    >
                       <p>{slot.day}</p>
-                      <p className="text-white">{slot.time}</p>
+                      <p className="text-primary-foreground">{slot.time}</p>
                     </div>
                   ))}
                 </div>
               </article>
 
-              <article className="bg-[#cfa066] px-5 py-6 sm:px-10 sm:py-8">
+              <article className="bg-gold px-5 py-6 text-gold-foreground sm:px-10 sm:py-8">
                 <p className="editorial-kicker text-black/55">Acciones</p>
                 <h2 className="mt-3 font-display text-[2.9rem] leading-none text-black sm:text-6xl">
                   Abre el mapa o llama directamente al local.

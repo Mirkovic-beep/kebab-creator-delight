@@ -1,45 +1,38 @@
 import type {
+  AllergenId,
+  CategoryTone,
   ExperienceHighlight,
+  MenuAllergen,
   MenuCatalogCategory,
   MenuCategory,
+  MenuImageKey,
+  MenuModifierGroup,
   MenuProduct,
+  MenuProductSeed,
   OrderMode,
   OrderingStep,
   RestaurantInfo,
   Testimonial,
 } from "./types";
 import {
-  adanaAllergens,
-  ayranAllergens,
-  baklavaAllergens,
-  borekAllergens,
-  breadGroup,
-  cheeseOvenAllergens,
-  classicWrapAllergens,
-  dessertToppingsGroup,
-  donerBoxAllergens,
+  bocadilloFillingGroup,
+  burgerProteinChoiceGroup,
+  combinedPlateChoiceGroup,
+  combiDoubleProteinGroup,
+  combiSimpleProteinGroup,
+  dejaVuProteinGroup,
   drinkGroup,
-  extrasGroup,
-  falafelPlateAllergens,
-  falafelWrapAllergens,
-  hummusAllergens,
-  kunefeAllergens,
-  lahmacunAllergens,
-  lahmacunWrapAllergens,
-  loadedFriesAllergens,
+  kebabProteinGroup,
+  legacyBurgerExtrasGroup,
+  legacyPlateExtrasGroup,
+  legacyTurkishExtrasGroup,
+  menuCombiDoubleProteinGroup,
+  menuCombiSimpleProteinGroup,
+  menuDejaVuProteinGroup,
+  menuProteinGroup,
   menuImageMap,
-  menuUpgradeGroup,
-  naanCheeseAllergens,
-  plateGrillAllergens,
-  proteinClassicGroup,
   sauceGroup,
   sideGroup,
-  sizeDrinkGroup,
-  softDrinkAllergens,
-  spiceGroup,
-  turkishSaladAllergens,
-  veggieBoxAllergens,
-  wingsAllergens,
 } from "./shared";
 
 export const restaurantInfo: RestaurantInfo = {
@@ -59,405 +52,1634 @@ export const restaurantInfo: RestaurantInfo = {
     { day: "Sabado", time: "12:00 - 01:00" },
     { day: "Domingo", time: "12:00 - 00:00" },
   ],
-  serviceAreas: ["Rivas Centro", "Covibar", "La Luna", "Pablo Iglesias", "Velilla"],
+  serviceAreas: ["Rivas Centro", "Covibar", "La Luna", "Pablo Iglesias"],
 };
 
-export const menuCatalog: MenuCatalogCategory[] = [
+interface LegacyItem {
+  id: string;
+  title: string;
+  description: string;
+  price: string;
+  featured?: boolean;
+  bestseller?: boolean;
+  spicy?: boolean;
+  vegetarian?: boolean;
+  tags?: string[];
+}
+
+interface LegacySection {
+  title: string;
+  description: string;
+  items: LegacyItem[];
+}
+
+interface LegacyCategorySeed {
+  id: string;
+  name: string;
+  shortName: string;
+  description: string;
+  note: string;
+  tone: CategoryTone;
+  imageKey: MenuImageKey;
+  prepTime: string;
+  mainText: string;
+  sections: LegacySection[];
+}
+
+const allergenOrder: AllergenId[] = ["gluten", "milk", "egg", "sesame", "soy", "nuts", "celery", "mustard"];
+
+const containsAllergens = (...ids: AllergenId[]): MenuAllergen[] =>
+  allergenOrder
+    .filter((candidate) => ids.includes(candidate))
+    .map((id) => ({
+      id,
+      level: "contains",
+    }));
+
+const kebabAllergens = containsAllergens("gluten");
+const burgerAllergens = containsAllergens("gluten", "milk");
+const burgerWithEggAllergens = containsAllergens("gluten", "milk", "egg");
+const bocadilloAllergens = containsAllergens("gluten");
+const combinedPlateAllergens = containsAllergens("egg");
+const friedSnackAllergens = containsAllergens("gluten");
+const croquetteAllergens = containsAllergens("gluten", "milk", "egg");
+const pastryDessertAllergens = containsAllergens("gluten", "milk", "egg");
+const cheesecakeAllergens = containsAllergens("milk", "egg");
+const layeredCakeAllergens = containsAllergens("gluten", "milk");
+const frozenDessertAllergens = containsAllergens("milk");
+const beerAllergens = containsAllergens("gluten");
+
+function parsePrice(value: string) {
+  const normalized = value.replace("Desde", "").replace(/[€\s]/g, "").replace(",", ".");
+  return Number.parseFloat(normalized);
+}
+
+function cleanSectionTitle(value: string) {
+  return value.replace(/\s*\(.+\)\s*/g, "").trim();
+}
+
+function joinNaturalList(values: string[]) {
+  if (values.length === 0) {
+    return "";
+  }
+
+  if (values.length === 1) {
+    return values[0];
+  }
+
+  if (values.length === 2) {
+    return `${values[0]} y ${values[1]}`;
+  }
+
+  return `${values.slice(0, -1).join(", ")} y ${values[values.length - 1]}`;
+}
+
+function compactHighlightPart(value: string) {
+  const normalized = value.replace(/\.$/, "").trim();
+
+  const replacements: Array<[RegExp, string]> = [
+    [/^carne fresca de pollo\b.*$/i, "Pollo"],
+    [/^filetes de ternera\b.*$/i, "Ternera"],
+    [/^carne mixta\b.*$/i, "Carne mixta"],
+    [/^doble de carne fresca de pollo\b.*$/i, "Doble de pollo"],
+    [/^doble de filetes de ternera\b.*$/i, "Doble de ternera"],
+    [/^doble de carne mixta\b.*$/i, "Doble mixto"],
+    [/^doble de falafel\b.*$/i, "Doble de falafel"],
+    [/^falafel\b.*$/i, "Falafel"],
+    [/^patatas fritas\b.*$/i, "Patatas fritas"],
+    [/^mix de quesos\b.*$/i, "Queso"],
+    [/^queso rallado\b.*$/i, "Queso rallado"],
+    [/^bacon crujiente\b.*$/i, "Bacon"],
+    [/^rulo de cabra\b.*$/i, "Rulo de cabra"],
+    [/^crema de modena\b.*$/i, "Modena"],
+    [/^salsa cesar\b.*$/i, "Salsa cesar"],
+    [/^cebolla frita\b.*$/i, "Cebolla frita"],
+    [/^cebolla caramelizada\b.*$/i, "Cebolla caramelizada"],
+    [/^patatas o arroz\b.*$/i, "Patatas o arroz"],
+    [/^patatas o ensalada\b.*$/i, "Patatas o ensalada"],
+    [/^repollo\b.*$/i, "Repollo"],
+    [/^lechuga\b.*$/i, "Lechuga"],
+    [/^tomate\b.*$/i, "Tomate"],
+    [/^maiz\b.*$/i, "Maiz"],
+    [/^huevo\b.*$/i, "Huevo"],
+    [/^queso\b.*$/i, "Queso"],
+    [/^bacon\b.*$/i, "Bacon"],
+    [/^pollo crujiente\b.*$/i, "Pollo crujiente"],
+    [/^pulled pork\b.*$/i, "Pulled pork"],
+    [/^jamon\b.*$/i, "Jamon"],
+    [/^pepinillos\b.*$/i, "Pepinillos"],
+  ];
+
+  for (const [pattern, replacement] of replacements) {
+    if (pattern.test(normalized)) {
+      return replacement;
+    }
+  }
+
+  if (normalized.includes(" y ")) {
+    const firstClause = normalized.split(/\s+y\s+/)[0].trim();
+
+    if (firstClause.length > 0 && firstClause.length <= 18) {
+      return firstClause;
+    }
+  }
+
+  return normalized
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 3)
+    .join(" ");
+}
+
+function buildCompactHighlight(description: string, maxLength = 46) {
+  const cleaned = description.replace(/\.$/, "").trim();
+
+  if (cleaned.length <= maxLength) {
+    return cleaned;
+  }
+
+  const parts = cleaned
+    .split(",")
+    .map((part) => compactHighlightPart(part))
+    .filter(Boolean);
+
+  if (parts.length > 1) {
+    const selectedParts: string[] = [];
+
+    for (const part of parts) {
+      const candidate = joinNaturalList([...selectedParts, part]);
+
+      if (candidate.length > maxLength) {
+        break;
+      }
+
+      selectedParts.push(part);
+    }
+
+    if (selectedParts.length > 0) {
+      return joinNaturalList(selectedParts);
+    }
+  }
+
+  const compactSingle = compactHighlightPart(cleaned);
+
+  if (compactSingle.length <= maxLength) {
+    return compactSingle;
+  }
+
+  return cleaned
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 6)
+    .join(" ");
+}
+
+function buildFallbackDescription(category: LegacyCategorySeed, item: LegacyItem) {
+  switch (category.id) {
+    case "rations":
+      return item.title + " para compartir en mesa o pedir para llevar.";
+    case "bocadillos":
+      return "Bocadillo de " + item.title.toLowerCase() + " servido al momento.";
+    case "combined-plates":
+      return item.title + " acompanado de patatas fritas, huevo y ensalada.";
+    case "desserts":
+      return category.mainText || "Postre de la casa disponible segun el servicio del dia.";
+    case "drinks":
+      return "Bebida disponible para mesa, recogida o llevar.";
+    default:
+      return category.mainText || item.title + " dentro de la carta actual del local.";
+  }
+}
+
+function buildDescription(category: LegacyCategorySeed, item: LegacyItem) {
+  return item.description || buildFallbackDescription(category, item);
+}
+
+function buildLongDescription(category: LegacyCategorySeed, section: LegacySection, description: string) {
+  const parts = [description];
+
+  for (const extra of [section.description, category.mainText]) {
+    if (extra && !parts.includes(extra)) {
+      parts.push(extra);
+    }
+  }
+
+  return parts.join(" ");
+}
+
+function inferVegetarian(categoryId: string, item: LegacyItem) {
+  const text = (item.title + " " + item.description).toLowerCase();
+
+  if (/falafel/.test(text)) {
+    return true;
+  }
+
+  if (categoryId === "drinks" && /agua|refresco|cafe|vino|cerveza|tinto/.test(text)) {
+    return false;
+  }
+
+  return false;
+}
+
+function inferTags(category: LegacyCategorySeed, section: LegacySection, item: LegacyItem) {
+  const tags = [...(item.tags ?? [])];
+  const sectionTitle = cleanSectionTitle(section.title);
+
+  if (sectionTitle && sectionTitle !== category.name && sectionTitle !== category.shortName) {
+    tags.push(sectionTitle);
+  }
+
+  switch (category.id) {
+    case "salads":
+      tags.push("Fresco");
+      break;
+    case "turkish-specialties":
+      tags.push("Kebab turco");
+      break;
+    case "plates":
+      tags.push("Plato completo");
+      break;
+    case "rations":
+      tags.push("Para compartir");
+      break;
+    case "hamburgers":
+      tags.push("Con patatas");
+      break;
+    case "bocadillos":
+      tags.push("Clasico");
+      break;
+    case "combined-plates":
+      tags.push("Con huevo");
+      break;
+    case "menus":
+      tags.push("Menu");
+      break;
+    case "desserts":
+      tags.push("Postre");
+      break;
+    case "drinks":
+      tags.push("Bebida");
+      break;
+    default:
+      break;
+  }
+
+  if (item.price.startsWith("Desde")) {
+    tags.push("Desde");
+  }
+
+  if (/1\/2 racion/i.test(item.title)) {
+    tags.push("Media racion");
+  }
+
+  if (/falafel/i.test(item.title + " " + item.description)) {
+    tags.push("Vegetariano");
+  }
+
+  if (item.featured) {
+    tags.push("Destacado");
+  }
+
+  if (item.bestseller) {
+    tags.push("Muy pedido");
+  }
+
+  return [...new Set(tags)].slice(0, 4);
+}
+
+function buildHighlight(category: LegacyCategorySeed, section: LegacySection, item: LegacyItem, description: string) {
+  const sectionTitle = cleanSectionTitle(section.title);
+
+  if (category.id === "menus" && sectionTitle) {
+    return sectionTitle;
+  }
+
+  if (category.id === "desserts" && sectionTitle) {
+    return sectionTitle;
+  }
+
+  return buildCompactHighlight(description);
+}
+
+function inferModifierGroups(category: LegacyCategorySeed, section: LegacySection, item: LegacyItem): MenuModifierGroup[] {
+  const sectionTitle = cleanSectionTitle(section.title);
+
+  if (category.id === "turkish-specialties") {
+    return [sauceGroup, legacyTurkishExtrasGroup];
+  }
+
+  if (category.id === "plates") {
+    return [sideGroup, sauceGroup, legacyPlateExtrasGroup];
+  }
+
+  if (category.id === "hamburgers") {
+    return [legacyBurgerExtrasGroup];
+  }
+
+  if (category.id === "rations" && /patatas|papas|salchipapas|huevos/i.test(item.title)) {
+    return [sauceGroup];
+  }
+
+  if (category.id === "menus") {
+    if (sectionTitle === "Menus Combi") {
+      return [sideGroup, drinkGroup, sauceGroup];
+    }
+
+    if (sectionTitle === "Menus Kebabs" || sectionTitle === "Menus Shawarma") {
+      return [drinkGroup, sauceGroup];
+    }
+
+    return [drinkGroup];
+  }
+
+  return [];
+}
+
+function inferAllergens(category: LegacyCategorySeed, item: LegacyItem): MenuAllergen[] {
+  const text = (item.title + " " + item.description).toLowerCase();
+
+  switch (category.id) {
+    case "salads": {
+      const contains = new Set<AllergenId>();
+
+      if (/queso|rulo de cabra|mix de quesos|cesar/.test(text)) {
+        contains.add("milk");
+      }
+
+      if (/salsa cesar|cesar/.test(text)) {
+        contains.add("egg");
+      }
+
+      if (/picatostes|pollo crujiente/.test(text)) {
+        contains.add("gluten");
+      }
+
+      return containsAllergens(...Array.from(contains));
+    }
+    case "turkish-specialties":
+      return kebabAllergens;
+    case "plates":
+      return [];
+    case "rations":
+      if (/croquetas/.test(text)) {
+        return croquetteAllergens;
+      }
+
+      if (/nuggets|fingers/.test(text)) {
+        return friedSnackAllergens;
+      }
+
+      if (/huevos/.test(text)) {
+        return combinedPlateAllergens;
+      }
+
+      if (/papas locas/.test(text)) {
+        return containsAllergens("milk");
+      }
+
+      return [];
+    case "hamburgers":
+      return /\bhuevo\b/.test(text) ? burgerWithEggAllergens : burgerAllergens;
+    case "bocadillos":
+      return bocadilloAllergens;
+    case "combined-plates":
+      return combinedPlateAllergens;
+    case "menus":
+      if (/hamburguesa/.test(text)) {
+        return /\bhuevo\b/.test(text) ? burgerWithEggAllergens : burgerAllergens;
+      }
+
+      if (/kebab|shawarma/.test(text)) {
+        return kebabAllergens;
+      }
+
+      return [];
+    case "desserts":
+      if (/batido|helado/.test(text)) {
+        return frozenDessertAllergens;
+      }
+
+      if (/tarta de queso/.test(text)) {
+        return cheesecakeAllergens;
+      }
+
+      if (/tarta de la abuela|milhojas/.test(text)) {
+        return layeredCakeAllergens;
+      }
+
+      return pastryDessertAllergens;
+    case "drinks":
+      return /copa de cerveza|jarra de cerveza|cerveza especial|tercio/.test(text) ? beerAllergens : [];
+    default:
+      return [];
+  }
+}
+
+function buildLegacyProduct(category: LegacyCategorySeed, section: LegacySection, item: LegacyItem): MenuProductSeed {
+  const description = buildDescription(category, item);
+  const vegetarian = item.vegetarian ?? inferVegetarian(category.id, item);
+
+  return {
+    id: category.id + "-" + item.id,
+    name: item.title,
+    description,
+    longDescription: buildLongDescription(category, section, description),
+    price: parsePrice(item.price),
+    imageKey: category.imageKey,
+    featured: item.featured,
+    bestseller: item.bestseller,
+    vegetarian: vegetarian || undefined,
+    spicy: item.spicy,
+    tags: inferTags(category, section, item),
+    allergens: inferAllergens(category, item),
+    prepTime: category.prepTime,
+    highlight: buildHighlight(category, section, item, description),
+    modifierGroups: inferModifierGroups(category, section, item),
+  };
+}
+
+const legacyMenuCatalog: LegacyCategorySeed[] = [
   {
-    id: "kebabs",
-    name: "Kebabs y Durums",
-    shortName: "Kebabs",
-    description: "Los clasicos del local con carne al trompo, pan tostado y salsas al momento.",
-    note: "Los mas pedidos",
-    tone: "gold",
-    products: [
+    "id": "salads",
+    "name": "Ensaladas",
+    "shortName": "Ensaladas",
+    "description": "Ensaladas completas con pollo, ventresca, queso y alinos clasicos.",
+    "note": "Frescas",
+    "tone": "olive",
+    "imageKey": "salad",
+    "prepTime": "8 min",
+    "mainText": "",
+    "sections": [
       {
-        id: "durum-clasico",
-        name: "Durum Clasico",
-        description: "Wrap tostado con carne al trompo, lechuga, tomate y salsa blanca.",
-        longDescription: "Durum de carne al trompo con verdura fresca y salsa a elegir. Uno de los pedidos mas habituales del local.",
-        price: 7.9,
-        imageKey: "hero",
-        featured: true,
-        bestseller: true,
-        tags: ["Top ventas", "Personalizable", "Halal"],
-        allergens: classicWrapAllergens,
-        prepTime: "12 min",
-        highlight: "Carne al trompo, verdura y salsa",
-        modifierGroups: [proteinClassicGroup, sauceGroup, extrasGroup, menuUpgradeGroup, spiceGroup],
-      },
-      {
-        id: "kebab-pan-artesano",
-        name: "Kebab en Pan",
-        description: "Pan tostado con carne, vegetales frescos y mezcla de salsas.",
-        longDescription: "Pan tostado por fuera, carne recien cortada y verduras frescas. Una opcion clasica y facil de comer.",
-        price: 7.5,
-        imageKey: "doner",
-        featured: true,
-        tags: ["Clasico", "Crujiente"],
-        allergens: classicWrapAllergens,
-        prepTime: "12 min",
-        highlight: "Pan crujiente y carne recien cortada",
-        modifierGroups: [proteinClassicGroup, sauceGroup, extrasGroup, menuUpgradeGroup, spiceGroup],
-      },
-      {
-        id: "box-doner",
-        name: "Caja Doner",
-        description: "Carne cortada al momento con patatas o arroz, salsas y topping de cebolla.",
-        longDescription: "Caja de doner con carne recien cortada, base a elegir y salsas. Muy practico para llevar.",
-        price: 8.5,
-        imageKey: "doner",
-        bestseller: true,
-        tags: ["Para llevar", "Muy completo"],
-        allergens: donerBoxAllergens,
-        prepTime: "14 min",
-        highlight: "Carne, base y salsas en un solo plato",
-        modifierGroups: [proteinClassicGroup, sideGroup, sauceGroup, extrasGroup, spiceGroup],
-      },
-      {
-        id: "menu-durum-premium",
-        name: "Menu Durum",
-        description: "Durum con patatas crujientes y bebida a elegir.",
-        longDescription: "Durum completo con patatas y bebida. Pensado para quien quiere un menu cerrado y rapido de pedir.",
-        price: 11.9,
-        imageKey: "hero",
-        featured: true,
-        tags: ["Menu", "Completo"],
-        allergens: classicWrapAllergens,
-        prepTime: "15 min",
-        highlight: "Durum, patatas y bebida",
-        modifierGroups: [proteinClassicGroup, sauceGroup, extrasGroup, drinkGroup, spiceGroup],
-      },
-    ],
+        "title": "",
+        "description": "",
+        "items": [
+          {
+            "id": "ensalada-cesar",
+            "title": "Ensalada Cesar",
+            "description": "Lechuga, pollo, maiz, queso rallado, tomate, picatostes y salsa cesar.",
+            "price": "12,90 €"
+          },
+          {
+            "id": "ensalada-rulo-de-cabra",
+            "title": "Ensalada Rulo de Cabra",
+            "description": "Lechuga, tomate, rulo de cabra, bacon crujiente, cebolla frita y crema de modena.",
+            "price": "12,90 €"
+          },
+          {
+            "id": "ensalada-ventresca",
+            "title": "Ensalada Ventresca",
+            "description": "Lechuga, pimientos asados, tomate y ventresca de atun.",
+            "price": "12,90 €"
+          },
+          {
+            "id": "ensalada-de-pollo-crujiente",
+            "title": "Ensalada de Pollo Crujiente",
+            "description": "Lechuga, tomate, maiz, pollo crujiente, mix de quesos, cebolla frita y crema de modena.",
+            "price": "12,90 €"
+          }
+        ]
+      }
+    ]
   },
   {
-    id: "plates",
-    name: "Platos y Parrilla",
-    shortName: "Platos",
-    description: "Raciones mas completas con guarnicion, ensalada fresca y carnes a la brasa.",
-    note: "Platos completos",
-    tone: "ember",
-    products: [
+    "id": "turkish-specialties",
+    "name": "Especialidades Turcas",
+    "shortName": "Turcas",
+    "description": "Kebabs y shawarmas con pollo, ternera, mixto o falafel.",
+    "note": "Kebab y shawarma",
+    "tone": "gold",
+    "imageKey": "doner",
+    "prepTime": "12 min",
+    "mainText": "",
+    "sections": [
       {
-        id: "plato-mixto",
-        name: "Plato Mixto DejaVu",
-        description: "Pollo y ternera con ensalada fresca, pan caliente y guarnicion.",
-        longDescription: "Pollo y ternera con guarnicion, ensalada y pan caliente. Un plato abundante para comer con calma.",
-        price: 12.9,
-        imageKey: "terrace",
-        featured: true,
-        bestseller: true,
-        tags: ["Completo", "Compartible"],
-        allergens: plateGrillAllergens,
-        prepTime: "16 min",
-        highlight: "Pollo, ternera y guarnicion",
-        modifierGroups: [sideGroup, sauceGroup, extrasGroup, spiceGroup],
-      },
-      {
-        id: "adana-kebab",
-        name: "Adana Kebab a la Brasa",
-        description: "Brocheta especiada con bulgur, pimientos asados y salsa yogur.",
-        longDescription: "Brocheta adana con especias, bulgur y pimientos asados. Sabor intenso y punto de brasa.",
-        price: 13.9,
-        imageKey: "adana",
-        featured: true,
-        spicy: true,
-        tags: ["Brasa", "Especialidad"],
-        allergens: adanaAllergens,
-        prepTime: "18 min",
-        highlight: "Brocheta especiada a la brasa",
-        modifierGroups: [sideGroup, sauceGroup, spiceGroup],
-      },
-      {
-        id: "pollo-parrilla",
-        name: "Plato de Pollo a la Parrilla",
-        description: "Pechuga marinada con especias suaves, arroz y verduras.",
-        longDescription: "Pechuga de pollo marinada, hecha a la parrilla y servida con guarnicion. Una opcion suave y completa.",
-        price: 11.9,
-        imageKey: "terrace",
-        tags: ["Ligero", "Parrilla"],
-        allergens: plateGrillAllergens,
-        prepTime: "17 min",
-        highlight: "Pollo marinado con guarnicion",
-        modifierGroups: [sideGroup, sauceGroup, extrasGroup],
-      },
-      {
-        id: "mixed-grill",
-        name: "Parrillada DejaVu",
-        description: "Seleccion de pollo, carne especiada y verduras a la plancha.",
-        longDescription: "Parrillada con pollo, carne especiada y verduras a la plancha. Buena opcion para compartir.",
-        price: 16.9,
-        imageKey: "adana",
-        tags: ["Parrilla", "Para compartir"],
-        allergens: adanaAllergens,
-        prepTime: "20 min",
-        highlight: "Parrilla variada para compartir",
-        modifierGroups: [sideGroup, sauceGroup, extrasGroup],
-      },
-    ],
+        "title": "",
+        "description": "",
+        "items": [
+          {
+            "id": "kebab-de-pollo",
+            "title": "Kebab de pollo",
+            "description": "Carne fresca de pollo, repollo, tomate, cebolla y salsas.",
+            "price": "7,00 €",
+            "featured": true,
+            "bestseller": true
+          },
+          {
+            "id": "kebab-de-ternera",
+            "title": "Kebab de ternera",
+            "description": "Filetes de ternera 100% vacuno, repollo, tomate, cebolla y salsas.",
+            "price": "8,50 €"
+          },
+          {
+            "id": "kebab-mixto",
+            "title": "Kebab mixto",
+            "description": "Carne mixta, repollo, tomate, cebolla y salsas.",
+            "price": "7,50 €",
+            "featured": true
+          },
+          {
+            "id": "kebab-de-falafel",
+            "title": "Kebab de falafel",
+            "description": "3 unidades + repollo, tomate, cebolla y salsas.",
+            "price": "6,00 €",
+            "vegetarian": true
+          },
+          {
+            "id": "shawarma-de-pollo",
+            "title": "Shawarma de pollo",
+            "description": "Carne fresca de pollo, repollo, tomate, cebolla y salsas.",
+            "price": "7,00 €"
+          },
+          {
+            "id": "shawarma-de-ternera",
+            "title": "Shawarma de ternera",
+            "description": "Filetes de ternera 100% vacuno, repollo, tomate, cebolla y salsas.",
+            "price": "8,50 €"
+          },
+          {
+            "id": "shawarma-mixto",
+            "title": "Shawarma mixto",
+            "description": "Carne mixta, repollo, tomate, cebolla y salsas.",
+            "price": "7,50 €"
+          },
+          {
+            "id": "shawarma-de-falafel",
+            "title": "Shawarma de falafel",
+            "description": "4 unidades + repollo, tomate, cebolla y salsas.",
+            "price": "7,00 €",
+            "vegetarian": true
+          }
+        ]
+      }
+    ]
   },
   {
-    id: "turkish-oven",
-    name: "Horno Turco",
-    shortName: "Horno",
-    description: "Lahmacun, pide y panes horneados al momento con sabores especiados.",
-    note: "Recien horneado",
-    tone: "copper",
-    products: [
+    "id": "plates",
+    "name": "Platos",
+    "shortName": "Platos",
+    "description": "Platos combi y platos Deja Vu con arroz, patatas o ensalada.",
+    "note": "Con guarnicion",
+    "tone": "ember",
+    "imageKey": "hero",
+    "prepTime": "14 min",
+    "mainText": "Nuestros platos no incluyen pan.",
+    "sections": [
       {
-        id: "lahmacun-clasico",
-        name: "Lahmacun Clasico",
-        description: "Masa fina con carne especiada, verduras y limon.",
-        longDescription: "Masa fina horneada con carne especiada, verduras y limon. Ligero y muy sabroso.",
-        price: 8.2,
-        imageKey: "lahmacun",
-        featured: true,
-        tags: ["Horno", "Ligero"],
-        allergens: lahmacunAllergens,
-        prepTime: "13 min",
-        highlight: "Masa fina con carne especiada",
-        modifierGroups: [sauceGroup, extrasGroup, spiceGroup],
-      },
-      {
-        id: "lahmacun-durum",
-        name: "Lahmacun Enrollado",
-        description: "Lahmacun doblado con ensalada fresca y salsa yogur.",
-        longDescription: "Lahmacun enrollado con ensalada fresca y salsa de yogur. Combina el lahmacun tradicional con un formato facil de comer.",
-        price: 9.4,
-        imageKey: "lahmacun",
-        tags: ["Horno", "Enrollado"],
-        allergens: lahmacunWrapAllergens,
-        prepTime: "14 min",
-        highlight: "Lahmacun enrollado con ensalada",
-        modifierGroups: [proteinClassicGroup, sauceGroup, extrasGroup, spiceGroup],
-      },
-      {
-        id: "pide-queso-sucuk",
-        name: "Pide de Queso y Sucuk",
-        description: "Barquita de masa horneada con queso fundido y embutido turco.",
-        longDescription: "Masa horneada en forma de barquita, con queso fundido y sucuk. Ideal para compartir.",
-        price: 10.9,
-        imageKey: "lahmacun",
-        featured: true,
-        tags: ["Horno", "Especial"],
-        allergens: cheeseOvenAllergens,
-        prepTime: "16 min",
-        highlight: "Queso fundido y sucuk",
-        modifierGroups: [extrasGroup, spiceGroup],
-      },
-      {
-        id: "pan-naan-queso",
-        name: "Pan Naan con Queso",
-        description: "Pan tierno al horno con queso fundido y mantequilla especiada.",
-        longDescription: "Pan tierno recien horneado con queso fundido y mantequilla especiada. Ideal para acompanar o compartir.",
-        price: 5.9,
-        imageKey: "lahmacun",
-        tags: ["Compartir", "Acompanamiento"],
-        allergens: naanCheeseAllergens,
-        prepTime: "9 min",
-        highlight: "Pan caliente con queso fundido",
-        modifierGroups: [extrasGroup],
-      },
-    ],
+        "title": "",
+        "description": "",
+        "items": [
+          {
+            "id": "combi-simple-de-pollo",
+            "title": "Combi simple de pollo",
+            "description": "Carne fresca de pollo acompanada a elegir entre arroz, patatas o ensalada.",
+            "price": "9,50 €"
+          },
+          {
+            "id": "combi-simple-de-ternera",
+            "title": "Combi simple de ternera",
+            "description": "Filetes de ternera 100% vacuno acompanados a elegir entre arroz, patatas o ensalada.",
+            "price": "11,50 €"
+          },
+          {
+            "id": "combi-simple-mixto",
+            "title": "Combi simple mixto",
+            "description": "Carne mixta acompanada a elegir entre arroz, patatas o ensalada.",
+            "price": "10,00 €"
+          },
+          {
+            "id": "combi-simple-de-falafel",
+            "title": "Combi simple de falafel",
+            "description": "Falafel acompanado a elegir entre arroz, patatas o ensalada.",
+            "price": "8,20 €",
+            "vegetarian": true
+          },
+          {
+            "id": "combi-doble-de-pollo",
+            "title": "Combi doble de pollo",
+            "description": "Doble de carne fresca de pollo acompanada a elegir entre arroz, patatas o ensalada.",
+            "price": "11,50 €"
+          },
+          {
+            "id": "combi-doble-de-ternera",
+            "title": "Combi doble de ternera",
+            "description": "Doble de filetes de ternera 100% vacuno acompanados a elegir entre arroz, patatas o ensalada.",
+            "price": "13,50 €"
+          },
+          {
+            "id": "combi-doble-mixto",
+            "title": "Combi doble mixto",
+            "description": "Doble de carne mixta acompanada a elegir entre arroz, patatas o ensalada.",
+            "price": "12,00 €"
+          },
+          {
+            "id": "combi-doble-de-falafel",
+            "title": "Combi doble de falafel",
+            "description": "Doble de falafel acompanado a elegir entre arroz, patatas o ensalada.",
+            "price": "9,50 €",
+            "vegetarian": true
+          },
+          {
+            "id": "plato-deja-vu-de-pollo",
+            "title": "Plato Deja Vu de pollo",
+            "description": "Carne fresca de pollo, patatas o arroz, repollo, tomate, cebolla y salsas.",
+            "price": "13,00 €"
+          },
+          {
+            "id": "plato-deja-vu-de-ternera",
+            "title": "Plato Deja Vu de ternera",
+            "description": "Filetes de ternera 100% vacuno, patatas o arroz, repollo, tomate, cebolla y salsas.",
+            "price": "15,50 €"
+          },
+          {
+            "id": "plato-deja-vu-mixto",
+            "title": "Plato Deja Vu mixto",
+            "description": "Carne mixta, patatas o arroz, repollo, tomate, cebolla y salsas.",
+            "price": "14,00 €",
+            "featured": true,
+            "bestseller": true
+          },
+          {
+            "id": "plato-deja-vu-de-falafel",
+            "title": "Plato Deja Vu de falafel",
+            "description": "Falafel, patatas o arroz, repollo, tomate, cebolla y salsas.",
+            "price": "11,50 €",
+            "vegetarian": true
+          }
+        ]
+      }
+    ]
   },
   {
-    id: "starters",
-    name: "Entrantes",
-    shortName: "Entrantes",
-    description: "Para compartir con hummus, borek, alitas y patatas especiales.",
-    note: "Para compartir",
-    tone: "sand",
-    products: [
+    "id": "rations",
+    "name": "Raciones",
+    "shortName": "Raciones",
+    "description": "Patatas, alitas, croquetas, fingers y otras raciones del bar.",
+    "note": "Para compartir",
+    "tone": "sand",
+    "imageKey": "generic",
+    "prepTime": "11 min",
+    "mainText": "",
+    "sections": [
       {
-        id: "hummus-casero",
-        name: "Hummus Casero",
-        description: "Crema de garbanzo con aceite de oliva, sumac y pan caliente.",
-        longDescription: "Hummus casero con aceite de oliva, sumac y pan caliente. Un entrante suave para empezar o compartir.",
-        price: 5.5,
-        imageKey: "falafel",
-        vegetarian: true,
-        featured: true,
-        tags: ["Vegetariano", "Para compartir"],
-        allergens: hummusAllergens,
-        prepTime: "8 min",
-        highlight: "Hummus casero con pan caliente",
-        modifierGroups: [breadGroup],
-      },
-      {
-        id: "sigara-borek",
-        name: "Sigara Borek",
-        description: "Rollitos crujientes rellenos de queso y hierbas.",
-        longDescription: "Rollitos crujientes rellenos de queso y hierbas. Entrante sencillo y facil de compartir.",
-        price: 6.4,
-        imageKey: "falafel",
-        vegetarian: true,
-        tags: ["Crujiente", "Para picar"],
-        allergens: borekAllergens,
-        prepTime: "10 min",
-        highlight: "Rollitos crujientes de queso",
-        modifierGroups: [sauceGroup],
-      },
-      {
-        id: "patatas-dejavu",
-        name: "Patatas DejaVu",
-        description: "Patatas crujientes con queso, carne y doble salsa.",
-        longDescription: "Patatas con queso, carne y doble salsa. Uno de los entrantes mas pedidos del local.",
-        price: 7.9,
-        imageKey: "doner",
-        bestseller: true,
-        tags: ["Compartir", "Top ventas"],
-        allergens: loadedFriesAllergens,
-        prepTime: "11 min",
-        highlight: "Patatas con carne, queso y salsa",
-        modifierGroups: [proteinClassicGroup, sauceGroup, extrasGroup, spiceGroup],
-      },
-      {
-        id: "alitas-especiadas",
-        name: "Alitas Especiadas",
-        description: "Alitas marinadas con especias suaves y glaseado final.",
-        longDescription: "Alitas marinadas y terminadas con glaseado suave. Buena opcion para compartir.",
-        price: 8.4,
-        imageKey: "adana",
-        tags: ["Para compartir", "Brasa"],
-        allergens: wingsAllergens,
-        prepTime: "13 min",
-        highlight: "Alitas marinadas con glaseado suave",
-        modifierGroups: [sauceGroup, spiceGroup],
-      },
-    ],
+        "title": "",
+        "description": "",
+        "items": [
+          {
+            "id": "patatas",
+            "title": "Patatas",
+            "description": "Patatas mixtas,bravas o alioli.",
+            "price": "8,90 €"
+          },
+          {
+            "id": "salchipapas",
+            "title": "Salchipapas",
+            "description": "",
+            "price": "10,50 €"
+          },
+          {
+            "id": "papas-locas",
+            "title": "Papas Locas",
+            "description": "Patatas fritas, pulled pork, bacon, mix de quesos, salsas, chedar y kepchup.",
+            "price": "16,50 €",
+            "bestseller": true
+          },
+          {
+            "id": "alitas-de-pollo",
+            "title": "Alitas de Pollo",
+            "description": "",
+            "price": "11,90 €"
+          },
+          {
+            "id": "nuggets",
+            "title": "Nuggets",
+            "description": "",
+            "price": "9,90 €"
+          },
+          {
+            "id": "nuggets-1-2-racion",
+            "title": "Nuggets 1/2 racion",
+            "description": "",
+            "price": "5,50 €"
+          },
+          {
+            "id": "croquetas-de-jamon",
+            "title": "Croquetas de Jamon",
+            "description": "",
+            "price": "12,00 €"
+          },
+          {
+            "id": "croquetas-de-jamon-1-2-racion",
+            "title": "Croquetas de Jamon 1/2 racion",
+            "description": "",
+            "price": "7,00 €"
+          },
+          {
+            "id": "fingers",
+            "title": "Fingers",
+            "description": "Pollo o queso",
+            "price": "11,70 €"
+          },
+          {
+            "id": "fingers-1-2-racion",
+            "title": "Fingers 1/2 racion",
+            "description": "Pollo o queso",
+            "price": "6,50 €"
+          },
+          {
+            "id": "huevos-rotos",
+            "title": "Huevos Rotos",
+            "description": "Jamon o bacon",
+            "price": "15,50 €"
+          },
+          {
+            "id": "huevos-rotos-1-2-racion",
+            "title": "Huevos Rotos 1/2 racion",
+            "description": "Jamon o bacon",
+            "price": "9,00 €"
+          },
+          {
+            "id": "oreja-a-la-plancha",
+            "title": "Oreja a la Plancha",
+            "description": "",
+            "price": "12,90 €"
+          }
+        ]
+      }
+    ]
   },
   {
-    id: "veggie",
-    name: "Vegetal",
-    shortName: "Vegetal",
-    description: "Opciones vegetarianas con falafel, ensaladas y platos completos.",
-    note: "Opciones vegetarianas",
-    tone: "olive",
-    products: [
+    "id": "hamburgers",
+    "name": "Hamburguesas",
+    "shortName": "Burgers",
+    "description": "Hamburguesas con patatas fritas, en formato clasico o mas cargado.",
+    "note": "Con patatas",
+    "tone": "copper",
+    "imageKey": "burger",
+    "prepTime": "14 min",
+    "mainText": "Todas nuestras hamburguesas pueden ser de ternera o pollo crunchy y van acompanadas de patatas fritas.",
+    "sections": [
       {
-        id: "falafel-wrap",
-        name: "Wrap de Falafel",
-        description: "Falafel recien hecho con hummus, pepino, tomate y salsa tahini.",
-        longDescription: "Falafel recien hecho con hummus, verduras y salsa tahini. Opcion vegetariana completa y sabrosa.",
-        price: 8.2,
-        imageKey: "falafel",
-        featured: true,
-        bestseller: true,
-        vegetarian: true,
-        tags: ["Vegetariano", "Fresco"],
-        allergens: falafelWrapAllergens,
-        prepTime: "12 min",
-        highlight: "Falafel, hummus y verduras frescas",
-        modifierGroups: [sauceGroup, extrasGroup, menuUpgradeGroup, spiceGroup],
-      },
-      {
-        id: "falafel-plate",
-        name: "Plato de Falafel",
-        description: "Falafel con arroz, ensalada fresca, pan y hummus.",
-        longDescription: "Falafel con arroz, ensalada, pan y hummus. Plato vegetariano completo para comer con calma.",
-        price: 10.9,
-        imageKey: "falafel",
-        vegetarian: true,
-        tags: ["Vegetariano", "Completo"],
-        allergens: falafelPlateAllergens,
-        prepTime: "14 min",
-        highlight: "Plato vegetariano completo",
-        modifierGroups: [sideGroup, sauceGroup, extrasGroup],
-      },
-      {
-        id: "ensalada-turca",
-        name: "Ensalada Turca",
-        description: "Tomate, pepino, cebolla morada, queso feta y vinagreta de hierbas.",
-        longDescription: "Tomate, pepino, cebolla morada, feta y vinagreta de hierbas. Fresca y ligera para acompanar o pedir sola.",
-        price: 7.1,
-        imageKey: "terrace",
-        vegetarian: true,
-        tags: ["Ligero", "Fresco"],
-        allergens: turkishSaladAllergens,
-        prepTime: "8 min",
-        highlight: "Ensalada fresca con queso feta",
-        modifierGroups: [extrasGroup],
-      },
-      {
-        id: "veggie-box",
-        name: "Box Vegetal",
-        description: "Base de arroz con falafel, verduras, hummus y salsa yogur vegetal.",
-        longDescription: "Base de arroz con falafel, verduras, hummus y salsa. Una opcion ligera y facil de llevar.",
-        price: 9.8,
-        imageKey: "falafel",
-        vegetarian: true,
-        tags: ["Arroz", "Para llevar"],
-        allergens: veggieBoxAllergens,
-        prepTime: "11 min",
-        highlight: "Arroz, falafel y verduras",
-        modifierGroups: [sideGroup, sauceGroup, extrasGroup],
-      },
-    ],
+        "title": "",
+        "description": "",
+        "items": [
+          {
+            "id": "simple",
+            "title": "Simple",
+            "description": "Carne y queso.",
+            "price": "10,00 €"
+          },
+          {
+            "id": "deja-vu-simple",
+            "title": "Deja Vu Simple",
+            "description": "Carne, queso, lechuga, tomate, cebolla y bacon.",
+            "price": "12,50 €"
+          },
+          {
+            "id": "rulo-de-cabra",
+            "title": "Rulo de Cabra",
+            "description": "Carne, queso de cabra y cebolla frita.",
+            "price": "12,50 €"
+          },
+          {
+            "id": "deja-vu",
+            "title": "Deja Vu",
+            "description": "Carne, queso, lechuga, tomate, cebolla, bacon y huevo.",
+            "price": "12,90 €",
+            "featured": true,
+            "bestseller": true
+          },
+          {
+            "id": "deja-vu-deluxe",
+            "title": "Deja Vu Deluxe",
+            "description": "Carne, queso, cebolla caramelizada, pepinillos, bacon y huevo (sin verduras).",
+            "price": "12,90 €"
+          },
+          {
+            "id": "dracula",
+            "title": "Dracula",
+            "description": "Doble de carne, doble de queso, cebolla caramelizada, pepinillos y bacon (sin verduras).",
+            "price": "14,50 €"
+          }
+        ]
+      }
+    ]
   },
   {
-    id: "desserts-drinks",
-    name: "Postres y Bebidas",
-    shortName: "Postres",
-    description: "Postres turcos y bebidas frias para completar el pedido.",
-    note: "Para terminar",
-    tone: "stone",
-    products: [
+    "id": "bocadillos",
+    "name": "Bocadillos",
+    "shortName": "Bocadillos",
+    "description": "Bocadillos sencillos para una comida rapida o un picoteo.",
+    "note": "Clasicos",
+    "tone": "stone",
+    "imageKey": "generic",
+    "prepTime": "7 min",
+    "mainText": "",
+    "sections": [
       {
-        id: "baklava-pistacho",
-        name: "Baklava de Pistacho",
-        description: "Hojaldre fino con frutos secos y almibar ligero.",
-        longDescription: "Capas finas de masa con frutos secos y almibar. El postre turco mas conocido de la casa.",
-        price: 4.9,
-        imageKey: "hero",
-        featured: true,
-        tags: ["Postre", "Tradicional"],
-        allergens: baklavaAllergens,
-        prepTime: "4 min",
-        highlight: "Hojaldre, frutos secos y almibar",
-        modifierGroups: [dessertToppingsGroup],
-      },
-      {
-        id: "kunefe",
-        name: "Kunefe",
-        description: "Cabello de angel crujiente con queso fundido y pistacho.",
-        longDescription: "Postre caliente con queso fundido, masa crujiente y pistacho. Se sirve recien hecho.",
-        price: 6.8,
-        imageKey: "hero",
-        tags: ["Postre caliente", "Especialidad"],
-        allergens: kunefeAllergens,
-        prepTime: "10 min",
-        highlight: "Postre caliente con pistacho",
-        modifierGroups: [dessertToppingsGroup],
-      },
-      {
-        id: "ayran-artesano",
-        name: "Ayran",
-        description: "Bebida turca de yogur muy fria y refrescante.",
-        longDescription: "Bebida turca de yogur, muy fria y ligera. Acompana bien kebabs, parrilla y platos especiados.",
-        price: 2.6,
-        imageKey: "terrace",
-        tags: ["Bebida", "Tradicional"],
-        allergens: ayranAllergens,
-        prepTime: "2 min",
-        highlight: "Yogur turco bien frio",
-        modifierGroups: [sizeDrinkGroup],
-      },
-      {
-        id: "refresco-clasico",
-        name: "Refresco Clasico",
-        description: "Refresco frio para acompanar cualquier menu.",
-        longDescription: "Refresco frio para acompanar menus y platos. Disponible en varios formatos.",
-        price: 2.2,
-        imageKey: "terrace",
-        tags: ["Bebida", "Menu"],
-        allergens: softDrinkAllergens,
-        prepTime: "2 min",
-        highlight: "Bebida fria para cualquier menu",
-        modifierGroups: [drinkGroup, sizeDrinkGroup],
-      },
-    ],
+        "title": "",
+        "description": "",
+        "items": [
+          {
+            "id": "cinta-de-lomo",
+            "title": "Cinta de Lomo",
+            "description": "",
+            "price": "6,90 €"
+          },
+          {
+            "id": "jamon-con-tomate",
+            "title": "Jamon con Tomate",
+            "description": "",
+            "price": "6,90 €"
+          },
+          {
+            "id": "bacon",
+            "title": "Bacon",
+            "description": "",
+            "price": "6,90 €"
+          },
+          {
+            "id": "panceta",
+            "title": "Panceta",
+            "description": "",
+            "price": "6,90 €"
+          },
+          {
+            "id": "pollo",
+            "title": "Pollo",
+            "description": "",
+            "price": "6,90 €"
+          }
+        ]
+      }
+    ]
   },
+  {
+    "id": "combined-plates",
+    "name": "Platos combinados",
+    "shortName": "Combinados",
+    "description": "Platos combinados servidos con patatas fritas, huevo y ensalada.",
+    "note": "Huevo y patatas",
+    "tone": "ember",
+    "imageKey": "generic",
+    "prepTime": "13 min",
+    "mainText": "Todas nuestros platos combinados van acompanados de patatas fritas, huevo y ensalada.",
+    "sections": [
+      {
+        "title": "",
+        "description": "",
+        "items": [
+          {
+            "id": "cinta-de-lomo",
+            "title": "Cinta de Lomo",
+            "description": "",
+            "price": "12,50 €"
+          },
+          {
+            "id": "pollo-a-la-plancha",
+            "title": "Pollo a la plancha",
+            "description": "",
+            "price": "12,50 €"
+          },
+          {
+            "id": "bacon",
+            "title": "Bacon",
+            "description": "",
+            "price": "12,50 €"
+          },
+          {
+            "id": "panceta",
+            "title": "Panceta",
+            "description": "",
+            "price": "12,50 €"
+          },
+          {
+            "id": "menu-platos-combinados",
+            "title": "Menu platos combinados",
+            "description": "",
+            "price": "14,00 €"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "menus",
+    "name": "Menus",
+    "shortName": "Menus",
+    "description": "Menus completos con kebab, shawarma, combi o hamburguesa, mas patatas y bebida.",
+    "note": "Recoger o enviar",
+    "tone": "gold",
+    "imageKey": "generic",
+    "prepTime": "15 min",
+    "mainText": "Todos los menus son para recoger o enviar.",
+    "sections": [
+      {
+        "title": "Menus Kebabs",
+        "description": "",
+        "items": [
+          {
+            "id": "menu-kebab-de-pollo",
+            "title": "Menu Kebab de pollo",
+            "description": "Kebab de pollo, repollo, tomate, cebolla y salsas con patatas fritas y refresco o cerveza.",
+            "price": "11,50 €"
+          },
+          {
+            "id": "menu-kebab-de-ternera",
+            "title": "Menu Kebab de ternera",
+            "description": "Kebab de ternera, repollo, tomate, cebolla y salsas con patatas fritas y refresco o cerveza.",
+            "price": "13,00 €"
+          },
+          {
+            "id": "menu-kebab-mixto",
+            "title": "Menu Kebab mixto",
+            "description": "Kebab mixto, repollo, tomate, cebolla y salsas con patatas fritas y refresco o cerveza.",
+            "price": "12,00 €",
+            "bestseller": true
+          },
+          {
+            "id": "menu-kebab-de-falafel",
+            "title": "Menu Kebab de falafel",
+            "description": "Kebab de falafel, repollo, tomate, cebolla y salsas con patatas fritas y refresco o cerveza.",
+            "price": "10,50 €",
+            "vegetarian": true
+          }
+        ]
+      },
+      {
+        "title": "Menus Shawarma",
+        "description": "",
+        "items": [
+          {
+            "id": "menu-shawarma-de-pollo",
+            "title": "Menu Shawarma de pollo",
+            "description": "Shawarma de pollo, repollo, tomate, cebolla y salsas con patatas fritas y refresco o cerveza.",
+            "price": "11,50 €"
+          },
+          {
+            "id": "menu-shawarma-de-ternera",
+            "title": "Menu Shawarma de ternera",
+            "description": "Shawarma de ternera, repollo, tomate, cebolla y salsas con patatas fritas y refresco o cerveza.",
+            "price": "13,00 €"
+          },
+          {
+            "id": "menu-shawarma-mixto",
+            "title": "Menu Shawarma mixto",
+            "description": "Shawarma mixto, repollo, tomate, cebolla y salsas con patatas fritas y refresco o cerveza.",
+            "price": "12,00 €"
+          },
+          {
+            "id": "menu-shawarma-de-falafel",
+            "title": "Menu Shawarma de falafel",
+            "description": "Shawarma de falafel, repollo, tomate, cebolla y salsas con patatas fritas y refresco o cerveza.",
+            "price": "11,50 €",
+            "vegetarian": true
+          }
+        ]
+      },
+      {
+        "title": "Menus Combi",
+        "description": "",
+        "items": [
+          {
+            "id": "menu-combi-simple-de-pollo",
+            "title": "Menu Combi simple de pollo",
+            "description": "Plato combi simple de pollo con patatas o arroz o ensalada, salsas y refresco o cerveza.",
+            "price": "11,50 €"
+          },
+          {
+            "id": "menu-combi-simple-de-ternera",
+            "title": "Menu Combi simple de ternera",
+            "description": "Plato combi simple de ternera con patatas o arroz o ensalada, salsas y refresco o cerveza.",
+            "price": "13,50 €"
+          },
+          {
+            "id": "menu-combi-simple-mixto",
+            "title": "Menu Combi simple mixto",
+            "description": "Plato combi simple mixto con patatas o arroz o ensalada, salsas y refresco o cerveza.",
+            "price": "12,00 €"
+          },
+          {
+            "id": "menu-combi-simple-de-falafel",
+            "title": "Menu Combi simple de falafel",
+            "description": "Plato combi simple de falafel con patatas o arroz o ensalada, salsas y refresco o cerveza.",
+            "price": "10,20 €",
+            "vegetarian": true
+          },
+          {
+            "id": "menu-combi-doble-de-pollo",
+            "title": "Menu Combi doble de pollo",
+            "description": "Plato combi doble de pollo con patatas o arroz o ensalada, salsas y refresco o cerveza.",
+            "price": "13,50 €"
+          },
+          {
+            "id": "menu-combi-doble-de-ternera",
+            "title": "Menu Combi doble de ternera",
+            "description": "Plato combi doble de ternera con patatas o arroz o ensalada, salsas y refresco o cerveza.",
+            "price": "15,50 €"
+          },
+          {
+            "id": "menu-combi-doble-mixto",
+            "title": "Menu Combi doble mixto",
+            "description": "Plato combi doble mixto con patatas o arroz o ensalada, salsas y refresco o cerveza.",
+            "price": "14,00 €"
+          },
+          {
+            "id": "menu-combi-doble-de-falafel",
+            "title": "Menu Combi doble de falafel",
+            "description": "Plato combi doble de falafel con patatas o arroz o ensalada, salsas y refresco o cerveza.",
+            "price": "11,50 €",
+            "vegetarian": true
+          },
+          {
+            "id": "menu-deja-vu-de-pollo",
+            "title": "Menu Deja Vu de pollo",
+            "description": "Plato Deja Vu de pollo con patatas o arroz, repollo, tomate, cebolla, salsas y refresco o cerveza.",
+            "price": "15,50 €"
+          },
+          {
+            "id": "menu-deja-vu-de-ternera",
+            "title": "Menu Deja Vu de ternera",
+            "description": "Plato Deja Vu de ternera con patatas o arroz, repollo, tomate, cebolla, salsas y refresco o cerveza.",
+            "price": "17,50 €"
+          },
+          {
+            "id": "menu-deja-vu-mixto",
+            "title": "Menu Deja Vu mixto",
+            "description": "Plato Deja Vu mixto con patatas o arroz, repollo, tomate, cebolla, salsas y refresco o cerveza.",
+            "price": "16,00 €"
+          },
+          {
+            "id": "menu-deja-vu-de-falafel",
+            "title": "Menu Deja Vu de falafel",
+            "description": "Plato Deja Vu de falafel con patatas o arroz, repollo, tomate, cebolla, salsas y refresco o cerveza.",
+            "price": "13,50 €",
+            "vegetarian": true
+          }
+        ]
+      },
+      {
+        "title": "Menus Hamburguesas",
+        "description": "(Hamburguesa + Patatas + Bebida)",
+        "items": [
+          {
+            "id": "hamburguesa-simple",
+            "title": "Hamburguesa Simple",
+            "description": "Carne y queso con patatas fritas y refresco o cerveza.",
+            "price": "12,00 €"
+          },
+          {
+            "id": "hamburguesa-deja-vu-simple",
+            "title": "Hamburguesa Deja Vu Simple",
+            "description": "Carne, queso, lechuga, tomate, cebolla y bacon con patatas fritas y refresco o cerveza.",
+            "price": "14,00 €"
+          },
+          {
+            "id": "hamburguesa-rulo-de-cabra",
+            "title": "Hamburguesa Rulo de Cabra",
+            "description": "Carne, queso de cabra y cebolla frita con patatas fritas y refresco o cerveza.",
+            "price": "14,00 €"
+          },
+          {
+            "id": "hamburguesa-deja-vu",
+            "title": "Hamburguesa Deja Vu",
+            "description": "Carne, queso, lechuga, tomate, cebolla, bacon y huevo con patatas fritas y refresco o cerveza.",
+            "price": "14,40 €"
+          },
+          {
+            "id": "hamburguesa-deja-vu-deluxe",
+            "title": "Hamburguesa Deja Vu Deluxe",
+            "description": "Carne, queso, cebolla caramelizada, pepinillos, bacon y huevo (sin verduras) con patatas fritas y refresco o cerveza.",
+            "price": "14,40 €"
+          },
+          {
+            "id": "hamburguesa-dracula",
+            "title": "Hamburguesa Dracula",
+            "description": "Doble de carne, doble de queso, cebolla caramelizada, pepinillos y bacon (sin verduras) con patatas fritas y refresco o cerveza.",
+            "price": "16,00 €"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "desserts",
+    "name": "Postres",
+    "shortName": "Postres",
+    "description": "Postres, helados y tartas segun disponibilidad diaria.",
+    "note": "Caseros y frios",
+    "tone": "stone",
+    "imageKey": "generic",
+    "prepTime": "5 min",
+    "mainText": "Consulta nuestras tartas caseras disponibles en funcion del stock diario.",
+    "sections": [
+      {
+        "title": "Postres",
+        "description": "",
+        "items": [
+          {
+            "id": "coulant-de-chocolate",
+            "title": "Coulant de Chocolate",
+            "description": "",
+            "price": "5,50 €"
+          },
+          {
+            "id": "profiteroles",
+            "title": "Profiteroles",
+            "description": "",
+            "price": "5,50 €"
+          },
+          {
+            "id": "batido",
+            "title": "Batido",
+            "description": "Chocolate o Vainilla",
+            "price": "5,50 €"
+          },
+          {
+            "id": "copa-de-helado",
+            "title": "Copa de Helado",
+            "description": "Chocolate o Vainilla",
+            "price": "5,50 €"
+          },
+          {
+            "id": "bola-de-helado",
+            "title": "Bola de Helado",
+            "description": "Chocolate o Vainilla",
+            "price": "1,90 €"
+          }
+        ]
+      },
+      {
+        "title": "Tartas caseras (segun stock)",
+        "description": "Disponibles segun stock diario. Podemos ofrecer cantidades para llevar bajo pedido.",
+        "items": [
+          {
+            "id": "tarta-de-queso",
+            "title": "Tarta de Queso",
+            "description": "",
+            "price": "6,50 €",
+            "featured": true
+          },
+          {
+            "id": "tarta-de-la-abuela",
+            "title": "Tarta de la Abuela",
+            "description": "",
+            "price": "6,50 €"
+          },
+          {
+            "id": "milhojas",
+            "title": "Milhojas",
+            "description": "",
+            "price": "6,50 €"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "drinks",
+    "name": "Bebidas",
+    "shortName": "Bebidas",
+    "description": "Agua, refrescos, cerveza, vino, cafe y opciones para llevar.",
+    "note": "Bebidas",
+    "tone": "olive",
+    "imageKey": "generic",
+    "prepTime": "2 min",
+    "mainText": "",
+    "sections": [
+      {
+        "title": "Bebidas",
+        "description": "",
+        "items": [
+          {
+            "id": "agua-500-ml",
+            "title": "Agua (500 ml)",
+            "description": "",
+            "price": "2,00 €"
+          },
+          {
+            "id": "agua-con-gas",
+            "title": "Agua con gas",
+            "description": "",
+            "price": "2,50 €"
+          },
+          {
+            "id": "refresco",
+            "title": "Refresco",
+            "description": "",
+            "price": "Desde 2,80 €"
+          },
+          {
+            "id": "copa-de-cerveza",
+            "title": "Copa de cerveza",
+            "description": "",
+            "price": "Desde 2,70 €"
+          },
+          {
+            "id": "tercio",
+            "title": "Tercio",
+            "description": "",
+            "price": "Desde 3,00 €"
+          },
+          {
+            "id": "jarra-de-cerveza",
+            "title": "Jarra de cerveza",
+            "description": "",
+            "price": "4,20 €"
+          },
+          {
+            "id": "cerveza-especial",
+            "title": "Cerveza especial",
+            "description": "",
+            "price": "3,20 €"
+          },
+          {
+            "id": "copa-de-vino",
+            "title": "Copa de vino",
+            "description": "",
+            "price": "Desde 3,20 €"
+          },
+          {
+            "id": "botella-de-vino",
+            "title": "Botella de vino",
+            "description": "",
+            "price": "17,00 €"
+          },
+          {
+            "id": "tinto-de-verano",
+            "title": "Tinto de verano",
+            "description": "",
+            "price": "4,20 €"
+          },
+          {
+            "id": "cafe",
+            "title": "Cafe",
+            "description": "",
+            "price": "1,70 €"
+          },
+          {
+            "id": "latas-para-llevar",
+            "title": "Latas para llevar",
+            "description": "",
+            "price": "1,70 €"
+          }
+        ]
+      }
+    ]
+  }
 ];
+
+const flatMenuCatalog: MenuCatalogCategory[] = legacyMenuCatalog.map((category) => ({
+  id: category.id,
+  name: category.name,
+  shortName: category.shortName,
+  description: category.description,
+  note: category.note,
+  tone: category.tone,
+  products: category.sections.flatMap((section) => section.items.map((item) => buildLegacyProduct(category, section, item))),
+}));
+
+function getFlatCategory(categoryId: string) {
+  const category = flatMenuCatalog.find((entry) => entry.id === categoryId);
+
+  if (!category) {
+    throw new Error(`Missing category ${categoryId}`);
+  }
+
+  return category;
+}
+
+function getFlatProduct(categoryId: string, itemId: string) {
+  const category = getFlatCategory(categoryId);
+  const productId = `${categoryId}-${itemId}`;
+  const product = category.products.find((entry) => entry.id === productId);
+
+  if (!product) {
+    throw new Error(`Missing product ${productId}`);
+  }
+
+  return product;
+}
+
+function mergeTags(...groups: Array<string[] | undefined>) {
+  return [...new Set(groups.flatMap((group) => group ?? []))].slice(0, 4);
+}
+
+function deriveProduct(
+  categoryId: string,
+  itemId: string,
+  overrides: Partial<MenuProductSeed> & Pick<MenuProductSeed, "id" | "name" | "description" | "longDescription" | "highlight">,
+): MenuProductSeed {
+  const baseProduct = getFlatProduct(categoryId, itemId);
+
+  return {
+    ...baseProduct,
+    ...overrides,
+    tags: overrides.tags ?? baseProduct.tags,
+    modifierGroups: overrides.modifierGroups ?? baseProduct.modifierGroups,
+    allergens: overrides.allergens ?? baseProduct.allergens,
+  };
+}
+
+function buildTurkishSpecialtiesProducts() {
+  const kebabBase = getFlatProduct("turkish-specialties", "kebab-de-pollo");
+  const kebabFalafel = getFlatProduct("turkish-specialties", "kebab-de-falafel");
+  const shawarmaBase = getFlatProduct("turkish-specialties", "shawarma-de-pollo");
+  const shawarmaFalafel = getFlatProduct("turkish-specialties", "shawarma-de-falafel");
+
+  return [
+    deriveProduct("turkish-specialties", "kebab-de-pollo", {
+      id: "turkish-specialties-kebab",
+      name: "Kebab",
+      description: "Repollo, tomate, cebolla y salsas. Elige pollo, ternera o mixto.",
+      longDescription:
+        "Kebab con repollo, tomate, cebolla y salsas. Puedes pedirlo de pollo, ternera o mixto desde el mismo producto.",
+      highlight: "Pollo, ternera o mixto",
+      featured: true,
+      bestseller: true,
+      tags: mergeTags(kebabBase.tags, ["Elige carne"]),
+      modifierGroups: [kebabProteinGroup, sauceGroup, legacyTurkishExtrasGroup],
+    }),
+    deriveProduct("turkish-specialties", "kebab-de-falafel", {
+      id: "turkish-specialties-kebab-falafel",
+      name: "Kebab de falafel",
+      description: "Falafel con repollo, tomate, cebolla y salsas.",
+      longDescription: "Kebab de falafel con verdura fresca y salsas. Se mantiene como opcion vegetariana separada.",
+      highlight: "Falafel, verdura y salsas",
+      tags: mergeTags(kebabFalafel.tags, ["Vegetariano"]),
+      modifierGroups: [sauceGroup, legacyTurkishExtrasGroup],
+    }),
+    deriveProduct("turkish-specialties", "shawarma-de-pollo", {
+      id: "turkish-specialties-shawarma",
+      name: "Shawarma",
+      description: "Repollo, tomate, cebolla y salsas. Elige pollo, ternera o mixto.",
+      longDescription:
+        "Shawarma con repollo, tomate, cebolla y salsas. Puedes elegir pollo, ternera o mixto desde el mismo producto.",
+      highlight: "Pollo, ternera o mixto",
+      tags: mergeTags(shawarmaBase.tags, ["Elige carne"]),
+      modifierGroups: [kebabProteinGroup, sauceGroup, legacyTurkishExtrasGroup],
+    }),
+    deriveProduct("turkish-specialties", "shawarma-de-falafel", {
+      id: "turkish-specialties-shawarma-falafel",
+      name: "Shawarma de falafel",
+      description: "Falafel con repollo, tomate, cebolla y salsas.",
+      longDescription: "Shawarma de falafel con verdura fresca y salsas. Opcion vegetariana separada del resto.",
+      highlight: "Falafel, verdura y salsas",
+      tags: mergeTags(shawarmaFalafel.tags, ["Vegetariano"]),
+      modifierGroups: [sauceGroup, legacyTurkishExtrasGroup],
+    }),
+  ];
+}
+
+function buildPlatesProducts() {
+  return [
+    deriveProduct("plates", "combi-simple-de-pollo", {
+      id: "plates-combi-simple",
+      name: "Combi simple",
+      description: "Arroz, patatas o ensalada. Elige pollo, ternera o mixto.",
+      longDescription: "Plato combi con guarnicion a elegir. Puedes pedirlo de pollo, ternera o mixto desde el mismo producto.",
+      highlight: "Pollo, ternera o mixto",
+      tags: mergeTags(getFlatProduct("plates", "combi-simple-de-pollo").tags, ["Elige carne"]),
+      modifierGroups: [combiSimpleProteinGroup, sideGroup, sauceGroup, legacyPlateExtrasGroup],
+    }),
+    deriveProduct("plates", "combi-simple-de-falafel", {
+      id: "plates-combi-simple-falafel",
+      name: "Combi simple de falafel",
+      description: "Falafel con arroz, patatas o ensalada.",
+      longDescription: "Plato combi simple de falafel con guarnicion a elegir y extras del local.",
+      highlight: "Falafel y guarnicion",
+      tags: mergeTags(getFlatProduct("plates", "combi-simple-de-falafel").tags, ["Vegetariano"]),
+      modifierGroups: [sideGroup, sauceGroup, legacyPlateExtrasGroup],
+    }),
+    deriveProduct("plates", "combi-doble-de-pollo", {
+      id: "plates-combi-doble",
+      name: "Combi doble",
+      description: "Racion doble con arroz, patatas o ensalada. Elige pollo, ternera o mixto.",
+      longDescription: "Plato combi doble con guarnicion a elegir. Puedes pedirlo de pollo, ternera o mixto desde el mismo producto.",
+      highlight: "Racion doble a elegir",
+      tags: mergeTags(getFlatProduct("plates", "combi-doble-de-pollo").tags, ["Elige carne"]),
+      modifierGroups: [combiDoubleProteinGroup, sideGroup, sauceGroup, legacyPlateExtrasGroup],
+    }),
+    deriveProduct("plates", "combi-doble-de-falafel", {
+      id: "plates-combi-doble-falafel",
+      name: "Combi doble de falafel",
+      description: "Doble de falafel con arroz, patatas o ensalada.",
+      longDescription: "Version doble del combi de falafel con guarnicion a elegir y extras del local.",
+      highlight: "Doble de falafel",
+      tags: mergeTags(getFlatProduct("plates", "combi-doble-de-falafel").tags, ["Vegetariano"]),
+      modifierGroups: [sideGroup, sauceGroup, legacyPlateExtrasGroup],
+    }),
+    deriveProduct("plates", "plato-deja-vu-de-pollo", {
+      id: "plates-plato-deja-vu",
+      name: "Plato Deja Vu",
+      description: "Patatas o arroz, repollo, tomate, cebolla y salsas. Elige pollo, ternera o mixto.",
+      longDescription:
+        "Plato Deja Vu con base de patatas o arroz, repollo, tomate, cebolla y salsas. Puedes pedirlo de pollo, ternera o mixto.",
+      highlight: "Pollo, ternera o mixto",
+      featured: true,
+      bestseller: true,
+      tags: mergeTags(getFlatProduct("plates", "plato-deja-vu-de-pollo").tags, ["Elige carne"]),
+      modifierGroups: [dejaVuProteinGroup, sideGroup, sauceGroup, legacyPlateExtrasGroup],
+    }),
+    deriveProduct("plates", "plato-deja-vu-de-falafel", {
+      id: "plates-plato-deja-vu-falafel",
+      name: "Plato Deja Vu de falafel",
+      description: "Falafel con patatas o arroz, repollo, tomate, cebolla y salsas.",
+      longDescription: "Version vegetariana del Plato Deja Vu con falafel, guarnicion a elegir y extras del local.",
+      highlight: "Falafel y guarnicion",
+      tags: mergeTags(getFlatProduct("plates", "plato-deja-vu-de-falafel").tags, ["Vegetariano"]),
+      modifierGroups: [sideGroup, sauceGroup, legacyPlateExtrasGroup],
+    }),
+  ];
+}
+
+function buildHamburgerProducts(category: MenuCatalogCategory) {
+  return category.products.map((product) => ({
+    ...product,
+    description: `${product.description} Ternera o pollo crunchy.`,
+    longDescription: `${product.longDescription} Disponible en ternera o pollo crunchy con el mismo precio base.`,
+    tags: mergeTags(product.tags, ["Elige carne"]),
+    modifierGroups: [burgerProteinChoiceGroup, legacyBurgerExtrasGroup],
+  }));
+}
+
+function buildMenuProducts(category: MenuCatalogCategory) {
+  const burgerMenuIds = new Set([
+    "menus-hamburguesa-simple",
+    "menus-hamburguesa-deja-vu-simple",
+    "menus-hamburguesa-rulo-de-cabra",
+    "menus-hamburguesa-deja-vu",
+    "menus-hamburguesa-deja-vu-deluxe",
+    "menus-hamburguesa-dracula",
+  ]);
+
+  return [
+    deriveProduct("menus", "menu-kebab-de-pollo", {
+      id: "menus-menu-kebab",
+      name: "Menu Kebab",
+      description: "Kebab con patatas fritas y bebida. Elige pollo, ternera o mixto.",
+      longDescription:
+        "Menu kebab con patatas fritas y bebida incluida. Puedes pedirlo de pollo, ternera o mixto desde el mismo producto.",
+      highlight: "Kebab, patatas y bebida",
+      tags: mergeTags(getFlatProduct("menus", "menu-kebab-de-pollo").tags, ["Elige carne"]),
+      modifierGroups: [menuProteinGroup, drinkGroup, sauceGroup],
+    }),
+    deriveProduct("menus", "menu-kebab-de-falafel", {
+      id: "menus-menu-kebab-falafel",
+      name: "Menu Kebab de falafel",
+      description: "Kebab de falafel con patatas fritas y bebida.",
+      longDescription: "Menu de kebab de falafel con patatas fritas, bebida incluida y salsas a elegir.",
+      highlight: "Falafel, patatas y bebida",
+      tags: mergeTags(getFlatProduct("menus", "menu-kebab-de-falafel").tags, ["Vegetariano"]),
+      modifierGroups: [drinkGroup, sauceGroup],
+    }),
+    deriveProduct("menus", "menu-shawarma-de-pollo", {
+      id: "menus-menu-shawarma",
+      name: "Menu Shawarma",
+      description: "Shawarma con patatas fritas y bebida. Elige pollo, ternera o mixto.",
+      longDescription:
+        "Menu shawarma con patatas fritas y bebida incluida. Puedes pedirlo de pollo, ternera o mixto desde el mismo producto.",
+      highlight: "Shawarma, patatas y bebida",
+      tags: mergeTags(getFlatProduct("menus", "menu-shawarma-de-pollo").tags, ["Elige carne"]),
+      modifierGroups: [menuProteinGroup, drinkGroup, sauceGroup],
+    }),
+    deriveProduct("menus", "menu-shawarma-de-falafel", {
+      id: "menus-menu-shawarma-falafel",
+      name: "Menu Shawarma de falafel",
+      description: "Shawarma de falafel con patatas fritas y bebida.",
+      longDescription: "Menu de shawarma de falafel con patatas fritas, bebida incluida y salsas a elegir.",
+      highlight: "Falafel, patatas y bebida",
+      tags: mergeTags(getFlatProduct("menus", "menu-shawarma-de-falafel").tags, ["Vegetariano"]),
+      modifierGroups: [drinkGroup, sauceGroup],
+    }),
+    deriveProduct("menus", "menu-combi-simple-de-pollo", {
+      id: "menus-menu-combi-simple",
+      name: "Menu Combi simple",
+      description: "Combi simple con guarnicion, bebida y salsas. Elige pollo, ternera o mixto.",
+      longDescription:
+        "Menu combi simple con patatas, arroz o ensalada, bebida incluida y salsas. Puedes elegir pollo, ternera o mixto.",
+      highlight: "Combi simple y bebida",
+      tags: mergeTags(getFlatProduct("menus", "menu-combi-simple-de-pollo").tags, ["Elige carne"]),
+      modifierGroups: [menuCombiSimpleProteinGroup, sideGroup, drinkGroup, sauceGroup],
+    }),
+    deriveProduct("menus", "menu-combi-simple-de-falafel", {
+      id: "menus-menu-combi-simple-falafel",
+      name: "Menu Combi simple de falafel",
+      description: "Combi simple de falafel con guarnicion, bebida y salsas.",
+      longDescription: "Menu combi simple de falafel con patatas, arroz o ensalada, bebida incluida y salsas a elegir.",
+      highlight: "Falafel, guarnicion y bebida",
+      tags: mergeTags(getFlatProduct("menus", "menu-combi-simple-de-falafel").tags, ["Vegetariano"]),
+      modifierGroups: [sideGroup, drinkGroup, sauceGroup],
+    }),
+    deriveProduct("menus", "menu-combi-doble-de-pollo", {
+      id: "menus-menu-combi-doble",
+      name: "Menu Combi doble",
+      description: "Combi doble con guarnicion, bebida y salsas. Elige pollo, ternera o mixto.",
+      longDescription:
+        "Menu combi doble con patatas, arroz o ensalada, bebida incluida y salsas. Puedes elegir pollo, ternera o mixto.",
+      highlight: "Combi doble y bebida",
+      tags: mergeTags(getFlatProduct("menus", "menu-combi-doble-de-pollo").tags, ["Elige carne"]),
+      modifierGroups: [menuCombiDoubleProteinGroup, sideGroup, drinkGroup, sauceGroup],
+    }),
+    deriveProduct("menus", "menu-combi-doble-de-falafel", {
+      id: "menus-menu-combi-doble-falafel",
+      name: "Menu Combi doble de falafel",
+      description: "Combi doble de falafel con guarnicion, bebida y salsas.",
+      longDescription: "Menu combi doble de falafel con patatas, arroz o ensalada, bebida incluida y salsas a elegir.",
+      highlight: "Doble de falafel y bebida",
+      tags: mergeTags(getFlatProduct("menus", "menu-combi-doble-de-falafel").tags, ["Vegetariano"]),
+      modifierGroups: [sideGroup, drinkGroup, sauceGroup],
+    }),
+    deriveProduct("menus", "menu-deja-vu-de-pollo", {
+      id: "menus-menu-deja-vu",
+      name: "Menu Deja Vu",
+      description: "Plato Deja Vu con guarnicion, bebida y salsas. Elige pollo, ternera o mixto.",
+      longDescription:
+        "Menu Plato Deja Vu con patatas o arroz, repollo, tomate, cebolla, salsas y bebida incluida. Puedes elegir pollo, ternera o mixto.",
+      highlight: "Deja Vu, guarnicion y bebida",
+      tags: mergeTags(getFlatProduct("menus", "menu-deja-vu-de-pollo").tags, ["Elige carne"]),
+      modifierGroups: [menuDejaVuProteinGroup, sideGroup, drinkGroup, sauceGroup],
+    }),
+    deriveProduct("menus", "menu-deja-vu-de-falafel", {
+      id: "menus-menu-deja-vu-falafel",
+      name: "Menu Deja Vu de falafel",
+      description: "Plato Deja Vu de falafel con guarnicion, bebida y salsas.",
+      longDescription: "Version vegetariana del Menu Deja Vu con falafel, guarnicion a elegir, bebida y salsas.",
+      highlight: "Falafel, guarnicion y bebida",
+      tags: mergeTags(getFlatProduct("menus", "menu-deja-vu-de-falafel").tags, ["Vegetariano"]),
+      modifierGroups: [sideGroup, drinkGroup, sauceGroup],
+    }),
+    ...category.products
+      .filter((product) => burgerMenuIds.has(product.id))
+      .map((product) => ({
+        ...product,
+        description: `${product.description} Ternera o pollo crunchy.`,
+        longDescription: `${product.longDescription} Disponible en ternera o pollo crunchy con el mismo precio base.`,
+        tags: mergeTags(product.tags, ["Elige carne"]),
+        modifierGroups: [burgerProteinChoiceGroup, drinkGroup, legacyBurgerExtrasGroup],
+      })),
+  ];
+}
+
+function buildBocadillosProducts() {
+  return [
+    deriveProduct("bocadillos", "cinta-de-lomo", {
+      id: "bocadillos-bocadillo",
+      name: "Bocadillo",
+      description: "Elige relleno entre lomo, jamon con tomate, bacon, panceta o pollo.",
+      longDescription:
+        "Bocadillo del local con relleno a elegir entre cinta de lomo, jamon con tomate, bacon, panceta o pollo.",
+      highlight: "Elige relleno",
+      tags: mergeTags(getFlatProduct("bocadillos", "cinta-de-lomo").tags, ["Elige relleno"]),
+      modifierGroups: [bocadilloFillingGroup],
+    }),
+  ];
+}
+
+function buildCombinedPlatesProducts() {
+  return [
+    deriveProduct("combined-plates", "cinta-de-lomo", {
+      id: "combined-plates-plato-combinado",
+      name: "Plato combinado",
+      description: "Patatas fritas, huevo y ensalada. Elige lomo, pollo, bacon o panceta.",
+      longDescription:
+        "Plato combinado con patatas fritas, huevo y ensalada. Puedes pedirlo con cinta de lomo, pollo a la plancha, bacon o panceta.",
+      highlight: "Lomo, pollo, bacon o panceta",
+      tags: mergeTags(getFlatProduct("combined-plates", "cinta-de-lomo").tags, ["Elige principal"]),
+      modifierGroups: [combinedPlateChoiceGroup],
+    }),
+    getFlatProduct("combined-plates", "menu-platos-combinados"),
+  ];
+}
+
+function buildProductsForCategory(category: MenuCatalogCategory) {
+  switch (category.id) {
+    case "turkish-specialties":
+      return buildTurkishSpecialtiesProducts();
+    case "plates":
+      return buildPlatesProducts();
+    case "hamburgers":
+      return buildHamburgerProducts(category);
+    case "menus":
+      return buildMenuProducts(category);
+    case "bocadillos":
+      return buildBocadillosProducts();
+    case "combined-plates":
+      return buildCombinedPlatesProducts();
+    default:
+      return category.products;
+  }
+}
+
+export const menuCatalog: MenuCatalogCategory[] = flatMenuCatalog.map((category) => ({
+  id: category.id,
+  name: category.name,
+  shortName: category.shortName,
+  description: category.description,
+  note: category.note,
+  tone: category.tone,
+  products: buildProductsForCategory(category),
+}));
 
 export const menuCategories: MenuCategory[] = menuCatalog.map(({ products: _products, ...category }) => category);
 
@@ -471,51 +1693,51 @@ export const menuProducts: MenuProduct[] = menuCatalog.flatMap((category) =>
 
 export const experienceHighlights: ExperienceHighlight[] = [
   {
-    title: "Cocina al momento",
-    description: "Elaboracion al momento y tiempos habituales de servicio.",
-    value: "12-18 min",
+    title: "Carta actual",
+    description: "Platos, menus, postres y bebidas pasados desde la carta publicada del local.",
+    value: String(menuProducts.length),
   },
   {
-    title: "Carta completa",
-    description: "Kebabs, parrilla, horno turco, entrantes, vegetal y postres.",
-    value: "24 platos",
+    title: "Categorias",
+    description: "Ensaladas, kebabs, platos, raciones, burgers, postres y mas.",
+    value: String(menuCategories.length),
   },
   {
     title: "Formas de pedir",
     description: "Servicio en local, recogida y reparto cercano.",
-    value: "3 opciones",
+    value: "3",
   },
 ];
 
 export const orderingSteps: OrderingStep[] = [
   {
     title: "Explora la carta",
-    description: "Revisa categorias, precios y platos mas pedidos.",
+    description: "Revisa ensaladas, kebabs, platos, raciones, menus, postres y bebidas desde una sola carta.",
   },
   {
-    title: "Personaliza tu pedido",
-    description: "Elige salsas, extras y notas para cocina.",
+    title: "Elige el formato",
+    description: "Decide si quieres un producto suelto, un plato completo, una hamburguesa o uno de los menus del local.",
   },
   {
-    title: "Confirma tu seleccion",
-    description: "Decide si lo quieres para recoger, a domicilio o para tomar en local.",
+    title: "Confirma el pedido",
+    description: "Indica si lo quieres para recoger, a domicilio o para tomarlo directamente en el local.",
   },
 ];
 
 export const testimonials: Testimonial[] = [
   {
-    name: "Laura y Sergio",
-    quote: "El durum llega bien cargado y normalmente lo tienen listo muy rapido.",
-    detail: "Pedido habitual de fin de semana",
-  },
-  {
-    name: "Equipo de sala",
-    quote: "Buena atencion, local limpio y platos servidos al momento.",
-    detail: "Clientes habituales del local",
-  },
-  {
     name: "Clientes de Rivas",
-    quote: "La carta tiene variedad y los platos mantienen buen tamano y sabor.",
+    quote: "Los kebabs salen bien cargados y normalmente tienen el pedido listo bastante rapido.",
+    detail: "Pedidos habituales entre semana",
+  },
+  {
+    name: "Mesa de terraza",
+    quote: "Las raciones para compartir y las hamburguesas funcionan muy bien para venir a comer con calma.",
+    detail: "Comida en local",
+  },
+  {
+    name: "Recogida habitual",
+    quote: "La carta tiene mucha variedad y los menus ayudan a pedir rapido cuando vamos con prisa.",
     detail: "Recogida y pedidos frecuentes",
   },
 ];

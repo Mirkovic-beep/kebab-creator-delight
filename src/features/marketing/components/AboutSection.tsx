@@ -7,7 +7,7 @@ import { experienceHighlights, restaurantInfo } from "@/features/menu/data";
 const services = [
   { icon: TreePine, label: "Terraza activa", detail: "Comida en exterior con ambiente relajado" },
   { icon: Wifi, label: "Wi-Fi gratis", detail: "Ideal para comidas largas o esperas cortas" },
-  { icon: UtensilsCrossed, label: "Menu amplio", detail: "Clasicos, parrilla, veggie y postres" },
+  { icon: UtensilsCrossed, label: "Carta amplia", detail: "Kebabs, raciones, burgers, menus y postres" },
   { icon: ShieldCheck, label: "Servicio directo", detail: "Recogida, delivery y pedidos para llevar" },
 ];
 
@@ -40,8 +40,8 @@ const AboutSection = () => {
               Un local comodo, con servicio directo y cocina al momento.
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
-              En DejaVu trabajamos una carta centrada en kebabs, parrilla, horno turco y opciones vegetarianas, con
-              servicio directo en sala, recogida y reparto cercano.
+              En DejaVu trabajamos una carta amplia con kebabs, platos, raciones, hamburguesas, bocadillos, menus y
+              postres, con servicio directo en sala, recogida y reparto cercano.
             </p>
 
             <div className="mt-8 grid gap-4 md:grid-cols-2">

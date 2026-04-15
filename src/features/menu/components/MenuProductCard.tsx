@@ -54,11 +54,6 @@ const MenuProductCard = ({
                   height={480}
                 />
                 <div className="gradient-overlay absolute inset-0" />
-                <div className="absolute inset-x-1.5 top-1.5 flex justify-end">
-                  <div className="border border-white/20 bg-black/80 px-1.5 py-1 text-right text-white backdrop-blur-sm">
-                    <p className="font-display text-[1rem] leading-none">{product.prepTime}</p>
-                  </div>
-                </div>
                 <span className="absolute bottom-1.5 left-1.5 inline-flex items-center gap-1 border border-white/16 bg-black/78 px-1.5 py-1 text-[9px] font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-sm">
                   <Search className="h-3 w-3" aria-hidden="true" />
                   Ver
@@ -129,12 +124,8 @@ const MenuProductCard = ({
               height={768}
             />
             <div className="gradient-overlay absolute inset-0" />
-            <div className="absolute left-4 right-4 top-4 flex items-start justify-between gap-3">
+            <div className="absolute left-4 right-4 top-4">
               <ProductStatusBadges product={product} className="max-w-[72%]" />
-              <div className="border border-white/20 bg-black/80 px-3 py-2 text-right text-white backdrop-blur-sm">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/68">Listo</p>
-                <p className="font-display text-2xl leading-none">{product.prepTime}</p>
-              </div>
             </div>
             <div className="absolute bottom-4 left-4">
               <span className="inline-flex items-center gap-2 border border-white/20 bg-black/76 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-sm">

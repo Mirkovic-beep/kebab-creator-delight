@@ -7,6 +7,10 @@ import terrazaImage from "@/assets/terraza.jpg";
 
 import type { AllergenDefinition, AllergenId, MenuAllergen, MenuImageKey, MenuModifierGroup } from "./types";
 
+const remoteSaladImage = "https://bar-dejavu-kebab.es/images/ensalada_carta.jpg";
+const remoteBurgerImage = "https://bar-dejavu-kebab.es/images/hamburguesa_carta.jpg";
+const remoteGenericImage = "https://bar-dejavu-kebab.es/images/imagenCarta.jpg";
+
 export const menuImageMap: Record<MenuImageKey, string> = {
   hero: heroImage,
   doner: donerImage,
@@ -14,6 +18,9 @@ export const menuImageMap: Record<MenuImageKey, string> = {
   falafel: falafelImage,
   adana: adanaImage,
   terrace: terrazaImage,
+  salad: remoteSaladImage,
+  burger: remoteBurgerImage,
+  generic: remoteGenericImage,
 };
 
 export const sauceGroup: MenuModifierGroup = {
@@ -43,6 +50,46 @@ export const extrasGroup: MenuModifierGroup = {
     { id: "extra-hummus", name: "Hummus casero", price: 1.2 },
     { id: "extra-carne", name: "Extra de carne", price: 2.5 },
     { id: "extra-falafel", name: "2 falafel extra", price: 1.5 },
+  ],
+};
+
+export const legacyTurkishExtrasGroup: MenuModifierGroup = {
+  id: "legacy-turkish-extras",
+  name: "Extras del local",
+  description: "Opciones extra visibles en la carta antigua",
+  selectionType: "multiple",
+  maxSelections: 5,
+  options: [
+    { id: "legacy-large-side", name: "Racion grande de patatas o arroz", price: 5 },
+    { id: "legacy-extra-bread", name: "Extra de pan", price: 0.7 },
+    { id: "legacy-extra-sauce", name: "Extra de salsa", price: 0.5 },
+    { id: "legacy-extra-cheese", name: "Extra de queso", price: 0.5 },
+    { id: "legacy-small-side", name: "Racion pequena de patatas o arroz", price: 2.8 },
+  ],
+};
+
+export const legacyPlateExtrasGroup: MenuModifierGroup = {
+  id: "legacy-plate-extras",
+  name: "Extras del plato",
+  description: "Suplementos tal como aparecian en la carta antigua",
+  selectionType: "multiple",
+  maxSelections: 2,
+  options: [
+    { id: "legacy-plate-bread", name: "Extra de pan", price: 0.7 },
+    { id: "legacy-plate-cheese", name: "Extra de queso", price: 0.5 },
+  ],
+};
+
+export const legacyBurgerExtrasGroup: MenuModifierGroup = {
+  id: "legacy-burger-extras",
+  name: "Extras de hamburguesa",
+  description: "Suplementos indicados en la carta antigua",
+  selectionType: "multiple",
+  maxSelections: 3,
+  options: [
+    { id: "legacy-burger-varios", name: "Extra varios", price: 0.7 },
+    { id: "legacy-burger-goat-cheese", name: "Extra queso rulo", price: 2.8 },
+    { id: "legacy-burger-meat", name: "Extra carne", price: 3.2 },
   ],
 };
 
@@ -86,6 +133,151 @@ export const proteinClassicGroup: MenuModifierGroup = {
     { id: "pollo", name: "Pollo", default: true },
     { id: "ternera", name: "Ternera" },
     { id: "mixto", name: "Mixto", price: 0.7 },
+  ],
+};
+
+export const kebabProteinGroup: MenuModifierGroup = {
+  id: "kebab-protein",
+  name: "Carne",
+  description: "Elige tu version",
+  selectionType: "single",
+  required: true,
+  options: [
+    { id: "kebab-pollo", name: "Pollo", default: true },
+    { id: "kebab-ternera", name: "Ternera", price: 1.5 },
+    { id: "kebab-mixto", name: "Mixto", price: 0.5 },
+  ],
+};
+
+export const combiSimpleProteinGroup: MenuModifierGroup = {
+  id: "combi-simple-protein",
+  name: "Carne",
+  description: "Escoge la carne del plato",
+  selectionType: "single",
+  required: true,
+  options: [
+    { id: "combi-simple-pollo", name: "Pollo", default: true },
+    { id: "combi-simple-ternera", name: "Ternera", price: 2 },
+    { id: "combi-simple-mixto", name: "Mixto", price: 0.5 },
+  ],
+};
+
+export const combiDoubleProteinGroup: MenuModifierGroup = {
+  id: "combi-double-protein",
+  name: "Carne",
+  description: "Escoge la carne del plato",
+  selectionType: "single",
+  required: true,
+  options: [
+    { id: "combi-double-pollo", name: "Pollo", default: true },
+    { id: "combi-double-ternera", name: "Ternera", price: 2 },
+    { id: "combi-double-mixto", name: "Mixto", price: 0.5 },
+  ],
+};
+
+export const dejaVuProteinGroup: MenuModifierGroup = {
+  id: "dejavu-protein",
+  name: "Carne",
+  description: "Escoge la carne del plato",
+  selectionType: "single",
+  required: true,
+  options: [
+    { id: "dejavu-pollo", name: "Pollo", default: true },
+    { id: "dejavu-ternera", name: "Ternera", price: 2.5 },
+    { id: "dejavu-mixto", name: "Mixto", price: 1 },
+  ],
+};
+
+export const menuProteinGroup: MenuModifierGroup = {
+  id: "menu-protein",
+  name: "Carne",
+  description: "Elige tu version del menu",
+  selectionType: "single",
+  required: true,
+  options: [
+    { id: "menu-pollo", name: "Pollo", default: true },
+    { id: "menu-ternera", name: "Ternera", price: 1.5 },
+    { id: "menu-mixto", name: "Mixto", price: 0.5 },
+  ],
+};
+
+export const menuCombiSimpleProteinGroup: MenuModifierGroup = {
+  id: "menu-combi-simple-protein",
+  name: "Carne",
+  description: "Elige tu version del menu",
+  selectionType: "single",
+  required: true,
+  options: [
+    { id: "menu-combi-simple-pollo", name: "Pollo", default: true },
+    { id: "menu-combi-simple-ternera", name: "Ternera", price: 2 },
+    { id: "menu-combi-simple-mixto", name: "Mixto", price: 0.5 },
+  ],
+};
+
+export const menuCombiDoubleProteinGroup: MenuModifierGroup = {
+  id: "menu-combi-double-protein",
+  name: "Carne",
+  description: "Elige tu version del menu",
+  selectionType: "single",
+  required: true,
+  options: [
+    { id: "menu-combi-double-pollo", name: "Pollo", default: true },
+    { id: "menu-combi-double-ternera", name: "Ternera", price: 2 },
+    { id: "menu-combi-double-mixto", name: "Mixto", price: 0.5 },
+  ],
+};
+
+export const menuDejaVuProteinGroup: MenuModifierGroup = {
+  id: "menu-dejavu-protein",
+  name: "Carne",
+  description: "Elige tu version del menu",
+  selectionType: "single",
+  required: true,
+  options: [
+    { id: "menu-dejavu-pollo", name: "Pollo", default: true },
+    { id: "menu-dejavu-ternera", name: "Ternera", price: 2 },
+    { id: "menu-dejavu-mixto", name: "Mixto", price: 0.5 },
+  ],
+};
+
+export const burgerProteinChoiceGroup: MenuModifierGroup = {
+  id: "burger-protein-choice",
+  name: "Carne",
+  description: "Ternera o pollo crunchy",
+  selectionType: "single",
+  required: true,
+  options: [
+    { id: "burger-ternera", name: "Ternera", default: true },
+    { id: "burger-pollo-crunchy", name: "Pollo crunchy" },
+  ],
+};
+
+export const bocadilloFillingGroup: MenuModifierGroup = {
+  id: "bocadillo-filling",
+  name: "Relleno",
+  description: "Elige el bocadillo",
+  selectionType: "single",
+  required: true,
+  options: [
+    { id: "bocadillo-lomo", name: "Cinta de lomo", default: true },
+    { id: "bocadillo-jamon", name: "Jamon con tomate" },
+    { id: "bocadillo-bacon", name: "Bacon" },
+    { id: "bocadillo-panceta", name: "Panceta" },
+    { id: "bocadillo-pollo", name: "Pollo" },
+  ],
+};
+
+export const combinedPlateChoiceGroup: MenuModifierGroup = {
+  id: "combined-plate-choice",
+  name: "Principal",
+  description: "Elige el plato combinado",
+  selectionType: "single",
+  required: true,
+  options: [
+    { id: "combined-lomo", name: "Cinta de lomo", default: true },
+    { id: "combined-pollo", name: "Pollo a la plancha" },
+    { id: "combined-bacon", name: "Bacon" },
+    { id: "combined-panceta", name: "Panceta" },
   ],
 };
 
@@ -193,7 +385,7 @@ export const allergenDefinitions: AllergenDefinition[] = [
     id: "gluten",
     name: "Gluten",
     shortName: "Gluten",
-    description: "Panes, masas, durum, lahmacun y empanados.",
+    description: "Panes, masas, empanados y bolleria.",
   },
   {
     id: "milk",
@@ -240,4 +432,4 @@ export const allergenDefinitions: AllergenDefinition[] = [
 ];
 
 export const allergenDisclaimer =
-  "Informacion orientativa segun la receta base. Si tienes una alergia grave o riesgo de trazas, confirma con el local antes de pedir.";
+  "Informacion orientativa segun la receta base mostrada. Extras, salsas o elecciones del pedido pueden cambiar los alergenos, asi que confirma con el local si tienes una alergia grave.";

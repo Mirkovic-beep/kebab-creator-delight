@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 import adanaImage from "@/assets/adana.jpg";
 import heroImage from "@/assets/hero-kebab.jpg";
-import terraceImage from "@/assets/terraza.jpg";
 import Footer from "@/features/layout/components/Footer";
+import VenueGallery from "@/features/marketing/components/VenueGallery";
 import MenuProductCard from "@/features/menu/components/MenuProductCard";
 import Navbar from "@/features/layout/components/Navbar";
 import { Button } from "@/shared/ui/button";
@@ -13,9 +13,9 @@ import { menuProducts, restaurantInfo } from "@/features/menu/data";
 const featuredProducts = menuProducts.filter((product) => product.featured || product.bestseller).slice(0, 3);
 
 const housePrinciples = [
-  "Carne al trompo y parrilla servidas al momento",
-  "Salsas, panes y extras con foco en sabor y ritmo de servicio",
-  "Carta compacta, clara y facil de pedir",
+  "Kebabs, platos y raciones servidos al momento",
+  "Carta amplia con menus, hamburguesas, bocadillos y postres",
+  "Precios claros para local, recogida y domicilio",
   "Alergenos visibles dentro de cada plato",
 ] as const;
 
@@ -33,10 +33,10 @@ const Index = () => {
               <div>
                 <p className="editorial-kicker text-black/58">Kebab turco / Rivas-Vaciamadrid</p>
                 <h1 className="mt-3 font-display text-[clamp(3.15rem,6.4vw,5.45rem)] leading-[0.88] text-black">
-                  Kebab turco, parrilla y platos al momento.
+                  Kebabs, platos, burgers y menus al momento.
                 </h1>
                 <p className="mt-3 max-w-md text-[15px] leading-6 text-black/76 sm:text-base sm:leading-7">
-                  Durums, kebabs, platos de parrilla, lahmacun, falafel y postres turcos en una carta facil de entender,
+                  Kebab, shawarma, platos, raciones, hamburguesas, bocadillos, postres y bebidas en una carta amplia,
                   con precios claros y alergenos visibles en cada plato.
                 </p>
 
@@ -95,54 +95,49 @@ const Index = () => {
         </section>
 
         <section id="manifiesto" className="px-5 py-8 sm:px-6 lg:px-8">
-          <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[0.48fr_0.52fr]">
-            <article className="bg-black px-7 py-8 text-white sm:px-10 sm:py-10">
-              <p className="editorial-kicker text-[#cfa066]">Nosotros</p>
-              <h2 className="mt-4 font-display text-[clamp(4rem,8vw,6.75rem)] leading-[0.9]">
-                Kebab, parrilla y cocina turca hecha al momento.
-              </h2>
-              <p className="mt-5 max-w-xl text-lg leading-8 text-white/72">
-                En DejaVu trabajamos con carne al trompo, parrilla, panes tostados y salsas servidas al momento. La carta
-                esta pensada para pedir facil y saber de un vistazo que lleva cada plato.
-              </p>
+          <div className="mx-auto grid max-w-7xl gap-6 lg:h-[640px] lg:items-stretch lg:grid-cols-[0.48fr_0.52fr] lgplus:h-[670px] xl:h-[700px]">
+            <article className="bg-black px-5 py-5 text-white sm:px-6 sm:py-6 lg:flex lg:h-full lg:flex-col lg:justify-between lg:overflow-hidden">
+              <div>
+                <p className="editorial-kicker text-[#cfa066]">Nosotros</p>
+                <h2 className="mt-2 font-display text-[clamp(2.1rem,4.2vw,3.25rem)] leading-[0.88]">
+                  Kebab, platos, raciones y cocina de bar hecha al momento.
+                </h2>
+                <p className="mt-2.5 max-w-xl text-[13px] leading-5 text-white/72 sm:text-[14px] sm:leading-5">
+                  En DejaVu trabajamos con kebabs, platos, raciones, hamburguesas y menus servidos al momento. La carta
+                  esta pensada para recorrer rapido y entender bien que incluye cada opcion.
+                </p>
+              </div>
 
-              <ul className="mt-8 grid gap-3">
+              <ul className="mt-4 grid gap-2 lg:mt-5">
                 {housePrinciples.map((point) => (
-                  <li key={point} className="border-t border-white/12 pt-3 text-[15px] font-medium uppercase tracking-[0.14em] text-white/86">
+                  <li key={point} className="border-t border-white/12 pt-2 text-[10px] font-medium uppercase tracking-[0.1em] text-white/86 sm:text-[11px]">
                     {point}
                   </li>
                 ))}
               </ul>
             </article>
 
-            <div className="grid overflow-hidden border border-black/12">
-              <div className="relative min-h-[320px] sm:min-h-[380px]">
-                <img
-                  src={terraceImage}
-                  alt="Interior del local"
-                  className="h-full w-full object-cover grayscale"
-                  width={1400}
-                  height={1000}
-                />
-                <div className="absolute bottom-0 left-0 bg-black px-6 py-5 text-white sm:px-8 sm:py-6">
-                  <p className="editorial-kicker text-[#cfa066]">Desde</p>
-                  <p className="font-display text-6xl leading-none sm:text-7xl">2005</p>
-                </div>
-              </div>
+            <div className="grid overflow-hidden border border-black/12 lg:h-full lg:min-h-0 lg:grid-rows-[minmax(0,1fr)_minmax(0,1fr)]">
+              <VenueGallery
+                className="h-full"
+                viewportClassName="h-[350px] sm:h-[400px] lg:h-full"
+                showPagination={false}
+                compact
+              />
 
-              <div className="grid md:grid-cols-[0.58fr_0.42fr]">
-                <article className="bg-white px-6 py-6 sm:px-8">
+              <div className="grid h-full min-h-0 md:grid-cols-[0.58fr_0.42fr]">
+                <article className="h-full bg-white px-4 py-4 sm:px-5 sm:py-5 lg:px-4 lg:py-4">
                   <p className="editorial-kicker text-black/55">Lo que cuidamos</p>
-                  <div className="mt-5 grid gap-4 text-[15px] font-semibold uppercase tracking-[0.14em] text-black/78">
-                    <p className="border-t border-black/10 pt-3">Carne cortada al momento</p>
-                    <p className="border-t border-black/10 pt-3">Panes, salsas y extras recien servidos</p>
-                    <p className="border-t border-black/10 pt-3">Opciones para local, recogida y reparto</p>
+                  <div className="mt-2.5 grid gap-2 text-[11px] font-semibold uppercase tracking-[0.09em] text-black/78 sm:text-[12px]">
+                    <p className="border-t border-black/10 pt-2">Carne cortada al momento</p>
+                    <p className="border-t border-black/10 pt-2">Panes, salsas y extras recien servidos</p>
+                    <p className="border-t border-black/10 pt-2">Opciones para local, recogida y reparto</p>
                   </div>
                 </article>
 
-                <article className="bg-[#cfa066] px-6 py-6 sm:px-8">
+                <article className="h-full bg-[#cfa066] px-4 py-4 sm:px-5 sm:py-5 lg:px-4 lg:py-4">
                   <p className="editorial-kicker text-black/55">Contacto rapido</p>
-                  <div className="mt-5 space-y-4 text-[11px] font-semibold uppercase tracking-[0.24em] text-black/76">
+                  <div className="mt-2.5 space-y-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-black/76 sm:text-[11px] sm:tracking-[0.18em]">
                     <a href={`tel:${restaurantInfo.phone}`} className="block hover:text-black">
                       {restaurantInfo.phone}
                     </a>

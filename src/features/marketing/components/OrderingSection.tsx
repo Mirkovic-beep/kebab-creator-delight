@@ -4,7 +4,7 @@ import { ArrowRight, ClipboardCheck, CookingPot, Send } from "lucide-react";
 import { Button } from "@/shared/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
 import { Badge } from "@/shared/ui/badge";
-import { orderingSteps, testimonials } from "@/features/menu/data";
+import { menuProducts, orderingSteps, testimonials } from "@/features/menu/data";
 
 const stepIcons = [CookingPot, ClipboardCheck, Send];
 
@@ -57,8 +57,8 @@ const OrderingSection = () => {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="rounded-2xl border border-border/60 bg-background/30 p-4">
                     <p className="text-sm uppercase tracking-[0.24em] text-gold">Carta</p>
-                    <p className="mt-2 font-display text-3xl font-bold">24+</p>
-                    <p className="mt-1 text-xs text-muted-foreground">Seleccion base disponible</p>
+                    <p className="mt-2 font-display text-3xl font-bold">{menuProducts.length}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">Productos visibles en la carta</p>
                   </div>
                   <div className="rounded-2xl border border-border/60 bg-background/30 p-4">
                     <p className="text-sm uppercase tracking-[0.24em] text-gold">Canales</p>

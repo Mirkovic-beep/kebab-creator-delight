@@ -1,8 +1,8 @@
 import { MapPin, Phone } from "lucide-react";
 
-import terraceImage from "@/assets/terraza.jpg";
 import Footer from "@/features/layout/components/Footer";
 import Navbar from "@/features/layout/components/Navbar";
+import VenueGallery from "@/features/marketing/components/VenueGallery";
 import { Button } from "@/shared/ui/button";
 import { restaurantInfo } from "@/features/menu/data";
 
@@ -17,13 +17,12 @@ const ContactPage = () => {
         <section className="px-5 py-6 sm:px-6 lg:px-8 lg:py-8">
           <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[1.04fr_0.96fr]">
             <article className="border border-black/12 bg-background sm:relative sm:min-h-[580px] sm:overflow-hidden">
-              <div className="h-[210px] sm:absolute sm:inset-0 sm:h-full">
-                <img
-                  src={terraceImage}
-                  alt="Vista del local y terraza"
-                  className="h-full w-full object-cover"
-                  width={1400}
-                  height={1200}
+              <div className="h-[240px] sm:absolute sm:inset-0 sm:h-full">
+                <VenueGallery
+                  className="h-full"
+                  viewportClassName="h-[240px] sm:h-full"
+                  showCaption={false}
+                  showPagination={false}
                 />
               </div>
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Clock3, Minus, Plus, Sparkles } from "lucide-react";
+import { Minus, Plus, Sparkles } from "lucide-react";
 
 import { ProductAllergenSummary, ProductStatusBadges } from "@/features/menu/components/AllergenInfo";
 import { toast } from "@/shared/ui/sonner";
@@ -136,10 +136,6 @@ const ProductCustomizerDialog = ({
                 <p className="mt-3 text-xs leading-6 text-stone-400">{allergenDisclaimer}</p>
               </div>
               <div className="flex flex-wrap gap-4 text-sm text-stone-300">
-                <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5">
-                  <Clock3 className="h-4 w-4 text-gold" />
-                  Listo en {product.prepTime}
-                </span>
                 <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5">
                   <Sparkles className="h-4 w-4 text-gold" />
                   Base {formatCurrency(product.price)}

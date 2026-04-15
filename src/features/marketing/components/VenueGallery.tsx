@@ -13,6 +13,7 @@ type VenueGalleryProps = {
   showCaption?: boolean;
   showPagination?: boolean;
   compact?: boolean;
+  controlsPosition?: "top" | "bottom";
 };
 
 const VenueGallery = ({
@@ -22,6 +23,7 @@ const VenueGallery = ({
   showCaption = true,
   showPagination = true,
   compact = false,
+  controlsPosition,
 }: VenueGalleryProps) => {
   const [api, setApi] = React.useState<CarouselApi>();
   const [selectedIndex, setSelectedIndex] = React.useState(0);
@@ -48,6 +50,7 @@ const VenueGallery = ({
   }, [api]);
 
   const activeImage = venueGalleryImages[selectedIndex] ?? venueGalleryImages[0];
+  const resolvedControlsPosition = controlsPosition ?? (showCaption ? "top" : "bottom");
 
   return (
     <div className={cn(showPagination ? "space-y-4" : "", className)}>
@@ -92,7 +95,7 @@ const VenueGallery = ({
         <div
           className={cn(
             "pointer-events-none absolute inset-x-0 z-10 flex items-center justify-between p-4 sm:p-5",
-            showCaption ? "top-0" : "bottom-0",
+            resolvedControlsPosition === "top" ? "top-0" : "bottom-0",
             compact && "p-2 sm:p-3",
           )}
         >

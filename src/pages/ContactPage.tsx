@@ -1,10 +1,10 @@
 import { MapPin, Phone } from "lucide-react";
 
-import terraceImage from "@/assets/terraza.jpg";
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
-import { Button } from "@/components/ui/button";
-import { restaurantInfo } from "@/data/menu";
+import Footer from "@/features/layout/components/Footer";
+import Navbar from "@/features/layout/components/Navbar";
+import VenueGallery from "@/features/marketing/components/VenueGallery";
+import { Button } from "@/shared/ui/button";
+import { restaurantInfo } from "@/features/menu/data";
 
 const ContactPage = () => {
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(restaurantInfo.mapsQuery)}`;
@@ -17,41 +17,48 @@ const ContactPage = () => {
         <section className="px-5 py-6 sm:px-6 lg:px-8 lg:py-8">
           <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[1.04fr_0.96fr]">
             <article className="border border-black/12 bg-background sm:relative sm:min-h-[580px] sm:overflow-hidden">
-              <div className="h-[210px] sm:absolute sm:inset-0 sm:h-full">
-                <img
-                  src={terraceImage}
-                  alt="Vista del local y terraza"
-                  className="h-full w-full object-cover"
-                  width={1400}
-                  height={1200}
+              <div className="h-[240px] sm:absolute sm:inset-0 sm:h-full">
+                <VenueGallery
+                  className="h-full"
+                  viewportClassName="h-[240px] sm:h-full"
+                  showCaption={false}
+                  showPagination={false}
+                  controlsPosition="top"
                 />
               </div>
 
-              <div className="relative mx-4 -mt-5 border border-black/12 bg-background px-5 py-5 sm:absolute sm:inset-x-8 sm:top-8 sm:mx-0 sm:mt-0 sm:px-8 sm:py-8">
+              <div className="relative mx-4 -mt-5 border border-black/10 bg-background px-5 py-5 shadow-[0_18px_40px_rgba(0,0,0,0.08)] sm:absolute sm:bottom-0 sm:left-1/2 sm:mx-0 sm:mt-0 sm:w-[calc(100%-4rem)] sm:-translate-x-1/2 sm:rounded-t-[28px] sm:rounded-b-none sm:border-black/8 sm:bg-background/90 sm:px-8 sm:py-8 sm:shadow-[0_26px_70px_rgba(0,0,0,0.16)] sm:backdrop-blur-md lg:w-[78%]">
                 <p className="editorial-kicker text-black/55">Contacto</p>
                 <h1 className="mt-3 font-display text-[clamp(2.9rem,11vw,6rem)] leading-[0.9] text-black">
                   Ven, llama o encuentra el local sin rodeos.
                 </h1>
 
-                <div className="mt-6 grid gap-4 text-[14px] font-semibold uppercase tracking-[0.11em] text-black/78 sm:mt-8 sm:gap-5 sm:text-[15px] sm:tracking-[0.12em]">
-                  <div className="grid gap-2 border-t border-black/10 pt-3 sm:grid-cols-[160px_1fr]">
-                    <p>Direccion</p>
-                    <div className="space-y-1 text-black">
+                <div className="mt-6 grid gap-3 sm:mt-8 sm:gap-4">
+                  <div className="rounded-[24px] border border-black/10 bg-black/[0.03] p-4 sm:p-5">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-black/52">Direccion</p>
+                    <div className="mt-3 space-y-1 text-[13px] font-semibold uppercase tracking-[0.08em] text-black/84 sm:text-[14px]">
                       <p>{restaurantInfo.address}</p>
                       <p>{restaurantInfo.city}</p>
                     </div>
                   </div>
 
-                  <div className="grid gap-2 border-t border-black/10 pt-3 sm:grid-cols-[160px_1fr]">
-                    <p>Telefono</p>
-                    <a href={`tel:${restaurantInfo.phone}`} className="text-black hover:text-black/68">
-                      91 713 99 80
-                    </a>
-                  </div>
+                  <div className="grid gap-3 sm:grid-cols-[0.82fr_1.18fr]">
+                    <div className="rounded-[24px] border border-black/10 bg-black/[0.03] p-4 sm:p-5">
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-black/52">Telefono</p>
+                      <a
+                        href={`tel:${restaurantInfo.phone}`}
+                        className="mt-3 block text-[13px] font-semibold uppercase tracking-[0.08em] text-black/84 hover:text-black sm:text-[14px]"
+                      >
+                        {restaurantInfo.phone}
+                      </a>
+                    </div>
 
-                  <div className="grid gap-2 border-t border-black/10 pt-3 sm:grid-cols-[160px_1fr]">
-                    <p>Reparto</p>
-                    <p>{restaurantInfo.serviceAreas.join(", ")}</p>
+                    <div className="rounded-[24px] border border-black/10 bg-black/[0.03] p-4 sm:p-5">
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-black/52">Reparto</p>
+                      <p className="mt-3 text-[13px] font-semibold uppercase tracking-[0.08em] text-black/84 sm:text-[14px]">
+                        {restaurantInfo.serviceAreas.join(", ")}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>

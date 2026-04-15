@@ -1,8 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 
-import BrandLogo from "@/components/BrandLogo";
-import CheckerDivider from "@/components/CheckerDivider";
-import { Button } from "@/components/ui/button";
+import BrandLogo from "@/features/layout/components/BrandLogo";
+import CheckerDivider from "@/features/layout/components/CheckerDivider";
+import { Button } from "@/shared/ui/button";
 
 const NotFound = () => {
   const location = useLocation();

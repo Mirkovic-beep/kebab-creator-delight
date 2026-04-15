@@ -1,10 +1,10 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import ScrollManager from "@/components/ScrollManager";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import ScrollManager from "@/features/layout/components/ScrollManager";
+import { Toaster as Sonner } from "@/shared/ui/sonner";
+import { Toaster } from "@/shared/ui/toaster";
+import { TooltipProvider } from "@/shared/ui/tooltip";
 
 import ContactPage from "./pages/ContactPage.tsx";
 import Index from "./pages/Index.tsx";

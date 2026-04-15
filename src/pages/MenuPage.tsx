@@ -3,12 +3,12 @@ import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import heroImage from "@/assets/doner.jpg";
-import Footer from "@/components/Footer";
-import MenuProductCard from "@/components/MenuProductCard";
-import Navbar from "@/components/Navbar";
-import { Button } from "@/components/ui/button";
-import { menuCategories, menuProducts } from "@/data/menu";
-import { cn } from "@/lib/utils";
+import Footer from "@/features/layout/components/Footer";
+import MenuProductCard from "@/features/menu/components/MenuProductCard";
+import Navbar from "@/features/layout/components/Navbar";
+import { Button } from "@/shared/ui/button";
+import { menuCategories, menuProducts } from "@/features/menu/data";
+import { cn } from "@/shared/lib/utils";
 
 const MenuPage = () => {
   const [activeCategoryId, setActiveCategoryId] = useState(menuCategories[0]?.id ?? "");

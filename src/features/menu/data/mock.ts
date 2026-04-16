@@ -1267,13 +1267,13 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
             "id": "agua-con-gas",
             "title": "Agua con gas",
             "description": "",
-            "price": "2,80 €"
+            "price": "3,00 €"
           },
           {
             "id": "refresco",
-            "title": "Refresco",
+            "title": "Refrescos",
             "description": "",
-            "price": "Desde 2,80 €"
+            "price": "3,00 €"
           },
           {
             "id": "copa-de-cerveza",
@@ -1322,6 +1322,12 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
             "title": "Cafe",
             "description": "",
             "price": "2,00 €"
+          },
+          {
+            "id": "infusiones",
+            "title": "Infusiones",
+            "description": "",
+            "price": "2,20 €"
           },
           {
             "id": "latas-para-llevar",

@@ -15,10 +15,10 @@ import { formatCurrency } from "@/features/menu/lib/menu";
 const topSellingProducts = menuProducts.filter((product) => product.bestseller).slice(0, 7);
 
 const housePrinciples = [
-  "Kebabs, platos y raciones servidos al momento",
-  "Carta amplia con menus, hamburguesas, bocadillos y postres",
-  "Precios claros para local, recogida y domicilio",
-  "Alergenos visibles dentro de cada plato",
+  "Kebabs y platos al momento",
+  "Raciones, burgers, bocadillos y postres",
+  "Pedidos para local, recoger o llevar",
+  "Precios y alergenos visibles",
 ] as const;
 
 const Index = () => {
@@ -35,11 +35,11 @@ const Index = () => {
               <div>
                 <p className="editorial-kicker text-primary-foreground/68">Kebab turco / Rivas-Vaciamadrid</p>
                 <h1 className="mt-3 font-display text-[clamp(3.15rem,6.4vw,5.45rem)] leading-[0.88] text-primary-foreground">
-                  Kebabs, platos, burgers y menus al momento.
+                  Kebabs, platos, raciones y burgers.
                 </h1>
                 <p className="mt-3 max-w-md text-[15px] leading-6 text-primary-foreground/78 sm:text-base sm:leading-7">
-                  Kebab, shawarma, platos, raciones, hamburguesas, bocadillos, postres y bebidas en una carta amplia,
-                  con precios claros y alergenos visibles en cada plato.
+                  Carta completa con kebabs, shawarmas, platos, raciones, hamburguesas, bocadillos, postres y bebidas.
+                  Puedes ver precios y alergenos antes de pedir.
                 </p>
 
                 <div className="mt-5 flex flex-wrap gap-3">
@@ -60,7 +60,7 @@ const Index = () => {
               </div>
 
               <div className="mt-6 border-t border-white/14 pt-4">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-primary-foreground/68">Pedidos y reservas</p>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-primary-foreground/68">Pedidos</p>
                 <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                   <a
                     href={`tel:${restaurantInfo.phone}`}
@@ -92,7 +92,7 @@ const Index = () => {
                   </p>
                 </div>
                 <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/72">
-                  Rivas-Vaciamadrid / cocina al momento
+                  Rivas-Vaciamadrid / directo desde cocina
                 </p>
               </div>
             </article>
@@ -103,10 +103,10 @@ const Index = () => {
               <div className="max-w-3xl">
                 <p className="editorial-kicker text-black/55">Lo mas pedido</p>
                 <h2 className="mt-2 font-display text-[clamp(2.15rem,5vw,3.75rem)] leading-[0.9] text-black">
-                  Los platos que mas salen cada dia, nada mas entrar.
+                  Lo mas pedido del local.
                 </h2>
                 <p className="mt-2 max-w-2xl text-[13px] leading-5 text-black/66 sm:text-[14px] sm:leading-6">
-                  Quitamos la seccion aparte y lo dejamos integrado en portada para que se vea rapido desde la primera pantalla.
+                  Una seleccion rapida con lo que mas se pide.
                 </p>
               </div>
 
@@ -204,11 +204,10 @@ const Index = () => {
               <div>
                 <p className="editorial-kicker text-gold">Nosotros</p>
                 <h2 className="mt-2 font-display text-[clamp(2.1rem,4.2vw,3.25rem)] leading-[0.88]">
-                  Kebab, platos, raciones y cocina de bar hecha al momento.
+                  Kebab, platos y raciones hechos al momento.
                 </h2>
                 <p className="mt-2.5 max-w-xl text-[13px] leading-5 text-primary-foreground/74 sm:text-[14px] sm:leading-5">
-                  En DejaVu trabajamos con kebabs, platos, raciones, hamburguesas y menus servidos al momento. La carta
-                  esta pensada para recorrer rapido y entender bien que incluye cada opcion.
+                  En DejaVu hacemos kebabs, platos, raciones, hamburguesas y menus para local, recogida o domicilio.
                 </p>
               </div>
 
@@ -231,11 +230,11 @@ const Index = () => {
 
               <div className="grid h-full min-h-0 md:grid-cols-[0.58fr_0.42fr]">
                 <article className="h-full bg-white px-4 py-4 sm:px-5 sm:py-5 lg:px-4 lg:py-4">
-                  <p className="editorial-kicker text-black/55">Lo que cuidamos</p>
+                  <p className="editorial-kicker text-black/55">La casa</p>
                   <div className="mt-2.5 grid gap-2 text-[11px] font-semibold uppercase tracking-[0.09em] text-black/78 sm:text-[12px]">
-                    <p className="border-t border-black/10 pt-2">Carne cortada al momento</p>
-                    <p className="border-t border-black/10 pt-2">Panes, salsas y extras recien servidos</p>
-                    <p className="border-t border-black/10 pt-2">Opciones para local, recogida y reparto</p>
+                    <p className="border-t border-black/10 pt-2">Carne al corte y a la plancha</p>
+                    <p className="border-t border-black/10 pt-2">Pan, salsas y extras al momento</p>
+                    <p className="border-t border-black/10 pt-2">Local, recogida y reparto</p>
                   </div>
                 </article>
 
@@ -270,7 +269,7 @@ const Index = () => {
               />
               <div className="absolute inset-x-6 top-6 border border-black/12 bg-background px-6 py-6 sm:inset-x-8 sm:top-8 sm:px-8 sm:py-8">
                 <p className="editorial-kicker text-black/55">Encuentranos</p>
-                <h2 className="mt-3 font-display text-5xl leading-none text-black sm:text-6xl">Todo lo necesario para venir o pedir.</h2>
+                <h2 className="mt-3 font-display text-5xl leading-none text-black sm:text-6xl">Donde estamos y como pedir.</h2>
 
                 <div className="mt-8 grid gap-5 text-[15px] font-semibold uppercase tracking-[0.12em] text-black/78">
                   <div className="grid gap-2 border-t border-black/10 pt-3 sm:grid-cols-[160px_1fr]">
@@ -299,10 +298,10 @@ const Index = () => {
             <div className="space-y-6">
               <article className="bg-primary px-7 py-8 text-primary-foreground sm:px-10">
                 <p className="editorial-kicker text-gold">Local</p>
-                <h3 className="mt-4 font-display text-5xl leading-none sm:text-6xl">Sala, terraza y servicio directo desde el local.</h3>
+                <h3 className="mt-4 font-display text-5xl leading-none sm:text-6xl">Sala, terraza y pedidos directos.</h3>
                 <p className="mt-4 max-w-xl text-lg leading-8 text-primary-foreground/72">
-                  Puedes llamar para hacer tu pedido, pasar a recogerlo o venir a comer con calma en el local o en la
-                  terraza. Tambien atendemos reparto en zonas cercanas.
+                  Puedes llamar, pedir para recoger o venir a comer en el local o en la terraza. Tambien repartimos en
+                  zonas cercanas.
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-3">

@@ -5,15 +5,14 @@ import adanaImage from "@/assets/adana.jpg";
 import heroImage from "@/assets/hero-kebab.jpg";
 import Footer from "@/features/layout/components/Footer";
 import VenueGallery from "@/features/marketing/components/VenueGallery";
-import MenuProductCard from "@/features/menu/components/MenuProductCard";
 import Navbar from "@/features/layout/components/Navbar";
+import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/shared/ui/carousel";
 import { menuProducts, restaurantInfo } from "@/features/menu/data";
+import { formatCurrency } from "@/features/menu/lib/menu";
 
-const featuredProductIds = ["turkish-specialties-kebab", "turkish-specialties-shawarma", "plates-plato-deja-vu"] as const;
-const featuredProducts = featuredProductIds
-  .map((productId) => menuProducts.find((product) => product.id === productId))
-  .filter((product) => Boolean(product));
+const topSellingProducts = menuProducts.filter((product) => product.bestseller).slice(0, 7);
 
 const housePrinciples = [
   "Kebabs, platos y raciones servidos al momento",
@@ -98,6 +97,95 @@ const Index = () => {
               </div>
             </article>
           </div>
+
+          <div id="destacados" className="-mt-px mx-auto max-w-7xl border border-black/12 bg-[#f4ecde] px-4 py-4 sm:px-6 sm:py-5 lg:px-7 lg:py-6">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+              <div className="max-w-3xl">
+                <p className="editorial-kicker text-black/55">Lo mas pedido</p>
+                <h2 className="mt-2 font-display text-[clamp(2.15rem,5vw,3.75rem)] leading-[0.9] text-black">
+                  Los platos que mas salen cada dia, nada mas entrar.
+                </h2>
+                <p className="mt-2 max-w-2xl text-[13px] leading-5 text-black/66 sm:text-[14px] sm:leading-6">
+                  Quitamos la seccion aparte y lo dejamos integrado en portada para que se vea rapido desde la primera pantalla.
+                </p>
+              </div>
+
+              <Link
+                to="/carta"
+                className="text-[11px] font-semibold uppercase tracking-[0.24em] text-black/55 transition-colors hover:text-black"
+              >
+                Ver carta completa
+              </Link>
+            </div>
+
+            <Carousel
+              opts={{ align: "start", loop: topSellingProducts.length > 3 }}
+              className="mt-5"
+              aria-label="Carrusel de platos mas pedidos"
+            >
+              <CarouselContent className="-ml-3 md:-ml-4">
+                {topSellingProducts.map((product) => (
+                  <CarouselItem
+                    key={product.id}
+                    className="basis-[86%] pl-3 sm:basis-[58%] md:basis-[48%] md:pl-4 xl:basis-[32%]"
+                  >
+                    <article className="overflow-hidden border border-black/12 bg-white">
+                      <div className="relative aspect-[1.18/1] overflow-hidden bg-black">
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="h-full w-full object-cover"
+                          width={720}
+                          height={640}
+                        />
+                        <div className="gradient-overlay absolute inset-0" />
+                        <div className="absolute left-3 top-3 flex flex-wrap gap-2">
+                          {product.bestseller ? (
+                            <Badge className="border-0 bg-gold px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-gold-foreground">
+                              Top ventas
+                            </Badge>
+                          ) : null}
+                          {product.featured ? (
+                            <Badge className="border-0 bg-black/80 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-white">
+                              Destacado
+                            </Badge>
+                          ) : null}
+                        </div>
+                        <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-3 text-white">
+                          <div className="min-w-0">
+                            <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/70">{product.highlight}</p>
+                            <h3 className="mt-1 font-display text-[1.8rem] leading-none">{product.name}</h3>
+                          </div>
+                          <p className="shrink-0 font-display text-[1.8rem] leading-none">{formatCurrency(product.price)}</p>
+                        </div>
+                      </div>
+
+                      <div className="space-y-4 px-4 py-4 sm:px-5">
+                        <p className="text-[13px] leading-6 text-black/72">{product.description}</p>
+
+                        <div className="flex flex-wrap gap-2">
+                          {product.tags.slice(0, 3).map((tag) => (
+                            <Badge
+                              key={tag}
+                              variant="outline"
+                              className="border-black/12 bg-muted/55 px-2.5 py-1 text-[10px] uppercase tracking-[0.14em] text-black/70"
+                            >
+                              {tag}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    </article>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+
+              <div className="mt-4 flex items-center justify-end gap-2 pr-10 sm:pr-12">
+                <CarouselPrevious className="static translate-y-0 border-black/12 bg-white text-black hover:bg-black hover:text-white" />
+                <CarouselNext className="static translate-y-0 border-black/12 bg-white text-black hover:bg-black hover:text-white" />
+              </div>
+            </Carousel>
+          </div>
         </section>
 
         <section id="manifiesto" className="px-5 py-8 sm:px-6 lg:px-8">
@@ -156,40 +244,6 @@ const Index = () => {
                   </div>
                 </article>
               </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="destacados" className="px-5 py-8 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-7xl">
-            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-              <div className="max-w-3xl">
-                <p className="editorial-kicker text-black/55">Carta destacada</p>
-                <h2 className="mt-4 font-display text-[clamp(3.75rem,8vw,6rem)] leading-[0.9] text-black">
-                  Platos que mas salen cada dia.
-                </h2>
-                <p className="mt-4 max-w-2xl text-lg leading-8 text-black/68">
-                  Una seleccion de algunos de los platos mas pedidos para que la carta se entienda rapido desde la primera visita.
-                </p>
-              </div>
-
-              <Link
-                to="/carta"
-                className="text-[11px] font-semibold uppercase tracking-[0.24em] text-black/55 transition-colors hover:text-black"
-              >
-                Ver carta completa
-              </Link>
-            </div>
-
-            <div className="mt-8 grid gap-6 lg:auto-rows-fr lg:grid-cols-3">
-              {featuredProducts.map((product, index) => (
-                <MenuProductCard
-                  key={product.id}
-                  product={product}
-                  className="h-full motion-safe:animate-fade-in"
-                  style={{ animationDelay: `${index * 120}ms` }}
-                />
-              ))}
             </div>
           </div>
         </section>

@@ -102,11 +102,13 @@ const burgerWithEggAllergens = containsAllergens("gluten", "milk", "egg");
 const bocadilloAllergens = containsAllergens("gluten");
 const combinedPlateAllergens = containsAllergens("egg");
 const friedSnackAllergens = containsAllergens("gluten");
+const fingersAllergens = containsAllergens("gluten", "milk");
 const croquetteAllergens = containsAllergens("gluten", "milk", "egg");
 const pastryDessertAllergens = containsAllergens("gluten", "milk", "egg");
 const cheesecakeAllergens = containsAllergens("milk", "egg");
 const layeredCakeAllergens = containsAllergens("gluten", "milk");
 const frozenDessertAllergens = containsAllergens("milk");
+const cookiesMilkshakeAllergens = containsAllergens("gluten", "milk");
 const beerAllergens = containsAllergens("gluten");
 
 function parsePrice(value: string) {
@@ -402,7 +404,7 @@ function inferAllergens(category: LegacyCategorySeed, item: LegacyItem): MenuAll
     case "salads": {
       const contains = new Set<AllergenId>();
 
-      if (/queso|rulo de cabra|mix de quesos|cesar/.test(text)) {
+      if (/queso|rulo de cabra|mix de quesos/.test(text)) {
         contains.add("milk");
       }
 
@@ -410,11 +412,11 @@ function inferAllergens(category: LegacyCategorySeed, item: LegacyItem): MenuAll
         contains.add("egg");
       }
 
-      if (/ventresca|atun|anchoa|salsa cesar|cesar/.test(text)) {
+      if (/ventresca|atun|anchoa/.test(text)) {
         contains.add("fish");
       }
 
-      if (/picatostes|pollo crujiente/.test(text)) {
+      if (/picatostes|pollo crujiente|cebolla frita/.test(text)) {
         contains.add("gluten");
       }
 
@@ -425,11 +427,19 @@ function inferAllergens(category: LegacyCategorySeed, item: LegacyItem): MenuAll
     case "plates":
       return [];
     case "rations":
+      if (item.id === "patatas") {
+        return containsAllergens("egg");
+      }
+
       if (/croquetas/.test(text)) {
         return croquetteAllergens;
       }
 
-      if (/nuggets|fingers/.test(text)) {
+      if (/fingers/.test(text)) {
+        return /queso/.test(text) ? fingersAllergens : friedSnackAllergens;
+      }
+
+      if (/nuggets/.test(text)) {
         return friedSnackAllergens;
       }
 
@@ -459,7 +469,11 @@ function inferAllergens(category: LegacyCategorySeed, item: LegacyItem): MenuAll
 
       return [];
     case "desserts":
-      if (/milkshake|batido|helado/.test(text)) {
+      if (/milkshake|batido/.test(text)) {
+        return /cookies/.test(text) ? cookiesMilkshakeAllergens : frozenDessertAllergens;
+      }
+
+      if (/helado/.test(text)) {
         return frozenDessertAllergens;
       }
 
@@ -473,6 +487,10 @@ function inferAllergens(category: LegacyCategorySeed, item: LegacyItem): MenuAll
 
       if (/tarta de la abuela|milhojas/.test(text)) {
         return layeredCakeAllergens;
+      }
+
+      if (/profiteroles/.test(text)) {
+        return pastryDessertAllergens;
       }
 
       return pastryDessertAllergens;

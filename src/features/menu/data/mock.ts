@@ -86,7 +86,7 @@ interface LegacyCategorySeed {
   sections: LegacySection[];
 }
 
-const allergenOrder: AllergenId[] = ["gluten", "milk", "egg", "sesame", "soy", "nuts", "celery", "mustard"];
+const allergenOrder: AllergenId[] = ["gluten", "milk", "egg", "fish", "sesame", "soy", "nuts", "celery", "mustard"];
 
 const containsAllergens = (...ids: AllergenId[]): MenuAllergen[] =>
   allergenOrder
@@ -410,6 +410,10 @@ function inferAllergens(category: LegacyCategorySeed, item: LegacyItem): MenuAll
         contains.add("egg");
       }
 
+      if (/ventresca|atun|anchoa|salsa cesar|cesar/.test(text)) {
+        contains.add("fish");
+      }
+
       if (/picatostes|pollo crujiente/.test(text)) {
         contains.add("gluten");
       }
@@ -455,8 +459,12 @@ function inferAllergens(category: LegacyCategorySeed, item: LegacyItem): MenuAll
 
       return [];
     case "desserts":
-      if (/batido|helado/.test(text)) {
+      if (/milkshake|batido|helado/.test(text)) {
         return frozenDessertAllergens;
+      }
+
+      if (/smoothie/.test(text)) {
+        return [];
       }
 
       if (/tarta de queso/.test(text)) {
@@ -529,7 +537,7 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
           {
             "id": "ensalada-ventresca",
             "title": "Ensalada Ventresca",
-            "description": "Lechuga, pimientos asados, tomate y ventresca de atun.",
+            "description": "Ventresca de atun, lechuga, pimientos asados y tomate.",
             "price": "12,90 €"
           },
           {
@@ -544,10 +552,10 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
   },
   {
     "id": "turkish-specialties",
-    "name": "Especialidades Turcas",
+    "name": "Las Turcas",
     "shortName": "Turcas",
-    "description": "Kebabs y shawarmas con pollo, ternera, mixto o falafel.",
-    "note": "Kebab y shawarma",
+    "description": "Kebabs, shawarmas y platos turcos con pollo, ternera, mixto o falafel.",
+    "note": "Kebab, shawarma y platos",
     "tone": "gold",
     "imageKey": "doner",
     "prepTime": "12 min",
@@ -735,7 +743,8 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
             "id": "salchipapas",
             "title": "Salchipapas",
             "description": "",
-            "price": "10,50 €"
+            "price": "10,50 €",
+            "bestseller": true
           },
           {
             "id": "papas-locas",
@@ -754,7 +763,8 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
             "id": "nuggets",
             "title": "Nuggets",
             "description": "",
-            "price": "9,90 €"
+            "price": "9,90 €",
+            "bestseller": true
           },
           {
             "id": "nuggets-1-2-racion",
@@ -778,7 +788,8 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
             "id": "fingers",
             "title": "Fingers",
             "description": "Pollo o queso",
-            "price": "11,70 €"
+            "price": "11,70 €",
+            "bestseller": true
           },
           {
             "id": "fingers-1-2-racion",
@@ -802,7 +813,8 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
             "id": "oreja-a-la-plancha",
             "title": "Oreja a la Plancha",
             "description": "",
-            "price": "12,90 €"
+            "price": "12,90 €",
+            "bestseller": true
           }
         ]
       }
@@ -838,13 +850,13 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
           {
             "id": "rulo-de-cabra",
             "title": "Rulo de Cabra",
-            "description": "Carne, queso de cabra y cebolla frita.",
+            "description": "Carne, queso de cabra, bacon y cebolla frita.",
             "price": "12,50 €"
           },
           {
             "id": "deja-vu",
             "title": "Deja Vu",
-            "description": "Carne, queso, lechuga, tomate, cebolla, bacon y huevo.",
+            "description": "Carne, queso, bacon, huevo, lechuga, tomate y cebolla.",
             "price": "12,90 €",
             "featured": true,
             "bestseller": true
@@ -852,7 +864,7 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
           {
             "id": "deja-vu-deluxe",
             "title": "Deja Vu Deluxe",
-            "description": "Carne, queso, cebolla caramelizada, pepinillos, bacon y huevo (sin verduras).",
+            "description": "Carne, queso, bacon, huevo, cebolla caramelizada y pepinillos (sin verduras).",
             "price": "12,90 €"
           },
           {
@@ -1137,19 +1149,19 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
           {
             "id": "hamburguesa-rulo-de-cabra",
             "title": "Hamburguesa Rulo de Cabra",
-            "description": "Carne, queso de cabra y cebolla frita con patatas fritas y refresco o cerveza.",
+            "description": "Carne, queso de cabra, bacon y cebolla frita con patatas fritas y refresco o cerveza.",
             "price": "14,00 €"
           },
           {
             "id": "hamburguesa-deja-vu",
             "title": "Hamburguesa Deja Vu",
-            "description": "Carne, queso, lechuga, tomate, cebolla, bacon y huevo con patatas fritas y refresco o cerveza.",
+            "description": "Carne, queso, bacon, huevo, lechuga, tomate y cebolla con patatas fritas y refresco o cerveza.",
             "price": "14,40 €"
           },
           {
             "id": "hamburguesa-deja-vu-deluxe",
             "title": "Hamburguesa Deja Vu Deluxe",
-            "description": "Carne, queso, cebolla caramelizada, pepinillos, bacon y huevo (sin verduras) con patatas fritas y refresco o cerveza.",
+            "description": "Carne, queso, bacon, huevo, cebolla caramelizada y pepinillos (sin verduras) con patatas fritas y refresco o cerveza.",
             "price": "14,40 €"
           },
           {
@@ -1166,71 +1178,47 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
     "id": "desserts",
     "name": "Postres",
     "shortName": "Postres",
-    "description": "Postres, helados y tartas segun disponibilidad diaria.",
-    "note": "Caseros y frios",
+    "description": "Profiteroles, bolas de helado, tarta de queso, smoothies y milkshakes.",
+    "note": "Helados y batidos",
     "tone": "stone",
     "imageKey": "generic",
     "prepTime": "5 min",
-    "mainText": "Consulta nuestras tartas caseras disponibles en funcion del stock diario.",
+    "mainText": "",
     "sections": [
       {
-        "title": "Postres",
+        "title": "",
         "description": "",
         "items": [
           {
-            "id": "coulant-de-chocolate",
-            "title": "Coulant de Chocolate",
-            "description": "",
-            "price": "5,50 €"
-          },
-          {
             "id": "profiteroles",
             "title": "Profiteroles",
-            "description": "",
-            "price": "5,50 €"
-          },
-          {
-            "id": "batido",
-            "title": "Batido",
-            "description": "Chocolate o Vainilla",
-            "price": "5,50 €"
-          },
-          {
-            "id": "copa-de-helado",
-            "title": "Copa de Helado",
-            "description": "Chocolate o Vainilla",
+            "description": "Profiteroles clasicos servidos frios.",
             "price": "5,50 €"
           },
           {
             "id": "bola-de-helado",
             "title": "Bola de Helado",
-            "description": "Chocolate o Vainilla",
+            "description": "Chocolate o vainilla.",
             "price": "1,90 €"
-          }
-        ]
-      },
-      {
-        "title": "Tartas caseras (segun stock)",
-        "description": "Disponibles segun stock diario. Podemos ofrecer cantidades para llevar bajo pedido.",
-        "items": [
+          },
           {
             "id": "tarta-de-queso",
             "title": "Tarta de Queso",
-            "description": "",
+            "description": "Tarta de queso de la casa.",
             "price": "6,50 €",
             "featured": true
           },
           {
-            "id": "tarta-de-la-abuela",
-            "title": "Tarta de la Abuela",
-            "description": "",
-            "price": "6,50 €"
+            "id": "milkshake",
+            "title": "Milkshake",
+            "description": "Vainilla, fresa, chocolate o cookies.",
+            "price": "5,50 €"
           },
           {
-            "id": "milhojas",
-            "title": "Milhojas",
-            "description": "",
-            "price": "6,50 €"
+            "id": "smoothie",
+            "title": "Smoothie",
+            "description": "Sabores varios.",
+            "price": "5,50 €"
           }
         ]
       }
@@ -1261,7 +1249,7 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
             "id": "agua-con-gas",
             "title": "Agua con gas",
             "description": "",
-            "price": "2,50 €"
+            "price": "2,80 €"
           },
           {
             "id": "refresco",
@@ -1273,25 +1261,25 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
             "id": "copa-de-cerveza",
             "title": "Copa de cerveza",
             "description": "",
-            "price": "Desde 2,70 €"
+            "price": "2,30 €"
           },
           {
             "id": "tercio",
             "title": "Tercio",
             "description": "",
-            "price": "Desde 3,00 €"
+            "price": "3,30 €"
           },
           {
             "id": "jarra-de-cerveza",
             "title": "Jarra de cerveza",
             "description": "",
-            "price": "4,20 €"
+            "price": "4,50 €"
           },
           {
             "id": "cerveza-especial",
             "title": "Cerveza especial",
             "description": "",
-            "price": "3,20 €"
+            "price": "3,50 €"
           },
           {
             "id": "copa-de-vino",
@@ -1309,19 +1297,19 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
             "id": "tinto-de-verano",
             "title": "Tinto de verano",
             "description": "",
-            "price": "4,20 €"
+            "price": "4,50 €"
           },
           {
             "id": "cafe",
             "title": "Cafe",
             "description": "",
-            "price": "1,70 €"
+            "price": "2,00 €"
           },
           {
             "id": "latas-para-llevar",
             "title": "Latas para llevar",
             "description": "",
-            "price": "1,70 €"
+            "price": "2,00 €"
           }
         ]
       }
@@ -1428,6 +1416,7 @@ function buildTurkishSpecialtiesProducts() {
       tags: mergeTags(shawarmaFalafel.tags, ["Vegetariano"]),
       modifierGroups: [sauceGroup, legacyTurkishExtrasGroup],
     }),
+    ...buildPlatesProducts(),
   ];
 }
 
@@ -1671,15 +1660,17 @@ function buildProductsForCategory(category: MenuCatalogCategory) {
   }
 }
 
-export const menuCatalog: MenuCatalogCategory[] = flatMenuCatalog.map((category) => ({
-  id: category.id,
-  name: category.name,
-  shortName: category.shortName,
-  description: category.description,
-  note: category.note,
-  tone: category.tone,
-  products: buildProductsForCategory(category),
-}));
+export const menuCatalog: MenuCatalogCategory[] = flatMenuCatalog
+  .filter((category) => category.id !== "plates")
+  .map((category) => ({
+    id: category.id,
+    name: category.name,
+    shortName: category.shortName,
+    description: category.description,
+    note: category.note,
+    tone: category.tone,
+    products: buildProductsForCategory(category),
+  }));
 
 export const menuCategories: MenuCategory[] = menuCatalog.map(({ products: _products, ...category }) => category);
 

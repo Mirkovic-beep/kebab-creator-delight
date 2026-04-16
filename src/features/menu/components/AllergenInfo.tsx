@@ -1,5 +1,5 @@
 import type { ComponentType, SVGProps } from "react";
-import { BadgeAlert, Bean, Donut, Egg, Flame, Leaf, Milk, Nut, TriangleAlert, Wheat } from "lucide-react";
+import { BadgeAlert, Bean, Donut, Egg, Fish, Flame, Leaf, Milk, Nut, TriangleAlert, Wheat } from "lucide-react";
 
 import { Badge } from "@/shared/ui/badge";
 import { allergenDefinitions, type AllergenDefinition, type AllergenId, type MenuAllergen, type MenuProduct } from "@/features/menu/data";
@@ -16,6 +16,7 @@ const allergenIcons: Record<AllergenId, IconType> = {
   gluten: Wheat,
   milk: Milk,
   egg: Egg,
+  fish: Fish,
   sesame: Donut,
   soy: Bean,
   nuts: Nut,

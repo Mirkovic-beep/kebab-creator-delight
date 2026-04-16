@@ -400,6 +400,12 @@ export const allergenDefinitions: AllergenDefinition[] = [
     description: "Salsas emulsiones, masas y rebozados.",
   },
   {
+    id: "fish",
+    name: "Pescado",
+    shortName: "Pescado",
+    description: "Atun, ventresca, anchoa y salsas que los incorporan.",
+  },
+  {
     id: "sesame",
     name: "Sesamo",
     shortName: "Sesamo",

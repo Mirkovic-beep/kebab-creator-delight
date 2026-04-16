@@ -1,7 +1,7 @@
 export type OrderModeId = "pickup" | "delivery" | "dinein";
 export type ModifierSelectionType = "single" | "multiple";
 export type CategoryTone = "gold" | "ember" | "olive" | "sand" | "copper" | "stone";
-export type AllergenId = "gluten" | "milk" | "egg" | "sesame" | "soy" | "nuts" | "celery" | "mustard";
+export type AllergenId = "gluten" | "milk" | "egg" | "fish" | "sesame" | "soy" | "nuts" | "celery" | "mustard";
 export type AllergenLevel = "contains" | "may-contain";
 export type MenuImageKey = "hero" | "doner" | "lahmacun" | "falafel" | "adana" | "terrace" | "salad" | "burger" | "generic";
 

@@ -7,9 +7,11 @@ import terrazaImage from "@/assets/terraza.jpg";
 
 import type { AllergenDefinition, AllergenId, MenuAllergen, MenuImageKey, MenuModifierGroup } from "./types";
 
-const remoteSaladImage = "https://bar-dejavu-kebab.es/images/ensalada_carta.jpg";
-const remoteBurgerImage = "https://bar-dejavu-kebab.es/images/hamburguesa_carta.jpg";
-const remoteGenericImage = "https://bar-dejavu-kebab.es/images/imagenCarta.jpg";
+const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
+
+const localSaladImage = withBase("/images/ensalada_carta.jpg");
+const localBurgerImage = withBase("/images/hamburguesa_carta.jpg");
+const localGenericImage = withBase("/images/imagenCarta.jpg");
 
 export const menuImageMap: Record<MenuImageKey, string> = {
   hero: heroImage,
@@ -18,9 +20,9 @@ export const menuImageMap: Record<MenuImageKey, string> = {
   falafel: falafelImage,
   adana: adanaImage,
   terrace: terrazaImage,
-  salad: remoteSaladImage,
-  burger: remoteBurgerImage,
-  generic: remoteGenericImage,
+  salad: localSaladImage,
+  burger: localBurgerImage,
+  generic: localGenericImage,
 };
 
 export const sauceGroup: MenuModifierGroup = {

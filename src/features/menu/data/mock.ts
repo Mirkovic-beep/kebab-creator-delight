@@ -244,7 +244,7 @@ function buildFallbackDescription(category: LegacyCategorySeed, item: LegacyItem
     case "bocadillos":
       return "Bocadillo de " + item.title.toLowerCase() + " servido al momento.";
     case "combined-plates":
-      return item.title + " acompanado de patatas fritas, huevo y ensalada.";
+      return item.title + " acompanado de ensalada, patatas fritas y huevo.";
     case "desserts":
       return category.mainText || "Postre de la casa disponible segun el servicio del dia.";
     case "drinks":
@@ -587,7 +587,7 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
           {
             "id": "kebab-de-pollo",
             "title": "Kebab de pollo",
-            "description": "Carne fresca de pollo, repollo, tomate, cebolla y salsas.",
+            "description": "Carne fresca de pollo con ensalada de repollo, tomate y cebolla, y salsas.",
             "price": "7,00 €",
             "featured": true,
             "bestseller": true
@@ -595,45 +595,45 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
           {
             "id": "kebab-de-ternera",
             "title": "Kebab de ternera",
-            "description": "Filetes de ternera 100% vacuno, repollo, tomate, cebolla y salsas.",
+            "description": "Filetes de ternera 100% vacuno con ensalada de repollo, tomate y cebolla, y salsas.",
             "price": "8,50 €"
           },
           {
             "id": "kebab-mixto",
             "title": "Kebab mixto",
-            "description": "Carne mixta, repollo, tomate, cebolla y salsas.",
+            "description": "Carne mixta con ensalada de repollo, tomate y cebolla, y salsas.",
             "price": "7,50 €",
             "featured": true
           },
           {
             "id": "kebab-de-falafel",
             "title": "Kebab de falafel",
-            "description": "3 unidades + repollo, tomate, cebolla y salsas.",
+            "description": "3 unidades con ensalada de repollo, tomate y cebolla, y salsas.",
             "price": "6,00 €",
             "vegetarian": true
           },
           {
             "id": "shawarma-de-pollo",
             "title": "Shawarma de pollo",
-            "description": "Carne fresca de pollo, repollo, tomate, cebolla y salsas.",
+            "description": "Carne fresca de pollo con ensalada de repollo, tomate y cebolla, y salsas.",
             "price": "7,00 €"
           },
           {
             "id": "shawarma-de-ternera",
             "title": "Shawarma de ternera",
-            "description": "Filetes de ternera 100% vacuno, repollo, tomate, cebolla y salsas.",
+            "description": "Filetes de ternera 100% vacuno con ensalada de repollo, tomate y cebolla, y salsas.",
             "price": "8,50 €"
           },
           {
             "id": "shawarma-mixto",
             "title": "Shawarma mixto",
-            "description": "Carne mixta, repollo, tomate, cebolla y salsas.",
+            "description": "Carne mixta con ensalada de repollo, tomate y cebolla, y salsas.",
             "price": "7,50 €"
           },
           {
             "id": "shawarma-de-falafel",
             "title": "Shawarma de falafel",
-            "description": "4 unidades + repollo, tomate, cebolla y salsas.",
+            "description": "4 unidades con ensalada de repollo, tomate y cebolla, y salsas.",
             "price": "7,00 €",
             "vegetarian": true
           }
@@ -955,12 +955,12 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
     "id": "combined-plates",
     "name": "Platos combinados",
     "shortName": "Combinados",
-    "description": "Platos combinados servidos con patatas fritas, huevo y ensalada.",
+    "description": "Platos combinados servidos con ensalada, patatas fritas y huevo.",
     "note": "Huevo y patatas",
     "tone": "ember",
     "imageKey": "hero",
     "prepTime": "13 min",
-    "mainText": "Todas nuestros platos combinados van acompanados de patatas fritas, huevo y ensalada.",
+    "mainText": "Todos nuestros platos combinados van acompanados de ensalada, patatas fritas y huevo.",
     "sections": [
       {
         "title": "",
@@ -1018,26 +1018,26 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
           {
             "id": "menu-kebab-de-pollo",
             "title": "Menu Kebab de pollo",
-            "description": "Kebab de pollo, repollo, tomate, cebolla y salsas con patatas fritas y refresco o cerveza.",
+            "description": "Kebab de pollo con ensalada de repollo, tomate y cebolla, salsas, patatas fritas y refresco o cerveza.",
             "price": "11,50 €"
           },
           {
             "id": "menu-kebab-de-ternera",
             "title": "Menu Kebab de ternera",
-            "description": "Kebab de ternera, repollo, tomate, cebolla y salsas con patatas fritas y refresco o cerveza.",
+            "description": "Kebab de ternera con ensalada de repollo, tomate y cebolla, salsas, patatas fritas y refresco o cerveza.",
             "price": "13,00 €"
           },
           {
             "id": "menu-kebab-mixto",
             "title": "Menu Kebab mixto",
-            "description": "Kebab mixto, repollo, tomate, cebolla y salsas con patatas fritas y refresco o cerveza.",
+            "description": "Kebab mixto con ensalada de repollo, tomate y cebolla, salsas, patatas fritas y refresco o cerveza.",
             "price": "12,00 €",
             "bestseller": true
           },
           {
             "id": "menu-kebab-de-falafel",
             "title": "Menu Kebab de falafel",
-            "description": "Kebab de falafel, repollo, tomate, cebolla y salsas con patatas fritas y refresco o cerveza.",
+            "description": "Kebab de falafel con ensalada de repollo, tomate y cebolla, salsas, patatas fritas y refresco o cerveza.",
             "price": "10,50 €",
             "vegetarian": true
           }
@@ -1050,25 +1050,25 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
           {
             "id": "menu-shawarma-de-pollo",
             "title": "Menu Shawarma de pollo",
-            "description": "Shawarma de pollo, repollo, tomate, cebolla y salsas con patatas fritas y refresco o cerveza.",
+            "description": "Shawarma de pollo con ensalada de repollo, tomate y cebolla, salsas, patatas fritas y refresco o cerveza.",
             "price": "11,50 €"
           },
           {
             "id": "menu-shawarma-de-ternera",
             "title": "Menu Shawarma de ternera",
-            "description": "Shawarma de ternera, repollo, tomate, cebolla y salsas con patatas fritas y refresco o cerveza.",
+            "description": "Shawarma de ternera con ensalada de repollo, tomate y cebolla, salsas, patatas fritas y refresco o cerveza.",
             "price": "13,00 €"
           },
           {
             "id": "menu-shawarma-mixto",
             "title": "Menu Shawarma mixto",
-            "description": "Shawarma mixto, repollo, tomate, cebolla y salsas con patatas fritas y refresco o cerveza.",
+            "description": "Shawarma mixto con ensalada de repollo, tomate y cebolla, salsas, patatas fritas y refresco o cerveza.",
             "price": "12,00 €"
           },
           {
             "id": "menu-shawarma-de-falafel",
             "title": "Menu Shawarma de falafel",
-            "description": "Shawarma de falafel, repollo, tomate, cebolla y salsas con patatas fritas y refresco o cerveza.",
+            "description": "Shawarma de falafel con ensalada de repollo, tomate y cebolla, salsas, patatas fritas y refresco o cerveza.",
             "price": "10,50 €",
             "vegetarian": true
           }
@@ -1223,7 +1223,7 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
           {
             "id": "bola-de-helado",
             "title": "Bola de Helado",
-            "description": "Chocolate o vainilla.",
+            "description": "Chocolate, vainilla o fresa.",
             "price": "1,90 €"
           },
           {
@@ -1286,7 +1286,7 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
             "id": "copa-de-cerveza",
             "title": "Copa de cerveza",
             "description": "",
-            "price": "2,30 €"
+            "price": "3,00 €"
           },
           {
             "id": "tercio",
@@ -1410,9 +1410,9 @@ function buildTurkishSpecialtiesProducts() {
     deriveProduct("turkish-specialties", "kebab-de-pollo", {
       id: "turkish-specialties-kebab",
       name: "Kebab",
-      description: "Pollo 7,00 €, mixto 7,50 €, ternera 8,50 € y falafel 6,00 €. Repollo, tomate, cebolla y salsas.",
+      description: "Pollo 7,00 €, mixto 7,50 €, ternera 8,50 € y falafel 6,00 €. Con ensalada de repollo, tomate y cebolla, y salsas.",
       longDescription:
-        "Kebab con repollo, tomate, cebolla y salsas. Precio segun version: pollo 7,00 €, mixto 7,50 €, ternera 8,50 € y falafel 6,00 €.",
+        "Kebab con ensalada de repollo, tomate y cebolla, y salsas. Precio segun version: pollo 7,00 €, mixto 7,50 €, ternera 8,50 € y falafel 6,00 €.",
       priceLabel: "Pollo 7,00 / Mixto 7,50 / Ternera 8,50 / Falafel 6,00",
       highlight: "Precio segun version",
       featured: true,
@@ -1423,8 +1423,8 @@ function buildTurkishSpecialtiesProducts() {
     deriveProduct("turkish-specialties", "kebab-de-falafel", {
       id: "turkish-specialties-kebab-falafel",
       name: "Kebab de falafel",
-      description: "Falafel con repollo, tomate, cebolla y salsas.",
-      longDescription: "Kebab de falafel con verdura fresca y salsas. Se mantiene como opcion vegetariana separada.",
+      description: "Falafel con ensalada de repollo, tomate y cebolla, y salsas.",
+      longDescription: "Kebab de falafel con ensalada de repollo, tomate y cebolla, y salsas. Se mantiene como opcion vegetariana separada.",
       highlight: "Falafel, verdura y salsas",
       tags: mergeTags(kebabFalafel.tags, ["Vegetariano"]),
       modifierGroups: [sauceGroup, legacyTurkishExtrasGroup],
@@ -1432,9 +1432,9 @@ function buildTurkishSpecialtiesProducts() {
     deriveProduct("turkish-specialties", "shawarma-de-pollo", {
       id: "turkish-specialties-shawarma",
       name: "Shawarma",
-      description: "Pollo 7,00 €, mixto 7,50 €, ternera 8,50 € y falafel 7,00 €. Repollo, tomate, cebolla y salsas.",
+      description: "Pollo 7,00 €, mixto 7,50 €, ternera 8,50 € y falafel 7,00 €. Con ensalada de repollo, tomate y cebolla, y salsas.",
       longDescription:
-        "Shawarma con repollo, tomate, cebolla y salsas. Precio segun version: pollo 7,00 €, mixto 7,50 €, ternera 8,50 € y falafel 7,00 €.",
+        "Shawarma con ensalada de repollo, tomate y cebolla, y salsas. Precio segun version: pollo 7,00 €, mixto 7,50 €, ternera 8,50 € y falafel 7,00 €.",
       priceLabel: "Pollo 7,00 / Mixto 7,50 / Ternera 8,50 / Falafel 7,00",
       highlight: "Precio segun version",
       tags: mergeTags(shawarmaBase.tags, ["Elige version"]),
@@ -1443,8 +1443,8 @@ function buildTurkishSpecialtiesProducts() {
     deriveProduct("turkish-specialties", "shawarma-de-falafel", {
       id: "turkish-specialties-shawarma-falafel",
       name: "Shawarma de falafel",
-      description: "Falafel con repollo, tomate, cebolla y salsas.",
-      longDescription: "Shawarma de falafel con verdura fresca y salsas. Opcion vegetariana separada del resto.",
+      description: "Falafel con ensalada de repollo, tomate y cebolla, y salsas.",
+      longDescription: "Shawarma de falafel con ensalada de repollo, tomate y cebolla, y salsas. Opcion vegetariana separada del resto.",
       highlight: "Falafel, verdura y salsas",
       tags: mergeTags(shawarmaFalafel.tags, ["Vegetariano"]),
       modifierGroups: [sauceGroup, legacyTurkishExtrasGroup],
@@ -1544,9 +1544,9 @@ function buildMenuProducts(category: MenuCatalogCategory) {
     deriveProduct("menus", "menu-kebab-de-pollo", {
       id: "menus-menu-kebab",
       name: "Menu Kebab",
-      description: "Pollo 11,50 €, mixto 12,00 €, ternera 13,00 € y falafel 10,50 €. Con patatas fritas y bebida.",
+      description: "Pollo 11,50 €, mixto 12,00 €, ternera 13,00 € y falafel 10,50 €. Con ensalada de repollo, tomate y cebolla, patatas fritas y bebida.",
       longDescription:
-        "Menu kebab con patatas fritas y bebida incluida. Precio segun version: pollo 11,50 €, mixto 12,00 €, ternera 13,00 € y falafel 10,50 €.",
+        "Menu kebab con ensalada de repollo, tomate y cebolla, patatas fritas y bebida incluida. Precio segun version: pollo 11,50 €, mixto 12,00 €, ternera 13,00 € y falafel 10,50 €.",
       priceLabel: "Pollo 11,50 / Mixto 12,00 / Ternera 13,00 / Falafel 10,50",
       highlight: "Kebab, patatas y bebida",
       imageKey: "doner",
@@ -1556,8 +1556,8 @@ function buildMenuProducts(category: MenuCatalogCategory) {
     deriveProduct("menus", "menu-kebab-de-falafel", {
       id: "menus-menu-kebab-falafel",
       name: "Menu Kebab de falafel",
-      description: "Kebab de falafel con patatas fritas y bebida.",
-      longDescription: "Menu de kebab de falafel con patatas fritas, bebida incluida y salsas a elegir.",
+      description: "Kebab de falafel con ensalada de repollo, tomate y cebolla, patatas fritas y bebida.",
+      longDescription: "Menu de kebab de falafel con ensalada de repollo, tomate y cebolla, patatas fritas, bebida incluida y salsas a elegir.",
       highlight: "Falafel, patatas y bebida",
       imageKey: "falafel",
       tags: mergeTags(getFlatProduct("menus", "menu-kebab-de-falafel").tags, ["Vegetariano"]),
@@ -1566,9 +1566,9 @@ function buildMenuProducts(category: MenuCatalogCategory) {
     deriveProduct("menus", "menu-shawarma-de-pollo", {
       id: "menus-menu-shawarma",
       name: "Menu Shawarma",
-      description: "Pollo 11,50 €, mixto 12,00 €, ternera 13,00 € y falafel 10,50 €. Con patatas fritas y bebida.",
+      description: "Pollo 11,50 €, mixto 12,00 €, ternera 13,00 € y falafel 10,50 €. Con ensalada de repollo, tomate y cebolla, patatas fritas y bebida.",
       longDescription:
-        "Menu shawarma con patatas fritas y bebida incluida. Precio segun version: pollo 11,50 €, mixto 12,00 €, ternera 13,00 € y falafel 10,50 €.",
+        "Menu shawarma con ensalada de repollo, tomate y cebolla, patatas fritas y bebida incluida. Precio segun version: pollo 11,50 €, mixto 12,00 €, ternera 13,00 € y falafel 10,50 €.",
       priceLabel: "Pollo 11,50 / Mixto 12,00 / Ternera 13,00 / Falafel 10,50",
       highlight: "Shawarma, patatas y bebida",
       imageKey: "doner",
@@ -1578,8 +1578,8 @@ function buildMenuProducts(category: MenuCatalogCategory) {
     deriveProduct("menus", "menu-shawarma-de-falafel", {
       id: "menus-menu-shawarma-falafel",
       name: "Menu Shawarma de falafel",
-      description: "Shawarma de falafel con patatas fritas y bebida.",
-      longDescription: "Menu de shawarma de falafel con patatas fritas, bebida incluida y salsas a elegir.",
+      description: "Shawarma de falafel con ensalada de repollo, tomate y cebolla, patatas fritas y bebida.",
+      longDescription: "Menu de shawarma de falafel con ensalada de repollo, tomate y cebolla, patatas fritas, bebida incluida y salsas a elegir.",
       highlight: "Falafel, patatas y bebida",
       imageKey: "falafel",
       tags: mergeTags(getFlatProduct("menus", "menu-shawarma-de-falafel").tags, ["Vegetariano"]),
@@ -1654,8 +1654,8 @@ function buildMenuProducts(category: MenuCatalogCategory) {
     deriveProduct("combined-plates", "menu-platos-combinados", {
       id: "menus-menu-platos-combinados",
       name: "Menu platos combinados",
-      description: "Plato combinado con patatas fritas, huevo, ensalada y bebida.",
-      longDescription: "Menu de plato combinado con patatas fritas, huevo, ensalada y bebida incluida.",
+      description: "Plato combinado con ensalada, patatas fritas, huevo y bebida.",
+      longDescription: "Menu de plato combinado con ensalada, patatas fritas, huevo y bebida incluida.",
       highlight: "Combinado con bebida",
       imageKey: "hero",
       tags: ["Menu", "Con huevo"],
@@ -1695,9 +1695,9 @@ function buildCombinedPlatesProducts() {
     deriveProduct("combined-plates", "cinta-de-lomo", {
       id: "combined-plates-plato-combinado",
       name: "Plato combinado",
-      description: "Patatas fritas, huevo y ensalada. Elige lomo, pollo, bacon o panceta.",
+      description: "Ensalada, patatas fritas y huevo. Elige lomo, pollo, bacon o panceta.",
       longDescription:
-        "Plato combinado con patatas fritas, huevo y ensalada. Puedes pedirlo con cinta de lomo, pollo a la plancha, bacon o panceta.",
+        "Plato combinado con ensalada, patatas fritas y huevo. Puedes pedirlo con cinta de lomo, pollo a la plancha, bacon o panceta.",
       highlight: "Lomo, pollo, bacon o panceta",
       imageKey: "hero",
       tags: mergeTags(getFlatProduct("combined-plates", "cinta-de-lomo").tags, ["Elige principal"]),

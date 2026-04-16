@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 import heroImage from "@/assets/doner.jpg";
 import Footer from "@/features/layout/components/Footer";
@@ -11,7 +11,10 @@ import { menuCategories, menuProducts } from "@/features/menu/data";
 import { cn } from "@/shared/lib/utils";
 
 const MenuPage = () => {
-  const [activeCategoryId, setActiveCategoryId] = useState(menuCategories[0]?.id ?? "");
+  const [searchParams] = useSearchParams();
+  const requestedProductId = searchParams.get("producto") ?? "";
+  const requestedProduct = menuProducts.find((product) => product.id === requestedProductId);
+  const [activeCategoryId, setActiveCategoryId] = useState(requestedProduct?.categoryId ?? menuCategories[0]?.id ?? "");
 
   const activeCategory = menuCategories.find((category) => category.id === activeCategoryId) ?? menuCategories[0];
   const activeProducts = menuProducts.filter((product) => product.categoryId === activeCategory?.id);
@@ -19,6 +22,28 @@ const MenuPage = () => {
     accumulator[product.categoryId] = (accumulator[product.categoryId] ?? 0) + 1;
     return accumulator;
   }, {});
+  const highlightedProductId =
+    requestedProduct && requestedProduct.categoryId === activeCategory?.id ? requestedProduct.id : undefined;
+
+  useEffect(() => {
+    if (requestedProduct?.categoryId) {
+      setActiveCategoryId(requestedProduct.categoryId);
+    }
+  }, [requestedProduct?.categoryId]);
+
+  useEffect(() => {
+    if (!highlightedProductId) {
+      return;
+    }
+
+    window.requestAnimationFrame(() => {
+      const element = document.getElementById(`product-${highlightedProductId}`);
+
+      if (element instanceof HTMLElement) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  }, [highlightedProductId]);
 
   return (
     <div className="min-h-screen">
@@ -182,7 +207,14 @@ const MenuPage = () => {
 
                 <ul className="grid gap-3 sm:gap-6 md:auto-rows-fr md:grid-cols-2">
                   {activeProducts.map((product, index) => (
-                    <li key={product.id} className="h-full">
+                    <li
+                      key={product.id}
+                      id={`product-${product.id}`}
+                      className={cn(
+                        "h-full scroll-mt-28 sm:scroll-mt-24 lg:scroll-mt-6",
+                        highlightedProductId === product.id && "ring-2 ring-gold ring-offset-4 ring-offset-background",
+                      )}
+                    >
                       <MenuProductCard
                         product={product}
                         compactOnMobile

@@ -123,59 +123,69 @@ const Index = () => {
               className="mt-5"
               aria-label="Carrusel de platos mas pedidos"
             >
-              <CarouselContent className="-ml-3 md:-ml-4">
+              <CarouselContent className="-ml-0 sm:-ml-3 md:-ml-4">
                 {topSellingProducts.map((product) => (
                   <CarouselItem
                     key={product.id}
-                    className="basis-[86%] pl-3 sm:basis-[58%] md:basis-[48%] md:pl-4 xl:basis-[32%]"
+                    className="basis-full pl-0 sm:basis-[58%] sm:pl-3 md:basis-1/2 md:pl-4 lg:basis-1/3"
                   >
-                    <article className="overflow-hidden border border-black/12 bg-white">
-                      <div className="relative aspect-[1.18/1] overflow-hidden bg-black">
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          className="h-full w-full object-cover"
-                          width={720}
-                          height={640}
-                        />
-                        <div className="gradient-overlay absolute inset-0" />
-                        <div className="absolute left-3 top-3 flex flex-wrap gap-2">
-                          {product.bestseller ? (
-                            <Badge className="border-0 bg-gold px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-gold-foreground">
-                              Top ventas
-                            </Badge>
-                          ) : null}
-                          {product.featured ? (
-                            <Badge className="border-0 bg-black/80 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-white">
-                              Destacado
-                            </Badge>
-                          ) : null}
-                        </div>
-                        <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-3 text-white">
-                          <div className="min-w-0">
-                            <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/70">{product.highlight}</p>
-                            <h3 className="mt-1 font-display text-[1.8rem] leading-none">{product.name}</h3>
+                    <Link
+                      to={`/carta?producto=${encodeURIComponent(product.id)}`}
+                      className="group block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+                      aria-label={`Ver ${product.name} dentro de la carta`}
+                    >
+                      <article className="h-full overflow-hidden border border-black/12 bg-white transition-transform duration-300 group-hover:-translate-y-1">
+                        <div className="relative aspect-[1.18/1] overflow-hidden bg-black">
+                          <img
+                            src={product.image}
+                            alt={product.name}
+                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                            width={720}
+                            height={640}
+                          />
+                          <div className="gradient-overlay absolute inset-0" />
+                          <div className="absolute left-3 top-3 flex flex-wrap gap-2">
+                            {product.bestseller ? (
+                              <Badge className="border-0 bg-gold px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-gold-foreground">
+                                Top ventas
+                              </Badge>
+                            ) : null}
+                            {product.featured ? (
+                              <Badge className="border-0 bg-black/80 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-white">
+                                Destacado
+                              </Badge>
+                            ) : null}
                           </div>
-                          <p className="shrink-0 font-display text-[1.8rem] leading-none">{formatCurrency(product.price)}</p>
+                          <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-3 text-white">
+                            <div className="min-w-0">
+                              <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/70">{product.highlight}</p>
+                              <h3 className="mt-1 font-display text-[1.8rem] leading-none">{product.name}</h3>
+                            </div>
+                            <p className="shrink-0 font-display text-[1.8rem] leading-none">{formatCurrency(product.price)}</p>
+                          </div>
                         </div>
-                      </div>
 
-                      <div className="space-y-4 px-4 py-4 sm:px-5">
-                        <p className="text-[13px] leading-6 text-black/72">{product.description}</p>
+                        <div className="space-y-4 px-4 py-4 sm:px-5">
+                          <p className="text-[13px] leading-6 text-black/72">{product.description}</p>
 
-                        <div className="flex flex-wrap gap-2">
-                          {product.tags.slice(0, 3).map((tag) => (
-                            <Badge
-                              key={tag}
-                              variant="outline"
-                              className="border-black/12 bg-muted/55 px-2.5 py-1 text-[10px] uppercase tracking-[0.14em] text-black/70"
-                            >
-                              {tag}
-                            </Badge>
-                          ))}
+                          <div className="flex flex-wrap gap-2">
+                            {product.tags.slice(0, 3).map((tag) => (
+                              <Badge
+                                key={tag}
+                                variant="outline"
+                                className="border-black/12 bg-muted/55 px-2.5 py-1 text-[10px] uppercase tracking-[0.14em] text-black/70"
+                              >
+                                {tag}
+                              </Badge>
+                            ))}
+                          </div>
+
+                          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-black/48 transition-colors group-hover:text-black">
+                            Ver en carta
+                          </p>
                         </div>
-                      </div>
-                    </article>
+                      </article>
+                    </Link>
                   </CarouselItem>
                 ))}
               </CarouselContent>

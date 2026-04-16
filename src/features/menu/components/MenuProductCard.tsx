@@ -47,19 +47,16 @@ const MenuProductCard = ({
       <div className={cn("border border-black/10 bg-muted/50", compact ? "mt-3 p-3" : "mt-4 p-4")}>
         <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-black/58">Extras</p>
         <div className={cn("mt-2 space-y-2", compact ? "text-[11px]" : "text-[12px]")}>
-          {extraGroups.map((group) => (
-            <div key={group.id}>
-              <p className="font-semibold uppercase tracking-[0.14em] text-black/68">{group.name}</p>
-              <ul className="mt-1 space-y-1 text-black/72">
-                {group.options.map((option) => (
-                  <li key={option.id} className="flex items-start justify-between gap-3">
-                    <span>{option.name}</span>
-                    <span className="shrink-0 font-semibold text-black">{renderOptionPrice(option.price)}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <ul className="space-y-1 text-black/72">
+            {extraGroups.flatMap((group) =>
+              group.options.map((option) => (
+                <li key={option.id} className="flex items-start justify-between gap-3">
+                  <span>{option.name}</span>
+                  <span className="shrink-0 font-semibold text-black">{renderOptionPrice(option.price)}</span>
+                </li>
+              )),
+            )}
+          </ul>
         </div>
       </div>
     ) : null;
@@ -253,21 +250,16 @@ const MenuProductCard = ({
                 {extraGroups.length > 0 ? (
                   <div className="mt-4 max-w-2xl border border-white/10 bg-white/[0.04] p-4">
                     <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-gold">Extras</p>
-                    <div className="mt-2 space-y-3 text-sm text-white/80">
-                      {extraGroups.map((group) => (
-                        <div key={group.id}>
-                          <p className="font-semibold uppercase tracking-[0.14em] text-white/68">{group.name}</p>
-                          <ul className="mt-2 space-y-1.5">
-                            {group.options.map((option) => (
-                              <li key={option.id} className="flex items-start justify-between gap-4">
-                                <span>{option.name}</span>
-                                <span className="shrink-0 font-semibold text-gold">{renderOptionPrice(option.price)}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
+                    <ul className="mt-2 space-y-1.5 text-sm text-white/80">
+                      {extraGroups.flatMap((group) =>
+                        group.options.map((option) => (
+                          <li key={option.id} className="flex items-start justify-between gap-4">
+                            <span>{option.name}</span>
+                            <span className="shrink-0 font-semibold text-gold">{renderOptionPrice(option.price)}</span>
+                          </li>
+                        )),
+                      )}
+                    </ul>
                   </div>
                 ) : null}
               </div>

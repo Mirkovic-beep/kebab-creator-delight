@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
 
-import heroImage from "@/assets/doner.jpg";
+import heroImage from "@/assets/durum-placeholder.jpg";
 import Footer from "@/features/layout/components/Footer";
 import MenuProductCard from "@/features/menu/components/MenuProductCard";
 import Navbar from "@/features/layout/components/Navbar";

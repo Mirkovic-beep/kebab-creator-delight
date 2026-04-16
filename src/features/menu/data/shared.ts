@@ -1,16 +1,19 @@
 import heroImage from "@/assets/hero-kebab.jpg";
-import donerImage from "@/assets/doner.jpg";
+import donerImage from "@/assets/durum-placeholder.jpg";
 import lahmacunImage from "@/assets/lahmacun.jpg";
 import falafelImage from "@/assets/falafel.jpg";
 import adanaImage from "@/assets/adana.jpg";
 import terrazaImage from "@/assets/terraza.jpg";
+import burgerImage from "@/assets/burger-user.png";
+import sandwichImage from "@/assets/sandwich-placeholder.jpg";
+import rationsImage from "@/assets/rations-placeholder.jpg";
+import dessertImage from "@/assets/dessert-placeholder.jpg";
 
 import type { AllergenDefinition, AllergenId, MenuAllergen, MenuImageKey, MenuModifierGroup } from "./types";
 
 const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
 
 const localSaladImage = withBase("/images/ensalada_carta.jpg");
-const localBurgerImage = withBase("/images/hamburguesa_carta.jpg");
 const localGenericImage = withBase("/images/imagenCarta.jpg");
 
 export const menuImageMap: Record<MenuImageKey, string> = {
@@ -21,7 +24,10 @@ export const menuImageMap: Record<MenuImageKey, string> = {
   adana: adanaImage,
   terrace: terrazaImage,
   salad: localSaladImage,
-  burger: localBurgerImage,
+  burger: burgerImage,
+  sandwich: sandwichImage,
+  rations: rationsImage,
+  dessert: dessertImage,
   generic: localGenericImage,
 };
 

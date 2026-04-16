@@ -743,7 +743,7 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
     "description": "Patatas, alitas, croquetas, fingers y otras raciones del bar.",
     "note": "Para compartir",
     "tone": "sand",
-    "imageKey": "generic",
+    "imageKey": "rations",
     "prepTime": "11 min",
     "mainText": "",
     "sections": [
@@ -902,7 +902,7 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
     "description": "Bocadillos sencillos para una comida rapida o un picoteo.",
     "note": "Clasicos",
     "tone": "stone",
-    "imageKey": "generic",
+    "imageKey": "sandwich",
     "prepTime": "7 min",
     "mainText": "",
     "sections": [
@@ -951,7 +951,7 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
     "description": "Platos combinados servidos con patatas fritas, huevo y ensalada.",
     "note": "Huevo y patatas",
     "tone": "ember",
-    "imageKey": "generic",
+    "imageKey": "dessert",
     "prepTime": "13 min",
     "mainText": "Todas nuestros platos combinados van acompanados de patatas fritas, huevo y ensalada.",
     "sections": [
@@ -1534,6 +1534,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
       longDescription:
         "Menu kebab con patatas fritas y bebida incluida. Puedes pedirlo de pollo, ternera o mixto desde el mismo producto.",
       highlight: "Kebab, patatas y bebida",
+      imageKey: "doner",
       tags: mergeTags(getFlatProduct("menus", "menu-kebab-de-pollo").tags, ["Elige carne"]),
       modifierGroups: [menuProteinGroup, drinkGroup, sauceGroup],
     }),
@@ -1543,6 +1544,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
       description: "Kebab de falafel con patatas fritas y bebida.",
       longDescription: "Menu de kebab de falafel con patatas fritas, bebida incluida y salsas a elegir.",
       highlight: "Falafel, patatas y bebida",
+      imageKey: "falafel",
       tags: mergeTags(getFlatProduct("menus", "menu-kebab-de-falafel").tags, ["Vegetariano"]),
       modifierGroups: [drinkGroup, sauceGroup],
     }),
@@ -1553,6 +1555,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
       longDescription:
         "Menu shawarma con patatas fritas y bebida incluida. Puedes pedirlo de pollo, ternera o mixto desde el mismo producto.",
       highlight: "Shawarma, patatas y bebida",
+      imageKey: "doner",
       tags: mergeTags(getFlatProduct("menus", "menu-shawarma-de-pollo").tags, ["Elige carne"]),
       modifierGroups: [menuProteinGroup, drinkGroup, sauceGroup],
     }),
@@ -1562,6 +1565,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
       description: "Shawarma de falafel con patatas fritas y bebida.",
       longDescription: "Menu de shawarma de falafel con patatas fritas, bebida incluida y salsas a elegir.",
       highlight: "Falafel, patatas y bebida",
+      imageKey: "falafel",
       tags: mergeTags(getFlatProduct("menus", "menu-shawarma-de-falafel").tags, ["Vegetariano"]),
       modifierGroups: [drinkGroup, sauceGroup],
     }),
@@ -1572,6 +1576,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
       longDescription:
         "Menu combi simple con patatas, arroz o ensalada, bebida incluida y salsas. Puedes elegir pollo, ternera o mixto.",
       highlight: "Combi simple y bebida",
+      imageKey: "hero",
       tags: mergeTags(getFlatProduct("menus", "menu-combi-simple-de-pollo").tags, ["Elige carne"]),
       modifierGroups: [menuCombiSimpleProteinGroup, sideGroup, drinkGroup, sauceGroup],
     }),
@@ -1581,6 +1586,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
       description: "Combi simple de falafel con guarnicion, bebida y salsas.",
       longDescription: "Menu combi simple de falafel con patatas, arroz o ensalada, bebida incluida y salsas a elegir.",
       highlight: "Falafel, guarnicion y bebida",
+      imageKey: "falafel",
       tags: mergeTags(getFlatProduct("menus", "menu-combi-simple-de-falafel").tags, ["Vegetariano"]),
       modifierGroups: [sideGroup, drinkGroup, sauceGroup],
     }),
@@ -1591,6 +1597,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
       longDescription:
         "Menu combi doble con patatas, arroz o ensalada, bebida incluida y salsas. Puedes elegir pollo, ternera o mixto.",
       highlight: "Combi doble y bebida",
+      imageKey: "hero",
       tags: mergeTags(getFlatProduct("menus", "menu-combi-doble-de-pollo").tags, ["Elige carne"]),
       modifierGroups: [menuCombiDoubleProteinGroup, sideGroup, drinkGroup, sauceGroup],
     }),
@@ -1600,6 +1607,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
       description: "Combi doble de falafel con guarnicion, bebida y salsas.",
       longDescription: "Menu combi doble de falafel con patatas, arroz o ensalada, bebida incluida y salsas a elegir.",
       highlight: "Doble de falafel y bebida",
+      imageKey: "falafel",
       tags: mergeTags(getFlatProduct("menus", "menu-combi-doble-de-falafel").tags, ["Vegetariano"]),
       modifierGroups: [sideGroup, drinkGroup, sauceGroup],
     }),
@@ -1610,6 +1618,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
       longDescription:
         "Menu Plato Deja Vu con patatas o arroz, repollo, tomate, cebolla, salsas y bebida incluida. Puedes elegir pollo, ternera o mixto.",
       highlight: "Deja Vu, guarnicion y bebida",
+      imageKey: "hero",
       tags: mergeTags(getFlatProduct("menus", "menu-deja-vu-de-pollo").tags, ["Elige carne"]),
       modifierGroups: [menuDejaVuProteinGroup, sideGroup, drinkGroup, sauceGroup],
     }),
@@ -1619,6 +1628,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
       description: "Plato Deja Vu de falafel con guarnicion, bebida y salsas.",
       longDescription: "Version vegetariana del Menu Deja Vu con falafel, guarnicion a elegir, bebida y salsas.",
       highlight: "Falafel, guarnicion y bebida",
+      imageKey: "falafel",
       tags: mergeTags(getFlatProduct("menus", "menu-deja-vu-de-falafel").tags, ["Vegetariano"]),
       modifierGroups: [sideGroup, drinkGroup, sauceGroup],
     }),
@@ -1628,6 +1638,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
         ...product,
         description: `${product.description} Ternera o pollo crunchy.`,
         longDescription: `${product.longDescription} Disponible en ternera o pollo crunchy con el mismo precio base.`,
+        imageKey: "burger",
         tags: mergeTags(product.tags, ["Elige carne"]),
         modifierGroups: [burgerProteinChoiceGroup, drinkGroup, legacyBurgerExtrasGroup],
       })),
@@ -1658,10 +1669,18 @@ function buildCombinedPlatesProducts() {
       longDescription:
         "Plato combinado con patatas fritas, huevo y ensalada. Puedes pedirlo con cinta de lomo, pollo a la plancha, bacon o panceta.",
       highlight: "Lomo, pollo, bacon o panceta",
+      imageKey: "hero",
       tags: mergeTags(getFlatProduct("combined-plates", "cinta-de-lomo").tags, ["Elige principal"]),
       modifierGroups: [combinedPlateChoiceGroup],
     }),
-    getFlatProduct("combined-plates", "menu-platos-combinados"),
+    deriveProduct("combined-plates", "menu-platos-combinados", {
+      id: "combined-plates-menu-platos-combinados",
+      name: "Menu platos combinados",
+      description: "Plato combinado con patatas fritas, huevo, ensalada y bebida.",
+      longDescription: "Menu de plato combinado con patatas fritas, huevo, ensalada y bebida incluida.",
+      highlight: "Combinado con bebida",
+      imageKey: "hero",
+    }),
   ];
 }
 

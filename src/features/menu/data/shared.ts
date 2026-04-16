@@ -68,11 +68,11 @@ export const legacyTurkishExtrasGroup: MenuModifierGroup = {
   selectionType: "multiple",
   maxSelections: 5,
   options: [
-    { id: "legacy-large-side", name: "Racion grande de patatas o arroz", price: 5 },
-    { id: "legacy-extra-bread", name: "Extra de pan", price: 0.7 },
+    { id: "legacy-large-side", name: "Racion de patatas fritas", price: 5 },
+    { id: "legacy-extra-bread", name: "Extra de pan", price: 0.5 },
     { id: "legacy-extra-sauce", name: "Extra de salsa", price: 0.5 },
     { id: "legacy-extra-cheese", name: "Extra de queso", price: 0.5 },
-    { id: "legacy-small-side", name: "Racion pequena de patatas o arroz", price: 2.8 },
+    { id: "legacy-small-side", name: "Media racion de patatas fritas", price: 2.8 },
   ],
 };
 
@@ -83,7 +83,7 @@ export const legacyPlateExtrasGroup: MenuModifierGroup = {
   selectionType: "multiple",
   maxSelections: 2,
   options: [
-    { id: "legacy-plate-bread", name: "Extra de pan", price: 0.7 },
+    { id: "legacy-plate-bread", name: "Extra de pan", price: 0.5 },
     { id: "legacy-plate-cheese", name: "Extra de queso", price: 0.5 },
   ],
 };
@@ -146,105 +146,127 @@ export const proteinClassicGroup: MenuModifierGroup = {
 
 export const kebabProteinGroup: MenuModifierGroup = {
   id: "kebab-protein",
-  name: "Carne",
-  description: "Elige tu version",
+  name: "Version",
+  description: "Pollo, mixto, ternera o falafel",
   selectionType: "single",
   required: true,
   options: [
     { id: "kebab-pollo", name: "Pollo", default: true },
     { id: "kebab-ternera", name: "Ternera", price: 1.5 },
     { id: "kebab-mixto", name: "Mixto", price: 0.5 },
+    { id: "kebab-falafel", name: "Falafel", price: -1 },
+  ],
+};
+
+export const shawarmaProteinGroup: MenuModifierGroup = {
+  id: "shawarma-protein",
+  name: "Version",
+  description: "Pollo, mixto, ternera o falafel",
+  selectionType: "single",
+  required: true,
+  options: [
+    { id: "shawarma-pollo", name: "Pollo", default: true },
+    { id: "shawarma-ternera", name: "Ternera", price: 1.5 },
+    { id: "shawarma-mixto", name: "Mixto", price: 0.5 },
+    { id: "shawarma-falafel", name: "Falafel" },
   ],
 };
 
 export const combiSimpleProteinGroup: MenuModifierGroup = {
   id: "combi-simple-protein",
-  name: "Carne",
-  description: "Escoge la carne del plato",
+  name: "Version",
+  description: "Pollo, mixto, ternera o falafel",
   selectionType: "single",
   required: true,
   options: [
     { id: "combi-simple-pollo", name: "Pollo", default: true },
     { id: "combi-simple-ternera", name: "Ternera", price: 2 },
     { id: "combi-simple-mixto", name: "Mixto", price: 0.5 },
+    { id: "combi-simple-falafel", name: "Falafel", price: -1.3 },
   ],
 };
 
 export const combiDoubleProteinGroup: MenuModifierGroup = {
   id: "combi-double-protein",
-  name: "Carne",
-  description: "Escoge la carne del plato",
+  name: "Version",
+  description: "Pollo, mixto, ternera o falafel",
   selectionType: "single",
   required: true,
   options: [
     { id: "combi-double-pollo", name: "Pollo", default: true },
     { id: "combi-double-ternera", name: "Ternera", price: 2 },
     { id: "combi-double-mixto", name: "Mixto", price: 0.5 },
+    { id: "combi-double-falafel", name: "Falafel" },
   ],
 };
 
 export const dejaVuProteinGroup: MenuModifierGroup = {
   id: "dejavu-protein",
-  name: "Carne",
-  description: "Escoge la carne del plato",
+  name: "Version",
+  description: "Pollo, mixto, ternera o falafel",
   selectionType: "single",
   required: true,
   options: [
     { id: "dejavu-pollo", name: "Pollo", default: true },
     { id: "dejavu-ternera", name: "Ternera", price: 2.5 },
     { id: "dejavu-mixto", name: "Mixto", price: 1 },
+    { id: "dejavu-falafel", name: "Falafel", price: -1.5 },
   ],
 };
 
 export const menuProteinGroup: MenuModifierGroup = {
   id: "menu-protein",
-  name: "Carne",
-  description: "Elige tu version del menu",
+  name: "Version",
+  description: "Pollo, mixto, ternera o falafel",
   selectionType: "single",
   required: true,
   options: [
     { id: "menu-pollo", name: "Pollo", default: true },
     { id: "menu-ternera", name: "Ternera", price: 1.5 },
     { id: "menu-mixto", name: "Mixto", price: 0.5 },
+    { id: "menu-falafel", name: "Falafel", price: -1 },
   ],
 };
 
 export const menuCombiSimpleProteinGroup: MenuModifierGroup = {
   id: "menu-combi-simple-protein",
-  name: "Carne",
-  description: "Elige tu version del menu",
+  name: "Version",
+  description: "Pollo, mixto, ternera o falafel",
   selectionType: "single",
   required: true,
   options: [
     { id: "menu-combi-simple-pollo", name: "Pollo", default: true },
     { id: "menu-combi-simple-ternera", name: "Ternera", price: 2 },
     { id: "menu-combi-simple-mixto", name: "Mixto", price: 0.5 },
+    { id: "menu-combi-simple-falafel", name: "Falafel", price: -1.3 },
   ],
 };
 
 export const menuCombiDoubleProteinGroup: MenuModifierGroup = {
   id: "menu-combi-double-protein",
-  name: "Carne",
-  description: "Elige tu version del menu",
+  name: "Version",
+  description: "Pollo, mixto, ternera o falafel",
   selectionType: "single",
   required: true,
   options: [
     { id: "menu-combi-double-pollo", name: "Pollo", default: true },
     { id: "menu-combi-double-ternera", name: "Ternera", price: 2 },
     { id: "menu-combi-double-mixto", name: "Mixto", price: 0.5 },
+    { id: "menu-combi-double-falafel", name: "Falafel", price: -2 },
   ],
 };
 
 export const menuDejaVuProteinGroup: MenuModifierGroup = {
   id: "menu-dejavu-protein",
-  name: "Carne",
-  description: "Elige tu version del menu",
+  name: "Version",
+  description: "Pollo, mixto, ternera o falafel",
   selectionType: "single",
   required: true,
   options: [
     { id: "menu-dejavu-pollo", name: "Pollo", default: true },
     { id: "menu-dejavu-ternera", name: "Ternera", price: 2 },
     { id: "menu-dejavu-mixto", name: "Mixto", price: 0.5 },
+    { id: "menu-dejavu-falafel", name: "Falafel", price: -2 },
   ],
 };
 

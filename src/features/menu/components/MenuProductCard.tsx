@@ -6,7 +6,7 @@ import { ProductAllergenCompactRow, ProductAllergenSummary, ProductStatusBadges 
 import { Badge } from "@/shared/ui/badge";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/shared/ui/dialog";
 import { type MenuProduct } from "@/features/menu/data";
-import { formatCurrency } from "@/features/menu/lib/menu";
+import { formatProductPrice } from "@/features/menu/lib/menu";
 import { cn } from "@/shared/lib/utils";
 
 interface MenuProductCardProps {
@@ -29,6 +29,7 @@ const MenuProductCard = ({
   const titleId = `${product.id}-title`;
   const visibleTags = product.tags.slice(0, isFeatured ? 4 : 3);
   const description = isFeatured ? product.longDescription : product.description;
+  const priceText = formatProductPrice(product);
 
   return (
     <>
@@ -68,7 +69,14 @@ const MenuProductCard = ({
                       {product.name}
                     </h3>
                   </div>
-                  <p className="shrink-0 font-display text-[1.55rem] leading-none text-black">{formatCurrency(product.price)}</p>
+                  <p
+                    className={cn(
+                      "shrink-0 text-right text-black",
+                      product.priceLabel ? "max-w-[10.5rem] text-[0.78rem] font-semibold leading-4" : "font-display text-[1.55rem] leading-none",
+                    )}
+                  >
+                    {priceText}
+                  </p>
                 </div>
 
                 <ProductStatusBadges product={product} compact className="mt-1.5 max-w-full" />
@@ -144,7 +152,14 @@ const MenuProductCard = ({
                     {product.name}
                   </h3>
                 </div>
-                <p className="shrink-0 font-display text-4xl leading-none text-black">{formatCurrency(product.price)}</p>
+                <p
+                  className={cn(
+                    "shrink-0 text-right text-black",
+                    product.priceLabel ? "max-w-[15rem] text-sm font-semibold leading-5" : "font-display text-4xl leading-none",
+                  )}
+                >
+                  {priceText}
+                </p>
               </div>
 
               <p className="text-sm leading-7 text-black/74">{description}</p>
@@ -199,7 +214,14 @@ const MenuProductCard = ({
                   Vista ampliada del producto. Pulsa fuera de la imagen o el boton de cierre para volver a la carta.
                 </DialogDescription>
               </div>
-              <p className="shrink-0 font-display text-2xl leading-none text-gold sm:text-3xl">{formatCurrency(product.price)}</p>
+              <p
+                className={cn(
+                  "shrink-0 text-right text-gold",
+                  product.priceLabel ? "max-w-[16rem] text-sm font-semibold leading-5 sm:text-base" : "font-display text-2xl leading-none sm:text-3xl",
+                )}
+              >
+                {priceText}
+              </p>
             </div>
           </div>
         </DialogContent>

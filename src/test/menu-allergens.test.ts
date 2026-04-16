@@ -20,6 +20,7 @@ const expectedAllergensByProductId: Record<string, AllergenId[]> = {
   "plates-plato-deja-vu-falafel": [],
 
   "rations-patatas": ["egg"],
+  "rations-patatas-fritas-1-2-racion": ["egg"],
   "rations-salchipapas": [],
   "rations-papas-locas": ["milk"],
   "rations-alitas-de-pollo": [],
@@ -43,12 +44,12 @@ const expectedAllergensByProductId: Record<string, AllergenId[]> = {
   "bocadillos-bocadillo": ["gluten"],
 
   "combined-plates-plato-combinado": ["egg"],
-  "combined-plates-menu-platos-combinados": ["egg"],
 
   "menus-menu-kebab": ["gluten"],
   "menus-menu-kebab-falafel": ["gluten"],
   "menus-menu-shawarma": ["gluten"],
   "menus-menu-shawarma-falafel": ["gluten"],
+  "menus-menu-platos-combinados": ["egg"],
   "menus-menu-combi-simple": [],
   "menus-menu-combi-simple-falafel": [],
   "menus-menu-combi-doble": [],
@@ -79,6 +80,7 @@ const expectedAllergensByProductId: Record<string, AllergenId[]> = {
   "drinks-botella-de-vino": [],
   "drinks-tinto-de-verano": [],
   "drinks-cafe": [],
+  "drinks-infusiones": [],
   "drinks-latas-para-llevar": [],
 };
 

@@ -10,7 +10,7 @@ import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/shared/ui/carousel";
 import { menuProducts, restaurantInfo } from "@/features/menu/data";
-import { formatCurrency } from "@/features/menu/lib/menu";
+import { formatProductPrice } from "@/features/menu/lib/menu";
 
 const topSellingProducts = menuProducts.filter((product) => product.bestseller).slice(0, 7);
 
@@ -161,7 +161,15 @@ const Index = () => {
                               <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/70">{product.highlight}</p>
                               <h3 className="mt-1 font-display text-[1.8rem] leading-none">{product.name}</h3>
                             </div>
-                            <p className="shrink-0 font-display text-[1.8rem] leading-none">{formatCurrency(product.price)}</p>
+                            <p
+                              className={
+                                product.priceLabel
+                                  ? "max-w-[11rem] shrink-0 text-right text-[0.75rem] font-semibold leading-4"
+                                  : "shrink-0 font-display text-[1.8rem] leading-none"
+                              }
+                            >
+                              {formatProductPrice(product)}
+                            </p>
                           </div>
                         </div>
 

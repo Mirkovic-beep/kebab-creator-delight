@@ -76,6 +76,7 @@ export interface MenuProduct {
   description: string;
   longDescription: string;
   price: number;
+  priceLabel?: string;
   image: string;
   featured?: boolean;
   bestseller?: boolean;

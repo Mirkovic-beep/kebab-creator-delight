@@ -23,6 +23,7 @@ import {
   buildCartItem,
   calculateSelectionPrice,
   formatCurrency,
+  formatProductPrice,
   getDefaultSelections,
   type CartItem,
   type ProductSelections,
@@ -40,7 +41,7 @@ function optionPriceLabel(price?: number) {
     return "Incluido";
   }
 
-  return `+${formatCurrency(price)}`;
+  return price > 0 ? `+${formatCurrency(price)}` : formatCurrency(price);
 }
 
 const ProductCustomizerDialog = ({
@@ -69,6 +70,7 @@ const ProductCustomizerDialog = ({
 
   const extraPrice = calculateSelectionPrice(product, selections);
   const unitPrice = product.price + extraPrice;
+  const priceText = formatProductPrice(product);
 
   const updateMultiSelection = (group: MenuModifierGroup, optionId: string, checked: boolean) => {
     setSelections((currentSelections) => {
@@ -138,7 +140,7 @@ const ProductCustomizerDialog = ({
               <div className="flex flex-wrap gap-4 text-sm text-stone-300">
                 <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5">
                   <Sparkles className="h-4 w-4 text-gold" />
-                  Base {formatCurrency(product.price)}
+                  {product.priceLabel ? `Precio segun version: ${priceText}` : `Base ${formatCurrency(product.price)}`}
                 </span>
               </div>
             </div>

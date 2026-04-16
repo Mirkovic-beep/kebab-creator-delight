@@ -5,7 +5,7 @@ import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import { Card, CardContent } from "@/shared/ui/card";
 import { menuCategories, menuProducts } from "@/features/menu/data";
-import { formatCurrency } from "@/features/menu/lib/menu";
+import { formatProductPrice } from "@/features/menu/lib/menu";
 import { cn } from "@/shared/lib/utils";
 
 const categoryTones = {
@@ -82,7 +82,9 @@ const MenuSection = () => {
                     <p className="text-sm uppercase tracking-[0.24em] text-gold">{product.highlight}</p>
                     <h3 className="mt-2 font-display text-3xl font-semibold text-foreground">{product.name}</h3>
                   </div>
-                  <span className="font-display text-2xl font-semibold text-gold">{formatCurrency(product.price)}</span>
+                  <span className={product.priceLabel ? "max-w-[12rem] text-right text-xs font-semibold leading-5 text-gold" : "font-display text-2xl font-semibold text-gold"}>
+                    {formatProductPrice(product)}
+                  </span>
                 </div>
                 <p className="text-sm leading-relaxed text-muted-foreground">{product.description}</p>
                 <div className="flex flex-wrap gap-2">

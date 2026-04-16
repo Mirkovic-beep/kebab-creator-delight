@@ -32,6 +32,7 @@ import {
   menuProteinGroup,
   menuImageMap,
   sauceGroup,
+  shawarmaProteinGroup,
   sideGroup,
 } from "./shared";
 
@@ -427,7 +428,7 @@ function inferAllergens(category: LegacyCategorySeed, item: LegacyItem): MenuAll
     case "plates":
       return [];
     case "rations":
-      if (item.id === "patatas") {
+      if (/alioli/.test(text)) {
         return containsAllergens("egg");
       }
 
@@ -702,7 +703,7 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
             "id": "combi-doble-de-falafel",
             "title": "Combi doble de falafel",
             "description": "Doble de falafel acompanado a elegir entre arroz, patatas o ensalada.",
-            "price": "9,50 €",
+            "price": "11,50 €",
             "vegetarian": true
           },
           {
@@ -753,9 +754,15 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
         "items": [
           {
             "id": "patatas",
-            "title": "Patatas",
-            "description": "Patatas mixtas,bravas o alioli.",
-            "price": "8,90 €"
+            "title": "Patatas fritas",
+            "description": "Bravas, mixtas o alioli.",
+            "price": "5,00 €"
+          },
+          {
+            "id": "patatas-fritas-1-2-racion",
+            "title": "Patatas fritas 1/2 racion",
+            "description": "Bravas, mixtas o alioli.",
+            "price": "2,80 €"
           },
           {
             "id": "salchipapas",
@@ -951,7 +958,7 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
     "description": "Platos combinados servidos con patatas fritas, huevo y ensalada.",
     "note": "Huevo y patatas",
     "tone": "ember",
-    "imageKey": "dessert",
+    "imageKey": "hero",
     "prepTime": "13 min",
     "mainText": "Todas nuestros platos combinados van acompanados de patatas fritas, huevo y ensalada.",
     "sections": [
@@ -1062,7 +1069,7 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
             "id": "menu-shawarma-de-falafel",
             "title": "Menu Shawarma de falafel",
             "description": "Shawarma de falafel, repollo, tomate, cebolla y salsas con patatas fritas y refresco o cerveza.",
-            "price": "11,50 €",
+            "price": "10,50 €",
             "vegetarian": true
           }
         ]
@@ -1199,7 +1206,7 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
     "description": "Profiteroles, bolas de helado, tarta de queso, smoothies y milkshakes.",
     "note": "Helados y batidos",
     "tone": "stone",
-    "imageKey": "generic",
+    "imageKey": "dessert",
     "prepTime": "5 min",
     "mainText": "",
     "sections": [
@@ -1403,13 +1410,14 @@ function buildTurkishSpecialtiesProducts() {
     deriveProduct("turkish-specialties", "kebab-de-pollo", {
       id: "turkish-specialties-kebab",
       name: "Kebab",
-      description: "Repollo, tomate, cebolla y salsas. Elige pollo, ternera o mixto.",
+      description: "Pollo 7,00 €, mixto 7,50 €, ternera 8,50 € y falafel 6,00 €. Repollo, tomate, cebolla y salsas.",
       longDescription:
-        "Kebab con repollo, tomate, cebolla y salsas. Puedes pedirlo de pollo, ternera o mixto desde el mismo producto.",
-      highlight: "Pollo, ternera o mixto",
+        "Kebab con repollo, tomate, cebolla y salsas. Precio segun version: pollo 7,00 €, mixto 7,50 €, ternera 8,50 € y falafel 6,00 €.",
+      priceLabel: "Pollo 7,00 / Mixto 7,50 / Ternera 8,50 / Falafel 6,00",
+      highlight: "Precio segun version",
       featured: true,
       bestseller: true,
-      tags: mergeTags(kebabBase.tags, ["Elige carne"]),
+      tags: mergeTags(kebabBase.tags, ["Elige version"]),
       modifierGroups: [kebabProteinGroup, sauceGroup, legacyTurkishExtrasGroup],
     }),
     deriveProduct("turkish-specialties", "kebab-de-falafel", {
@@ -1424,12 +1432,13 @@ function buildTurkishSpecialtiesProducts() {
     deriveProduct("turkish-specialties", "shawarma-de-pollo", {
       id: "turkish-specialties-shawarma",
       name: "Shawarma",
-      description: "Repollo, tomate, cebolla y salsas. Elige pollo, ternera o mixto.",
+      description: "Pollo 7,00 €, mixto 7,50 €, ternera 8,50 € y falafel 7,00 €. Repollo, tomate, cebolla y salsas.",
       longDescription:
-        "Shawarma con repollo, tomate, cebolla y salsas. Puedes elegir pollo, ternera o mixto desde el mismo producto.",
-      highlight: "Pollo, ternera o mixto",
-      tags: mergeTags(shawarmaBase.tags, ["Elige carne"]),
-      modifierGroups: [kebabProteinGroup, sauceGroup, legacyTurkishExtrasGroup],
+        "Shawarma con repollo, tomate, cebolla y salsas. Precio segun version: pollo 7,00 €, mixto 7,50 €, ternera 8,50 € y falafel 7,00 €.",
+      priceLabel: "Pollo 7,00 / Mixto 7,50 / Ternera 8,50 / Falafel 7,00",
+      highlight: "Precio segun version",
+      tags: mergeTags(shawarmaBase.tags, ["Elige version"]),
+      modifierGroups: [shawarmaProteinGroup, sauceGroup, legacyTurkishExtrasGroup],
     }),
     deriveProduct("turkish-specialties", "shawarma-de-falafel", {
       id: "turkish-specialties-shawarma-falafel",
@@ -1449,10 +1458,12 @@ function buildPlatesProducts() {
     deriveProduct("plates", "combi-simple-de-pollo", {
       id: "plates-combi-simple",
       name: "Combi simple",
-      description: "Arroz, patatas o ensalada. Elige pollo, ternera o mixto.",
-      longDescription: "Plato combi con guarnicion a elegir. Puedes pedirlo de pollo, ternera o mixto desde el mismo producto.",
-      highlight: "Pollo, ternera o mixto",
-      tags: mergeTags(getFlatProduct("plates", "combi-simple-de-pollo").tags, ["Elige carne"]),
+      description: "Pollo 9,50 €, mixto 10,00 €, ternera 11,50 € y falafel 8,20 €. Con arroz, patatas o ensalada.",
+      longDescription:
+        "Plato combi simple con guarnicion a elegir. Precio segun version: pollo 9,50 €, mixto 10,00 €, ternera 11,50 € y falafel 8,20 €.",
+      priceLabel: "Pollo 9,50 / Mixto 10,00 / Ternera 11,50 / Falafel 8,20",
+      highlight: "Precio segun version",
+      tags: mergeTags(getFlatProduct("plates", "combi-simple-de-pollo").tags, ["Elige version"]),
       modifierGroups: [combiSimpleProteinGroup, sideGroup, sauceGroup, legacyPlateExtrasGroup],
     }),
     deriveProduct("plates", "combi-simple-de-falafel", {
@@ -1467,10 +1478,12 @@ function buildPlatesProducts() {
     deriveProduct("plates", "combi-doble-de-pollo", {
       id: "plates-combi-doble",
       name: "Combi doble",
-      description: "Racion doble con arroz, patatas o ensalada. Elige pollo, ternera o mixto.",
-      longDescription: "Plato combi doble con guarnicion a elegir. Puedes pedirlo de pollo, ternera o mixto desde el mismo producto.",
-      highlight: "Racion doble a elegir",
-      tags: mergeTags(getFlatProduct("plates", "combi-doble-de-pollo").tags, ["Elige carne"]),
+      description: "Pollo 11,50 €, mixto 12,00 €, ternera 13,50 € y falafel 11,50 €. Con arroz, patatas o ensalada.",
+      longDescription:
+        "Plato combi doble con guarnicion a elegir. Precio segun version: pollo 11,50 €, mixto 12,00 €, ternera 13,50 € y falafel 11,50 €.",
+      priceLabel: "Pollo 11,50 / Mixto 12,00 / Ternera 13,50 / Falafel 11,50",
+      highlight: "Precio segun version",
+      tags: mergeTags(getFlatProduct("plates", "combi-doble-de-pollo").tags, ["Elige version"]),
       modifierGroups: [combiDoubleProteinGroup, sideGroup, sauceGroup, legacyPlateExtrasGroup],
     }),
     deriveProduct("plates", "combi-doble-de-falafel", {
@@ -1485,13 +1498,14 @@ function buildPlatesProducts() {
     deriveProduct("plates", "plato-deja-vu-de-pollo", {
       id: "plates-plato-deja-vu",
       name: "Plato Deja Vu",
-      description: "Patatas o arroz, repollo, tomate, cebolla y salsas. Elige pollo, ternera o mixto.",
+      description: "Pollo 13,00 €, mixto 14,00 €, ternera 15,50 € y falafel 11,50 €. Patatas o arroz, repollo, tomate, cebolla y salsas.",
       longDescription:
-        "Plato Deja Vu con base de patatas o arroz, repollo, tomate, cebolla y salsas. Puedes pedirlo de pollo, ternera o mixto.",
-      highlight: "Pollo, ternera o mixto",
+        "Plato Deja Vu con patatas o arroz, repollo, tomate, cebolla y salsas. Precio segun version: pollo 13,00 €, mixto 14,00 €, ternera 15,50 € y falafel 11,50 €.",
+      priceLabel: "Pollo 13,00 / Mixto 14,00 / Ternera 15,50 / Falafel 11,50",
+      highlight: "Precio segun version",
       featured: true,
       bestseller: true,
-      tags: mergeTags(getFlatProduct("plates", "plato-deja-vu-de-pollo").tags, ["Elige carne"]),
+      tags: mergeTags(getFlatProduct("plates", "plato-deja-vu-de-pollo").tags, ["Elige version"]),
       modifierGroups: [dejaVuProteinGroup, sideGroup, sauceGroup, legacyPlateExtrasGroup],
     }),
     deriveProduct("plates", "plato-deja-vu-de-falafel", {
@@ -1530,12 +1544,13 @@ function buildMenuProducts(category: MenuCatalogCategory) {
     deriveProduct("menus", "menu-kebab-de-pollo", {
       id: "menus-menu-kebab",
       name: "Menu Kebab",
-      description: "Kebab con patatas fritas y bebida. Elige pollo, ternera o mixto.",
+      description: "Pollo 11,50 €, mixto 12,00 €, ternera 13,00 € y falafel 10,50 €. Con patatas fritas y bebida.",
       longDescription:
-        "Menu kebab con patatas fritas y bebida incluida. Puedes pedirlo de pollo, ternera o mixto desde el mismo producto.",
+        "Menu kebab con patatas fritas y bebida incluida. Precio segun version: pollo 11,50 €, mixto 12,00 €, ternera 13,00 € y falafel 10,50 €.",
+      priceLabel: "Pollo 11,50 / Mixto 12,00 / Ternera 13,00 / Falafel 10,50",
       highlight: "Kebab, patatas y bebida",
       imageKey: "doner",
-      tags: mergeTags(getFlatProduct("menus", "menu-kebab-de-pollo").tags, ["Elige carne"]),
+      tags: mergeTags(getFlatProduct("menus", "menu-kebab-de-pollo").tags, ["Elige version"]),
       modifierGroups: [menuProteinGroup, drinkGroup, sauceGroup],
     }),
     deriveProduct("menus", "menu-kebab-de-falafel", {
@@ -1551,12 +1566,13 @@ function buildMenuProducts(category: MenuCatalogCategory) {
     deriveProduct("menus", "menu-shawarma-de-pollo", {
       id: "menus-menu-shawarma",
       name: "Menu Shawarma",
-      description: "Shawarma con patatas fritas y bebida. Elige pollo, ternera o mixto.",
+      description: "Pollo 11,50 €, mixto 12,00 €, ternera 13,00 € y falafel 10,50 €. Con patatas fritas y bebida.",
       longDescription:
-        "Menu shawarma con patatas fritas y bebida incluida. Puedes pedirlo de pollo, ternera o mixto desde el mismo producto.",
+        "Menu shawarma con patatas fritas y bebida incluida. Precio segun version: pollo 11,50 €, mixto 12,00 €, ternera 13,00 € y falafel 10,50 €.",
+      priceLabel: "Pollo 11,50 / Mixto 12,00 / Ternera 13,00 / Falafel 10,50",
       highlight: "Shawarma, patatas y bebida",
       imageKey: "doner",
-      tags: mergeTags(getFlatProduct("menus", "menu-shawarma-de-pollo").tags, ["Elige carne"]),
+      tags: mergeTags(getFlatProduct("menus", "menu-shawarma-de-pollo").tags, ["Elige version"]),
       modifierGroups: [menuProteinGroup, drinkGroup, sauceGroup],
     }),
     deriveProduct("menus", "menu-shawarma-de-falafel", {
@@ -1572,12 +1588,13 @@ function buildMenuProducts(category: MenuCatalogCategory) {
     deriveProduct("menus", "menu-combi-simple-de-pollo", {
       id: "menus-menu-combi-simple",
       name: "Menu Combi simple",
-      description: "Combi simple con guarnicion, bebida y salsas. Elige pollo, ternera o mixto.",
+      description: "Pollo 11,50 €, mixto 12,00 €, ternera 13,50 € y falafel 10,20 €. Con guarnicion, bebida y salsas.",
       longDescription:
-        "Menu combi simple con patatas, arroz o ensalada, bebida incluida y salsas. Puedes elegir pollo, ternera o mixto.",
+        "Menu combi simple con patatas, arroz o ensalada, bebida incluida y salsas. Precio segun version: pollo 11,50 €, mixto 12,00 €, ternera 13,50 € y falafel 10,20 €.",
+      priceLabel: "Pollo 11,50 / Mixto 12,00 / Ternera 13,50 / Falafel 10,20",
       highlight: "Combi simple y bebida",
       imageKey: "hero",
-      tags: mergeTags(getFlatProduct("menus", "menu-combi-simple-de-pollo").tags, ["Elige carne"]),
+      tags: mergeTags(getFlatProduct("menus", "menu-combi-simple-de-pollo").tags, ["Elige version"]),
       modifierGroups: [menuCombiSimpleProteinGroup, sideGroup, drinkGroup, sauceGroup],
     }),
     deriveProduct("menus", "menu-combi-simple-de-falafel", {
@@ -1593,12 +1610,13 @@ function buildMenuProducts(category: MenuCatalogCategory) {
     deriveProduct("menus", "menu-combi-doble-de-pollo", {
       id: "menus-menu-combi-doble",
       name: "Menu Combi doble",
-      description: "Combi doble con guarnicion, bebida y salsas. Elige pollo, ternera o mixto.",
+      description: "Pollo 13,50 €, mixto 14,00 €, ternera 15,50 € y falafel 11,50 €. Con guarnicion, bebida y salsas.",
       longDescription:
-        "Menu combi doble con patatas, arroz o ensalada, bebida incluida y salsas. Puedes elegir pollo, ternera o mixto.",
+        "Menu combi doble con patatas, arroz o ensalada, bebida incluida y salsas. Precio segun version: pollo 13,50 €, mixto 14,00 €, ternera 15,50 € y falafel 11,50 €.",
+      priceLabel: "Pollo 13,50 / Mixto 14,00 / Ternera 15,50 / Falafel 11,50",
       highlight: "Combi doble y bebida",
       imageKey: "hero",
-      tags: mergeTags(getFlatProduct("menus", "menu-combi-doble-de-pollo").tags, ["Elige carne"]),
+      tags: mergeTags(getFlatProduct("menus", "menu-combi-doble-de-pollo").tags, ["Elige version"]),
       modifierGroups: [menuCombiDoubleProteinGroup, sideGroup, drinkGroup, sauceGroup],
     }),
     deriveProduct("menus", "menu-combi-doble-de-falafel", {
@@ -1614,12 +1632,13 @@ function buildMenuProducts(category: MenuCatalogCategory) {
     deriveProduct("menus", "menu-deja-vu-de-pollo", {
       id: "menus-menu-deja-vu",
       name: "Menu Deja Vu",
-      description: "Plato Deja Vu con guarnicion, bebida y salsas. Elige pollo, ternera o mixto.",
+      description: "Pollo 15,50 €, mixto 16,00 €, ternera 17,50 € y falafel 13,50 €. Con guarnicion, bebida y salsas.",
       longDescription:
-        "Menu Plato Deja Vu con patatas o arroz, repollo, tomate, cebolla, salsas y bebida incluida. Puedes elegir pollo, ternera o mixto.",
+        "Menu Plato Deja Vu con patatas o arroz, repollo, tomate, cebolla, salsas y bebida incluida. Precio segun version: pollo 15,50 €, mixto 16,00 €, ternera 17,50 € y falafel 13,50 €.",
+      priceLabel: "Pollo 15,50 / Mixto 16,00 / Ternera 17,50 / Falafel 13,50",
       highlight: "Deja Vu, guarnicion y bebida",
       imageKey: "hero",
-      tags: mergeTags(getFlatProduct("menus", "menu-deja-vu-de-pollo").tags, ["Elige carne"]),
+      tags: mergeTags(getFlatProduct("menus", "menu-deja-vu-de-pollo").tags, ["Elige version"]),
       modifierGroups: [menuDejaVuProteinGroup, sideGroup, drinkGroup, sauceGroup],
     }),
     deriveProduct("menus", "menu-deja-vu-de-falafel", {
@@ -1631,6 +1650,17 @@ function buildMenuProducts(category: MenuCatalogCategory) {
       imageKey: "falafel",
       tags: mergeTags(getFlatProduct("menus", "menu-deja-vu-de-falafel").tags, ["Vegetariano"]),
       modifierGroups: [sideGroup, drinkGroup, sauceGroup],
+    }),
+    deriveProduct("combined-plates", "menu-platos-combinados", {
+      id: "menus-menu-platos-combinados",
+      name: "Menu platos combinados",
+      description: "Plato combinado con patatas fritas, huevo, ensalada y bebida.",
+      longDescription: "Menu de plato combinado con patatas fritas, huevo, ensalada y bebida incluida.",
+      highlight: "Combinado con bebida",
+      imageKey: "hero",
+      tags: ["Menu", "Con huevo"],
+      modifierGroups: [drinkGroup],
+      allergens: combinedPlateAllergens,
     }),
     ...category.products
       .filter((product) => burgerMenuIds.has(product.id))
@@ -1672,14 +1702,6 @@ function buildCombinedPlatesProducts() {
       imageKey: "hero",
       tags: mergeTags(getFlatProduct("combined-plates", "cinta-de-lomo").tags, ["Elige principal"]),
       modifierGroups: [combinedPlateChoiceGroup],
-    }),
-    deriveProduct("combined-plates", "menu-platos-combinados", {
-      id: "combined-plates-menu-platos-combinados",
-      name: "Menu platos combinados",
-      description: "Plato combinado con patatas fritas, huevo, ensalada y bebida.",
-      longDescription: "Menu de plato combinado con patatas fritas, huevo, ensalada y bebida incluida.",
-      highlight: "Combinado con bebida",
-      imageKey: "hero",
     }),
   ];
 }

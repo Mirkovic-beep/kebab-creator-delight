@@ -51,6 +51,10 @@ export function formatCurrency(value: number) {
   return currencyFormatter.format(value);
 }
 
+export function formatProductPrice(product: Pick<MenuProduct, "price" | "priceLabel">) {
+  return product.priceLabel ?? formatCurrency(product.price);
+}
+
 export function getCategoryName(categoryId: string) {
   return menuCategories.find((category) => category.id === categoryId)?.name ?? categoryId;
 }

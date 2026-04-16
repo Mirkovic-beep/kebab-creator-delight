@@ -1,0 +1,51 @@
+import { describe, expect, it } from "vitest";
+
+import { menuProducts } from "@/features/menu/data";
+import { calculateSelectionPrice, getDefaultSelections } from "@/features/menu/lib/menu";
+
+function getProduct(productId: string) {
+  const product = menuProducts.find((item) => item.id === productId);
+
+  expect(product, `No se encontro el producto ${productId}`).toBeDefined();
+  return product!;
+}
+
+function getSelectedUnitPrice(productId: string, optionName: string) {
+  const product = getProduct(productId);
+  const selections = getDefaultSelections(product);
+  const versionGroup = product.modifierGroups.find((group) => group.options.some((option) => option.name === optionName));
+
+  expect(versionGroup, `No se encontro una opcion ${optionName} en ${productId}`).toBeDefined();
+
+  const selectedOption = versionGroup!.options.find((option) => option.name === optionName);
+  expect(selectedOption, `No se encontro la opcion ${optionName} en ${productId}`).toBeDefined();
+
+  selections[versionGroup!.id] = [selectedOption!.id];
+
+  return product.price + calculateSelectionPrice(product, selections);
+}
+
+describe("menu pricing", () => {
+  it.each([
+    ["turkish-specialties-kebab", "turkish-specialties-kebab-falafel", 6],
+    ["turkish-specialties-shawarma", "turkish-specialties-shawarma-falafel", 7],
+    ["plates-combi-simple", "plates-combi-simple-falafel", 8.2],
+    ["plates-combi-doble", "plates-combi-doble-falafel", 11.5],
+    ["plates-plato-deja-vu", "plates-plato-deja-vu-falafel", 11.5],
+    ["menus-menu-kebab", "menus-menu-kebab-falafel", 10.5],
+    ["menus-menu-shawarma", "menus-menu-shawarma-falafel", 10.5],
+    ["menus-menu-combi-simple", "menus-menu-combi-simple-falafel", 10.2],
+    ["menus-menu-combi-doble", "menus-menu-combi-doble-falafel", 11.5],
+    ["menus-menu-deja-vu", "menus-menu-deja-vu-falafel", 13.5],
+  ])(
+    "keeps %s aligned with its falafel version",
+    (groupedProductId: string, standaloneProductId: string, expectedPrice: number) => {
+      const groupedProduct = getProduct(groupedProductId);
+      const standaloneProduct = getProduct(standaloneProductId);
+
+      expect(groupedProduct.priceLabel).toContain("Falafel");
+      expect(getSelectedUnitPrice(groupedProductId, "Falafel")).toBeCloseTo(expectedPrice, 2);
+      expect(standaloneProduct.price).toBeCloseTo(expectedPrice, 2);
+    },
+  );
+});

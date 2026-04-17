@@ -1256,7 +1256,7 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
     "description": "Agua, refrescos, cerveza, vino, cafe y opciones para llevar.",
     "note": "Bebidas",
     "tone": "olive",
-    "imageKey": "generic",
+    "imageKey": "drinks",
     "prepTime": "2 min",
     "mainText": "",
     "sections": [
@@ -1414,6 +1414,7 @@ function buildTurkishSpecialtiesProducts() {
       longDescription:
         "Kebab con ensalada de repollo, tomate y cebolla, y salsas. Precio segun version: pollo 7,00 €, mixto 7,50 €, ternera 8,50 € y falafel 6,00 €.",
       priceLabel: "Pollo 7,00 / Mixto 7,50 / Ternera 8,50 / Falafel 6,00",
+      imageKey: "kebab",
       highlight: "Precio segun version",
       featured: true,
       bestseller: true,
@@ -1436,6 +1437,7 @@ function buildTurkishSpecialtiesProducts() {
       longDescription:
         "Shawarma con ensalada de repollo, tomate y cebolla, y salsas. Precio segun version: pollo 7,00 €, mixto 7,50 €, ternera 8,50 € y falafel 7,00 €.",
       priceLabel: "Pollo 7,00 / Mixto 7,50 / Ternera 8,50 / Falafel 7,00",
+      imageKey: "shawarma",
       highlight: "Precio segun version",
       tags: mergeTags(shawarmaBase.tags, ["Elige version"]),
       modifierGroups: [shawarmaProteinGroup, sauceGroup, legacyTurkishExtrasGroup],
@@ -1549,7 +1551,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
         "Menu kebab con ensalada de repollo, tomate y cebolla, patatas fritas y bebida incluida. Precio segun version: pollo 11,50 €, mixto 12,00 €, ternera 13,00 € y falafel 10,50 €.",
       priceLabel: "Pollo 11,50 / Mixto 12,00 / Ternera 13,00 / Falafel 10,50",
       highlight: "Kebab, patatas y bebida",
-      imageKey: "doner",
+      imageKey: "kebab",
       tags: mergeTags(getFlatProduct("menus", "menu-kebab-de-pollo").tags, ["Elige version"]),
       modifierGroups: [menuProteinGroup, drinkGroup, sauceGroup],
     }),
@@ -1571,7 +1573,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
         "Menu shawarma con ensalada de repollo, tomate y cebolla, patatas fritas y bebida incluida. Precio segun version: pollo 11,50 €, mixto 12,00 €, ternera 13,00 € y falafel 10,50 €.",
       priceLabel: "Pollo 11,50 / Mixto 12,00 / Ternera 13,00 / Falafel 10,50",
       highlight: "Shawarma, patatas y bebida",
-      imageKey: "doner",
+      imageKey: "shawarma",
       tags: mergeTags(getFlatProduct("menus", "menu-shawarma-de-pollo").tags, ["Elige version"]),
       modifierGroups: [menuProteinGroup, drinkGroup, sauceGroup],
     }),

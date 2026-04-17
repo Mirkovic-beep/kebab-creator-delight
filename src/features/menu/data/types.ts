@@ -5,7 +5,9 @@ export type AllergenId = "gluten" | "milk" | "egg" | "fish" | "sesame" | "soy" |
 export type AllergenLevel = "contains" | "may-contain";
 export type MenuImageKey =
   | "hero"
+  | "kebab"
   | "doner"
+  | "shawarma"
   | "lahmacun"
   | "falafel"
   | "adana"
@@ -15,6 +17,7 @@ export type MenuImageKey =
   | "sandwich"
   | "rations"
   | "dessert"
+  | "drinks"
   | "generic";
 
 export interface RestaurantInfo {

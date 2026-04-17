@@ -13,12 +13,17 @@ import type { AllergenDefinition, AllergenId, MenuAllergen, MenuImageKey, MenuMo
 
 const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
 
+const localKebabImage = withBase("/images/ingredientes-del-kebab.png");
+const localShawarmaImage = withBase("/images/shawarma-184-h.png");
 const localSaladImage = withBase("/images/ensalada_carta.jpg");
+const localDrinksImage = withBase("/images/drinks-placeholder.svg");
 const localGenericImage = withBase("/images/imagenCarta.jpg");
 
 export const menuImageMap: Record<MenuImageKey, string> = {
   hero: heroImage,
+  kebab: localKebabImage,
   doner: donerImage,
+  shawarma: localShawarmaImage,
   lahmacun: lahmacunImage,
   falafel: falafelImage,
   adana: adanaImage,
@@ -28,6 +33,7 @@ export const menuImageMap: Record<MenuImageKey, string> = {
   sandwich: sandwichImage,
   rations: rationsImage,
   dessert: dessertImage,
+  drinks: localDrinksImage,
   generic: localGenericImage,
 };
 

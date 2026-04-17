@@ -24,6 +24,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/carta" element={<MenuPage />} />
+          <Route path="/carta.pdf" element={<Navigate replace to="/carta" />} />
           <Route path="/contacto" element={<ContactPage />} />
           <Route path="/pedido-online" element={<Navigate replace to="/carta" />} />
           <Route path="/nosotros" element={<Navigate replace to="/contacto" />} />

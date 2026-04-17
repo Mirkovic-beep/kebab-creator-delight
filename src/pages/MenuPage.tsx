@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
 
-import heroImage from "@/assets/durum-placeholder.jpg";
 import Footer from "@/features/layout/components/Footer";
 import MenuProductCard from "@/features/menu/components/MenuProductCard";
 import Navbar from "@/features/layout/components/Navbar";
 import { Button } from "@/shared/ui/button";
-import { menuCategories, menuProducts } from "@/features/menu/data";
+import { menuCategories, menuImageMap, menuProducts } from "@/features/menu/data";
 import { cn } from "@/shared/lib/utils";
 
 const MenuPage = () => {
@@ -73,8 +72,8 @@ const MenuPage = () => {
 
             <article className="relative hidden min-h-[420px] bg-muted lg:block">
               <img
-                src={heroImage}
-                alt="Producto servido sobre mesa"
+                src={menuImageMap.kebab}
+                alt="Kebab servido sobre mesa"
                 className="h-full w-full object-cover"
                 width={1400}
                 height={1200}

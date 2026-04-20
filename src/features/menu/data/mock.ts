@@ -61,6 +61,7 @@ interface LegacyItem {
   title: string;
   description: string;
   price: string;
+  imageKey?: MenuImageKey;
   featured?: boolean;
   bestseller?: boolean;
   spicy?: boolean;
@@ -512,7 +513,7 @@ function buildLegacyProduct(category: LegacyCategorySeed, section: LegacySection
     description,
     longDescription: buildLongDescription(category, section, description),
     price: parsePrice(item.price),
-    imageKey: category.imageKey,
+    imageKey: item.imageKey ?? category.imageKey,
     featured: item.featured,
     bestseller: item.bestseller,
     vegetarian: vegetarian || undefined,
@@ -545,25 +546,29 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
             "id": "ensalada-cesar",
             "title": "Ensalada Cesar",
             "description": "Lechuga, pollo, maiz, queso rallado, tomate, picatostes y salsa cesar.",
-            "price": "12,90 €"
+            "price": "12,90 €",
+            "imageKey": "salad-cesar"
           },
           {
             "id": "ensalada-rulo-de-cabra",
             "title": "Ensalada Rulo de Cabra",
             "description": "Lechuga, tomate, rulo de cabra, bacon crujiente, cebolla frita y crema de modena.",
-            "price": "12,90 €"
+            "price": "12,90 €",
+            "imageKey": "salad-rulo"
           },
           {
             "id": "ensalada-ventresca",
             "title": "Ensalada Ventresca",
             "description": "Ventresca de atun, lechuga, pimientos asados y tomate.",
-            "price": "12,90 €"
+            "price": "12,90 €",
+            "imageKey": "salad-ventresca"
           },
           {
             "id": "ensalada-de-pollo-crujiente",
             "title": "Ensalada de Pollo Crujiente",
             "description": "Lechuga, tomate, maiz, pollo crujiente, mix de quesos, cebolla frita y crema de modena.",
-            "price": "12,90 €"
+            "price": "12,90 €",
+            "imageKey": "salad-crispy-chicken"
           }
         ]
       }
@@ -756,19 +761,22 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
             "id": "patatas",
             "title": "Patatas fritas",
             "description": "Bravas, mixtas o alioli.",
-            "price": "5,00 €"
+            "price": "5,00 €",
+            "imageKey": "patatas-bravas"
           },
           {
             "id": "patatas-fritas-1-2-racion",
             "title": "Patatas fritas 1/2 racion",
             "description": "Bravas, mixtas o alioli.",
-            "price": "2,80 €"
+            "price": "2,80 €",
+            "imageKey": "patatas-bravas"
           },
           {
             "id": "salchipapas",
             "title": "Salchipapas",
             "description": "",
             "price": "10,50 €",
+            "imageKey": "salchipapas",
             "bestseller": true
           },
           {
@@ -776,69 +784,80 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
             "title": "Papas Locas",
             "description": "Patatas fritas con filetes de pollo, bacon, mezcla de queso rallado, salsa cheddar y ketchup.",
             "price": "16,50 €",
+            "imageKey": "patatas-locas",
             "bestseller": true
           },
           {
             "id": "alitas-de-pollo",
             "title": "Alitas de Pollo",
             "description": "",
-            "price": "11,90 €"
+            "price": "11,90 €",
+            "imageKey": "wings"
           },
           {
             "id": "nuggets",
             "title": "Nuggets",
             "description": "",
             "price": "9,90 €",
+            "imageKey": "nuggets",
             "bestseller": true
           },
           {
             "id": "nuggets-1-2-racion",
             "title": "Nuggets 1/2 racion",
             "description": "",
-            "price": "5,50 €"
+            "price": "5,50 €",
+            "imageKey": "nuggets"
           },
           {
             "id": "croquetas-de-jamon",
             "title": "Croquetas de Jamon",
             "description": "",
-            "price": "12,00 €"
+            "price": "12,00 €",
+            "imageKey": "croquetas"
           },
           {
             "id": "croquetas-de-jamon-1-2-racion",
             "title": "Croquetas de Jamon 1/2 racion",
             "description": "",
-            "price": "7,00 €"
+            "price": "7,00 €",
+            "imageKey": "croquetas"
           },
           {
             "id": "fingers",
             "title": "Fingers",
             "description": "Pollo o queso",
             "price": "11,70 €",
+            "imageKey": "fingers",
             "bestseller": true
           },
           {
             "id": "fingers-1-2-racion",
             "title": "Fingers 1/2 racion",
             "description": "Pollo o queso",
-            "price": "6,50 €"
+            "price": "6,50 €",
+            "imageKey": "fingers"
           },
           {
             "id": "huevos-rotos",
             "title": "Huevos Rotos",
             "description": "Jamon o bacon",
-            "price": "15,50 €"
+            "price": "15,50 €",
+            "imageKey": "huevos-rotos"
           },
           {
             "id": "huevos-rotos-1-2-racion",
             "title": "Huevos Rotos 1/2 racion",
             "description": "Jamon o bacon",
-            "price": "9,00 €"
+            "price": "9,00 €",
+            "imageKey": "huevos-rotos"
           },
           {
             "id": "oreja-a-la-plancha",
             "title": "Oreja a la Plancha",
             "description": "",
             "price": "12,90 €",
+            "imageKey": "oreja",
             "bestseller": true
           }
         ]
@@ -864,25 +883,29 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
             "id": "simple",
             "title": "Simple",
             "description": "Carne y queso.",
-            "price": "10,00 €"
+            "price": "10,00 €",
+            "imageKey": "burger-simple"
           },
           {
             "id": "deja-vu-simple",
             "title": "Deja Vu Simple",
             "description": "Carne, queso, lechuga, tomate, cebolla y bacon.",
-            "price": "12,50 €"
+            "price": "12,50 €",
+            "imageKey": "burger-deja-vu-simple"
           },
           {
             "id": "rulo-de-cabra",
             "title": "Rulo de Cabra",
             "description": "Carne, queso de cabra, bacon y cebolla frita.",
-            "price": "12,50 €"
+            "price": "12,50 €",
+            "imageKey": "burger-rulo"
           },
           {
             "id": "deja-vu",
             "title": "Deja Vu",
             "description": "Carne, queso, bacon, huevo, lechuga, tomate y cebolla.",
             "price": "12,90 €",
+            "imageKey": "burger-deja-vu-simple",
             "featured": true,
             "bestseller": true
           },
@@ -890,13 +913,15 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
             "id": "deja-vu-deluxe",
             "title": "Deja Vu Deluxe",
             "description": "Carne, queso, bacon, huevo, cebolla caramelizada y pepinillos (sin verduras).",
-            "price": "12,90 €"
+            "price": "12,90 €",
+            "imageKey": "burger-deja-vu-deluxe"
           },
           {
             "id": "dracula",
             "title": "Dracula",
             "description": "Doble de carne, doble de queso, cebolla caramelizada, pepinillos y bacon (sin verduras).",
-            "price": "14,50 €"
+            "price": "14,50 €",
+            "imageKey": "burger-dracula"
           }
         ]
       }
@@ -1163,37 +1188,43 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
             "id": "hamburguesa-simple",
             "title": "Hamburguesa Simple",
             "description": "Carne y queso con patatas fritas y refresco o cerveza.",
-            "price": "12,00 €"
+            "price": "12,00 €",
+            "imageKey": "burger-simple"
           },
           {
             "id": "hamburguesa-deja-vu-simple",
             "title": "Hamburguesa Deja Vu Simple",
             "description": "Carne, queso, lechuga, tomate, cebolla y bacon con patatas fritas y refresco o cerveza.",
-            "price": "14,00 €"
+            "price": "14,00 €",
+            "imageKey": "burger-deja-vu-simple"
           },
           {
             "id": "hamburguesa-rulo-de-cabra",
             "title": "Hamburguesa Rulo de Cabra",
             "description": "Carne, queso de cabra, bacon y cebolla frita con patatas fritas y refresco o cerveza.",
-            "price": "14,00 €"
+            "price": "14,00 €",
+            "imageKey": "burger-rulo"
           },
           {
             "id": "hamburguesa-deja-vu",
             "title": "Hamburguesa Deja Vu",
             "description": "Carne, queso, bacon, huevo, lechuga, tomate y cebolla con patatas fritas y refresco o cerveza.",
-            "price": "14,40 €"
+            "price": "14,40 €",
+            "imageKey": "burger-deja-vu-simple"
           },
           {
             "id": "hamburguesa-deja-vu-deluxe",
             "title": "Hamburguesa Deja Vu Deluxe",
             "description": "Carne, queso, bacon, huevo, cebolla caramelizada y pepinillos (sin verduras) con patatas fritas y refresco o cerveza.",
-            "price": "14,40 €"
+            "price": "14,40 €",
+            "imageKey": "burger-deja-vu-deluxe"
           },
           {
             "id": "hamburguesa-dracula",
             "title": "Hamburguesa Dracula",
             "description": "Doble de carne, doble de queso, cebolla caramelizada, pepinillos y bacon (sin verduras) con patatas fritas y refresco o cerveza.",
-            "price": "16,00 €"
+            "price": "16,00 €",
+            "imageKey": "burger-dracula"
           }
         ]
       }
@@ -1218,7 +1249,8 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
             "id": "profiteroles",
             "title": "Profiteroles",
             "description": "Profiteroles clasicos servidos frios.",
-            "price": "5,50 €"
+            "price": "5,50 €",
+            "imageKey": "dessert-profiteroles"
           },
           {
             "id": "bola-de-helado",
@@ -1231,6 +1263,7 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
             "title": "Tarta de Queso",
             "description": "Tarta de queso de la casa.",
             "price": "6,50 €",
+            "imageKey": "dessert-cheesecake",
             "featured": true
           },
           {
@@ -1426,7 +1459,7 @@ function buildTurkishSpecialtiesProducts() {
       name: "Kebab de falafel",
       description: "Falafel con ensalada de repollo, tomate y cebolla, y salsas.",
       longDescription: "Kebab de falafel con ensalada de repollo, tomate y cebolla, y salsas. Se mantiene como opcion vegetariana separada.",
-      imageKey: "kebab",
+      imageKey: "falafel",
       highlight: "Falafel, verdura y salsas",
       tags: mergeTags(kebabFalafel.tags, ["Vegetariano"]),
       modifierGroups: [sauceGroup, legacyTurkishExtrasGroup],
@@ -1448,7 +1481,7 @@ function buildTurkishSpecialtiesProducts() {
       name: "Shawarma de falafel",
       description: "Falafel con ensalada de repollo, tomate y cebolla, y salsas.",
       longDescription: "Shawarma de falafel con ensalada de repollo, tomate y cebolla, y salsas. Opcion vegetariana separada del resto.",
-      imageKey: "shawarma",
+      imageKey: "falafel",
       highlight: "Falafel, verdura y salsas",
       tags: mergeTags(shawarmaFalafel.tags, ["Vegetariano"]),
       modifierGroups: [sauceGroup, legacyTurkishExtrasGroup],
@@ -1466,6 +1499,7 @@ function buildPlatesProducts() {
       longDescription:
         "Plato combi simple con guarnicion a elegir. Precio segun version: pollo 9,50 €, mixto 10,00 €, ternera 11,50 € y falafel 8,20 €.",
       priceLabel: "Pollo 9,50 / Mixto 10,00 / Ternera 11,50 / Falafel 8,20",
+      imageKey: "plate-deja-vu",
       highlight: "Precio segun version",
       tags: mergeTags(getFlatProduct("plates", "combi-simple-de-pollo").tags, ["Elige version"]),
       modifierGroups: [combiSimpleProteinGroup, sideGroup, sauceGroup, legacyPlateExtrasGroup],
@@ -1475,6 +1509,7 @@ function buildPlatesProducts() {
       name: "Combi simple de falafel",
       description: "Falafel con arroz, patatas o ensalada.",
       longDescription: "Plato combi simple de falafel con guarnicion a elegir y extras del local.",
+      imageKey: "falafel",
       highlight: "Falafel y guarnicion",
       tags: mergeTags(getFlatProduct("plates", "combi-simple-de-falafel").tags, ["Vegetariano"]),
       modifierGroups: [sideGroup, sauceGroup, legacyPlateExtrasGroup],
@@ -1486,6 +1521,7 @@ function buildPlatesProducts() {
       longDescription:
         "Plato combi doble con guarnicion a elegir. Precio segun version: pollo 11,50 €, mixto 12,00 €, ternera 13,50 € y falafel 11,50 €.",
       priceLabel: "Pollo 11,50 / Mixto 12,00 / Ternera 13,50 / Falafel 11,50",
+      imageKey: "plate-deja-vu",
       highlight: "Precio segun version",
       tags: mergeTags(getFlatProduct("plates", "combi-doble-de-pollo").tags, ["Elige version"]),
       modifierGroups: [combiDoubleProteinGroup, sideGroup, sauceGroup, legacyPlateExtrasGroup],
@@ -1495,6 +1531,7 @@ function buildPlatesProducts() {
       name: "Combi doble de falafel",
       description: "Doble de falafel con arroz, patatas o ensalada.",
       longDescription: "Version doble del combi de falafel con guarnicion a elegir y extras del local.",
+      imageKey: "falafel",
       highlight: "Doble de falafel",
       tags: mergeTags(getFlatProduct("plates", "combi-doble-de-falafel").tags, ["Vegetariano"]),
       modifierGroups: [sideGroup, sauceGroup, legacyPlateExtrasGroup],
@@ -1506,6 +1543,7 @@ function buildPlatesProducts() {
       longDescription:
         "Plato Deja Vu con patatas o arroz, repollo, tomate, cebolla y salsas. Precio segun version: pollo 13,00 €, mixto 14,00 €, ternera 15,50 € y falafel 11,50 €.",
       priceLabel: "Pollo 13,00 / Mixto 14,00 / Ternera 15,50 / Falafel 11,50",
+      imageKey: "plate-deja-vu",
       highlight: "Precio segun version",
       featured: true,
       bestseller: true,
@@ -1517,6 +1555,7 @@ function buildPlatesProducts() {
       name: "Plato Deja Vu de falafel",
       description: "Falafel con patatas o arroz, repollo, tomate, cebolla y salsas.",
       longDescription: "Version vegetariana del Plato Deja Vu con falafel, guarnicion a elegir y extras del local.",
+      imageKey: "falafel",
       highlight: "Falafel y guarnicion",
       tags: mergeTags(getFlatProduct("plates", "plato-deja-vu-de-falafel").tags, ["Vegetariano"]),
       modifierGroups: [sideGroup, sauceGroup, legacyPlateExtrasGroup],
@@ -1563,7 +1602,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
       description: "Kebab de falafel con ensalada de repollo, tomate y cebolla, patatas fritas y bebida.",
       longDescription: "Menu de kebab de falafel con ensalada de repollo, tomate y cebolla, patatas fritas, bebida incluida y salsas a elegir.",
       highlight: "Falafel, patatas y bebida",
-      imageKey: "kebab",
+      imageKey: "falafel",
       tags: mergeTags(getFlatProduct("menus", "menu-kebab-de-falafel").tags, ["Vegetariano"]),
       modifierGroups: [drinkGroup, sauceGroup],
     }),
@@ -1585,7 +1624,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
       description: "Shawarma de falafel con ensalada de repollo, tomate y cebolla, patatas fritas y bebida.",
       longDescription: "Menu de shawarma de falafel con ensalada de repollo, tomate y cebolla, patatas fritas, bebida incluida y salsas a elegir.",
       highlight: "Falafel, patatas y bebida",
-      imageKey: "shawarma",
+      imageKey: "falafel",
       tags: mergeTags(getFlatProduct("menus", "menu-shawarma-de-falafel").tags, ["Vegetariano"]),
       modifierGroups: [drinkGroup, sauceGroup],
     }),
@@ -1597,7 +1636,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
         "Menu combi simple con patatas, arroz o ensalada, bebida incluida y salsas. Precio segun version: pollo 11,50 €, mixto 12,00 €, ternera 13,50 € y falafel 10,20 €.",
       priceLabel: "Pollo 11,50 / Mixto 12,00 / Ternera 13,50 / Falafel 10,20",
       highlight: "Combi simple y bebida",
-      imageKey: "hero",
+      imageKey: "plate-deja-vu",
       tags: mergeTags(getFlatProduct("menus", "menu-combi-simple-de-pollo").tags, ["Elige version"]),
       modifierGroups: [menuCombiSimpleProteinGroup, sideGroup, drinkGroup, sauceGroup],
     }),
@@ -1619,7 +1658,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
         "Menu combi doble con patatas, arroz o ensalada, bebida incluida y salsas. Precio segun version: pollo 13,50 €, mixto 14,00 €, ternera 15,50 € y falafel 11,50 €.",
       priceLabel: "Pollo 13,50 / Mixto 14,00 / Ternera 15,50 / Falafel 11,50",
       highlight: "Combi doble y bebida",
-      imageKey: "hero",
+      imageKey: "plate-deja-vu",
       tags: mergeTags(getFlatProduct("menus", "menu-combi-doble-de-pollo").tags, ["Elige version"]),
       modifierGroups: [menuCombiDoubleProteinGroup, sideGroup, drinkGroup, sauceGroup],
     }),
@@ -1641,7 +1680,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
         "Menu Plato Deja Vu con patatas o arroz, repollo, tomate, cebolla, salsas y bebida incluida. Precio segun version: pollo 15,50 €, mixto 16,00 €, ternera 17,50 € y falafel 13,50 €.",
       priceLabel: "Pollo 15,50 / Mixto 16,00 / Ternera 17,50 / Falafel 13,50",
       highlight: "Deja Vu, guarnicion y bebida",
-      imageKey: "hero",
+      imageKey: "plate-deja-vu",
       tags: mergeTags(getFlatProduct("menus", "menu-deja-vu-de-pollo").tags, ["Elige version"]),
       modifierGroups: [menuDejaVuProteinGroup, sideGroup, drinkGroup, sauceGroup],
     }),
@@ -1661,7 +1700,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
       description: "Plato combinado con ensalada, patatas fritas, huevo y bebida.",
       longDescription: "Menu de plato combinado con ensalada, patatas fritas, huevo y bebida incluida.",
       highlight: "Combinado con bebida",
-      imageKey: "hero",
+      imageKey: "combined-plate",
       tags: ["Menu", "Con huevo"],
       modifierGroups: [drinkGroup],
       allergens: combinedPlateAllergens,
@@ -1672,7 +1711,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
         ...product,
         description: `${product.description} Ternera o pollo crunchy.`,
         longDescription: `${product.longDescription} Disponible en ternera o pollo crunchy con el mismo precio base.`,
-        imageKey: "burger",
+        imageKey: product.imageKey === "generic" ? "burger" : product.imageKey,
         tags: mergeTags(product.tags, ["Elige carne"]),
         modifierGroups: [burgerProteinChoiceGroup, drinkGroup, legacyBurgerExtrasGroup],
       })),
@@ -1688,6 +1727,7 @@ function buildBocadillosProducts() {
       longDescription:
         "Bocadillo del local con relleno a elegir entre cinta de lomo, jamon con tomate, bacon, panceta o pollo.",
       highlight: "Elige relleno",
+      imageKey: "bocadillo",
       tags: mergeTags(getFlatProduct("bocadillos", "cinta-de-lomo").tags, ["Elige relleno"]),
       modifierGroups: [bocadilloFillingGroup],
     }),
@@ -1703,7 +1743,7 @@ function buildCombinedPlatesProducts() {
       longDescription:
         "Plato combinado con ensalada, patatas fritas y huevo. Puedes pedirlo con cinta de lomo, pollo a la plancha, bacon o panceta.",
       highlight: "Lomo, pollo, bacon o panceta",
-      imageKey: "hero",
+      imageKey: "combined-plate",
       tags: mergeTags(getFlatProduct("combined-plates", "cinta-de-lomo").tags, ["Elige principal"]),
       modifierGroups: [combinedPlateChoiceGroup],
     }),

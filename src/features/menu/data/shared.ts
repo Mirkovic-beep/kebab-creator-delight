@@ -1,7 +1,6 @@
 import heroImage from "@/assets/hero-kebab.jpg";
 import donerImage from "@/assets/durum-placeholder.jpg";
 import lahmacunImage from "@/assets/lahmacun.jpg";
-import falafelImage from "@/assets/falafel.jpg";
 import adanaImage from "@/assets/adana.jpg";
 import terrazaImage from "@/assets/terraza.jpg";
 import burgerImage from "@/assets/burger-user.png";
@@ -13,11 +12,35 @@ import type { AllergenDefinition, AllergenId, MenuAllergen, MenuImageKey, MenuMo
 
 const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
 
-const localKebabImage = withBase("/images/ingredientes-del-kebab.png");
-const localShawarmaImage = withBase("/images/shawarma-184-h.png");
+const localKebabImage = withBase("/images/menu/kebab.jpg");
+const localShawarmaImage = withBase("/images/menu/shawarma.jpg");
+const localFalafelImage = withBase("/images/menu/falafel.jpg");
 const localSaladImage = withBase("/images/ensalada_carta.jpg");
+const localSaladCesarImage = withBase("/images/menu/ensalada-cesar.jpg");
+const localSaladRuloImage = withBase("/images/menu/ensalada-rulo-de-cabra.jpg");
+const localSaladVentrescaImage = withBase("/images/menu/ensalada-ventresca.jpg");
+const localSaladCrispyChickenImage = withBase("/images/menu/ensalada-pollo-crujiente.jpg");
+const localPlateDejaVuImage = withBase("/images/menu/plato-deja-vu.jpg");
+const localCombinedPlateImage = withBase("/images/menu/plato-combinado.jpg");
+const localWingsImage = withBase("/images/menu/alitas-pollo.jpg");
+const localCroquetasImage = withBase("/images/menu/croquetas.jpg");
+const localFingersImage = withBase("/images/menu/fingers-queso.jpg");
+const localOrejaImage = withBase("/images/menu/oreja-plancha.jpg");
+const localPatatasBravasImage = withBase("/images/menu/patatas-bravas.jpg");
+const localPatatasLocasImage = withBase("/images/menu/patatas-locas.jpg");
+const localSalchipapasImage = withBase("/images/menu/salchipapas.jpg");
+const localNuggetsImage = withBase("/images/menu/nuggets.jpg");
+const localHuevosRotosImage = withBase("/images/menu/huevos-rotos.jpg");
+const localBurgerSimpleImage = withBase("/images/menu/burger-simple.jpg");
+const localBurgerDejaVuSimpleImage = withBase("/images/menu/burger-deja-vu-simple.jpg");
+const localBurgerDejaVuDeluxeImage = withBase("/images/menu/burger-deja-vu-deluxe.jpg");
+const localBurgerDraculaImage = withBase("/images/menu/burger-dracula.jpg");
+const localBurgerRuloImage = withBase("/images/menu/burger-rulo-de-cabra.jpg");
+const localBocadilloImage = withBase("/images/menu/bocadillo.jpg");
 const localDrinksImage = withBase("/images/drinks-placeholder.png");
 const localGenericImage = withBase("/images/imagenCarta.jpg");
+const localProfiterolesImage = withBase("/images/menu/profiteroles.jpg");
+const localCheesecakeImage = withBase("/images/menu/tarta-queso.jpg");
 
 export const menuImageMap: Record<MenuImageKey, string> = {
   hero: heroImage,
@@ -25,14 +48,37 @@ export const menuImageMap: Record<MenuImageKey, string> = {
   doner: donerImage,
   shawarma: localShawarmaImage,
   lahmacun: lahmacunImage,
-  falafel: falafelImage,
+  falafel: localFalafelImage,
   adana: adanaImage,
   terrace: terrazaImage,
   salad: localSaladImage,
+  "salad-cesar": localSaladCesarImage,
+  "salad-rulo": localSaladRuloImage,
+  "salad-ventresca": localSaladVentrescaImage,
+  "salad-crispy-chicken": localSaladCrispyChickenImage,
+  "plate-deja-vu": localPlateDejaVuImage,
+  "combined-plate": localCombinedPlateImage,
+  wings: localWingsImage,
+  croquetas: localCroquetasImage,
+  fingers: localFingersImage,
+  oreja: localOrejaImage,
+  "patatas-bravas": localPatatasBravasImage,
+  "patatas-locas": localPatatasLocasImage,
+  salchipapas: localSalchipapasImage,
+  nuggets: localNuggetsImage,
+  "huevos-rotos": localHuevosRotosImage,
   burger: burgerImage,
+  "burger-simple": localBurgerSimpleImage,
+  "burger-deja-vu-simple": localBurgerDejaVuSimpleImage,
+  "burger-deja-vu-deluxe": localBurgerDejaVuDeluxeImage,
+  "burger-dracula": localBurgerDraculaImage,
+  "burger-rulo": localBurgerRuloImage,
+  bocadillo: localBocadilloImage,
   sandwich: sandwichImage,
   rations: rationsImage,
   dessert: dessertImage,
+  "dessert-profiteroles": localProfiterolesImage,
+  "dessert-cheesecake": localCheesecakeImage,
   drinks: localDrinksImage,
   generic: localGenericImage,
 };

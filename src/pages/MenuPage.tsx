@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
 
+import heroHeaderImage from "@/assets/hero-cabecera.jpg";
 import Footer from "@/features/layout/components/Footer";
 import MenuProductCard from "@/features/menu/components/MenuProductCard";
 import Navbar from "@/features/layout/components/Navbar";
 import { Button } from "@/shared/ui/button";
-import { menuCategories, menuImageMap, menuProducts } from "@/features/menu/data";
+import { menuCategories, menuProducts } from "@/features/menu/data";
 import { cn } from "@/shared/lib/utils";
 
 const MenuPage = () => {
@@ -70,11 +71,11 @@ const MenuPage = () => {
               </div>
             </article>
 
-            <article className="relative hidden min-h-[420px] bg-muted lg:block">
+            <article className="relative min-h-[260px] bg-muted sm:min-h-[340px] lg:min-h-[420px]">
               <img
-                src={menuImageMap.kebab}
-                alt="Kebab servido sobre mesa"
-                className="h-full w-full object-cover"
+                src={heroHeaderImage}
+                alt="Asadores de kebab de pollo y ternera en cocina"
+                className="h-full w-full object-cover object-[center_32%]"
                 width={1400}
                 height={1200}
               />

@@ -2,7 +2,7 @@ import { ArrowRight, MapPin, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import adanaImage from "@/assets/adana.jpg";
-import heroImage from "@/assets/hero-kebab.jpg";
+import heroHeaderImage from "@/assets/hero-cabecera.jpg";
 import Footer from "@/features/layout/components/Footer";
 import VenueGallery from "@/features/marketing/components/VenueGallery";
 import Navbar from "@/features/layout/components/Navbar";
@@ -77,9 +77,9 @@ const Index = () => {
 
             <article className="relative min-h-[300px] bg-black sm:min-h-[420px] lg:min-h-0">
               <img
-                src={heroImage}
-                alt="Platos servidos sobre mesa clara"
-                className="h-full w-full object-cover object-[center_62%]"
+                src={heroHeaderImage}
+                alt="Asadores de kebab de pollo y ternera en cocina"
+                className="h-full w-full object-cover object-[center_32%]"
                 width={1400}
                 height={1200}
               />

@@ -224,53 +224,55 @@ const MenuProductCard = ({
       </article>
 
       <Dialog open={imagePreviewOpen} onOpenChange={setImagePreviewOpen}>
-        <DialogContent className="w-[calc(100vw-1rem)] max-w-5xl overflow-hidden border-white/10 bg-[#090807] p-0 text-white sm:w-full [&>button]:right-3 [&>button]:top-3 [&>button]:text-white [&>button]:ring-offset-[#090807]">
-          <div className="bg-black p-3 sm:p-5">
-            <div className="overflow-hidden border border-white/10 bg-[#050505]">
-              <img
-                src={product.image}
-                alt={`Vista ampliada de ${product.name}`}
-                className="max-h-[78vh] w-full object-contain"
-                width={1400}
-                height={1200}
-              />
-            </div>
-          </div>
-
-          <div className="border-t border-white/10 bg-[#11100e] px-4 py-4 sm:px-6">
-            <div className="flex items-start justify-between gap-4">
-              <div className="min-w-0">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-gold">{product.highlight}</p>
-                <DialogTitle className="mt-2 font-display text-[2rem] leading-none text-white sm:text-[2.6rem]">
-                  {product.name}
-                </DialogTitle>
-                <DialogDescription className="mt-3 max-w-2xl text-sm leading-6 text-white/64">
-                  Vista ampliada del producto. Pulsa fuera de la imagen o el boton de cierre para volver a la carta.
-                </DialogDescription>
-                {extraGroups.length > 0 ? (
-                  <div className="mt-4 max-w-2xl border border-white/10 bg-white/[0.04] p-4">
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-gold">Extras</p>
-                    <ul className="mt-2 space-y-1.5 text-sm text-white/80">
-                      {extraGroups.flatMap((group) =>
-                        group.options.map((option) => (
-                          <li key={option.id} className="flex items-start justify-between gap-4">
-                            <span>{option.name}</span>
-                            <span className="shrink-0 font-semibold text-gold">{renderOptionPrice(option.price)}</span>
-                          </li>
-                        )),
-                      )}
-                    </ul>
-                  </div>
-                ) : null}
+        <DialogContent className="w-[calc(100vw-1rem)] max-h-[calc(100vh-1rem)] max-w-6xl overflow-y-auto border-white/10 bg-[#090807] p-0 text-white sm:w-full [&>button]:right-3 [&>button]:top-3 [&>button]:text-white [&>button]:ring-offset-[#090807]">
+          <div className="lg:grid lg:grid-cols-[minmax(0,0.58fr)_minmax(0,0.42fr)]">
+            <div className="bg-black p-3 sm:p-5 lg:p-6">
+              <div className="flex min-h-[220px] items-center justify-center overflow-hidden border border-white/10 bg-[#050505]">
+                <img
+                  src={product.image}
+                  alt={`Vista ampliada de ${product.name}`}
+                  className="mx-auto max-h-[34vh] w-auto max-w-full object-contain sm:max-h-[42vh] lg:max-h-[68vh]"
+                  width={1400}
+                  height={1200}
+                />
               </div>
-              <p
-                className={cn(
-                  "shrink-0 text-right text-gold",
-                  product.priceLabel ? "max-w-[16rem] text-sm font-semibold leading-5 sm:text-base" : "font-display text-2xl leading-none sm:text-3xl",
-                )}
-              >
-                {priceText}
-              </p>
+            </div>
+
+            <div className="border-t border-white/10 bg-[#11100e] px-4 py-4 sm:px-6 lg:border-l lg:border-t-0 lg:px-7 lg:py-6">
+              <div className="flex items-start justify-between gap-4">
+                <div className="min-w-0">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-gold">{product.highlight}</p>
+                  <DialogTitle className="mt-2 font-display text-[2rem] leading-none text-white sm:text-[2.6rem]">
+                    {product.name}
+                  </DialogTitle>
+                  <DialogDescription className="mt-3 max-w-2xl text-sm leading-6 text-white/64">
+                    Vista ampliada del producto. Pulsa fuera de la imagen o el boton de cierre para volver a la carta.
+                  </DialogDescription>
+                  {extraGroups.length > 0 ? (
+                    <div className="mt-4 max-w-2xl border border-white/10 bg-white/[0.04] p-4">
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-gold">Extras</p>
+                      <ul className="mt-2 space-y-1.5 text-sm text-white/80">
+                        {extraGroups.flatMap((group) =>
+                          group.options.map((option) => (
+                            <li key={option.id} className="flex items-start justify-between gap-4">
+                              <span>{option.name}</span>
+                              <span className="shrink-0 font-semibold text-gold">{renderOptionPrice(option.price)}</span>
+                            </li>
+                          )),
+                        )}
+                      </ul>
+                    </div>
+                  ) : null}
+                </div>
+                <p
+                  className={cn(
+                    "shrink-0 text-right text-gold",
+                    product.priceLabel ? "max-w-[16rem] text-sm font-semibold leading-5 sm:text-base" : "font-display text-2xl leading-none sm:text-3xl",
+                  )}
+                >
+                  {priceText}
+                </p>
+              </div>
             </div>
           </div>
         </DialogContent>

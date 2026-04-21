@@ -121,7 +121,7 @@ export const legacyTurkishExtrasGroup: MenuModifierGroup = {
   maxSelections: 5,
   options: [
     { id: "legacy-large-side", name: "Patatas mixtas, bravas o alioli", price: 8.9 },
-    { id: "legacy-extra-bread", name: "Extra de pan", price: 0.5 },
+    { id: "legacy-extra-bread", name: "Extra de pan", price: 0.7 },
     { id: "legacy-extra-sauce", name: "Extra de salsa", price: 0.5 },
     { id: "legacy-extra-cheese", name: "Extra de queso", price: 0.5 },
   ],

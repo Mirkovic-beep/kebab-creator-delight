@@ -19,8 +19,7 @@ const expectedAllergensByProductId: Record<string, AllergenId[]> = {
   "plates-plato-deja-vu": [],
   "plates-plato-deja-vu-falafel": [],
 
-  "rations-patatas": ["egg"],
-  "rations-patatas-fritas-1-2-racion": ["egg"],
+  "rations-patatas-mixtas-bravas-o-alioli": ["egg"],
   "rations-salchipapas": [],
   "rations-papas-locas": ["milk"],
   "rations-alitas-de-pollo": [],

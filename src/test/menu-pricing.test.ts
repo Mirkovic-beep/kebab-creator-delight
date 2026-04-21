@@ -48,4 +48,7 @@ describe("menu pricing", () => {
       expect(standaloneProduct.price).toBeCloseTo(expectedPrice, 2);
     },
   );
+  it("keeps menu platos combinados at 14,50", () => {
+    expect(getProduct("menus-menu-platos-combinados").price).toBeCloseTo(14.5, 2);
+  });
 });

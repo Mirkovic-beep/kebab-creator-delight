@@ -136,13 +136,22 @@ const Index = () => {
                     >
                       <article className="h-full overflow-hidden border border-black/12 bg-white transition-transform duration-300 group-hover:-translate-y-1">
                         <div className="relative aspect-[1.18/1] overflow-hidden bg-black">
-                          <img
-                            src={product.image}
-                            alt={product.name}
-                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                            width={720}
-                            height={640}
-                          />
+                          {product.image ? (
+                            <img
+                              src={product.image}
+                              alt={product.name}
+                              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                              width={720}
+                              height={640}
+                            />
+                          ) : (
+                            <div className="flex h-full w-full items-end bg-[radial-gradient(circle_at_top,_rgba(196,152,73,0.34),_rgba(27,20,16,0.98)_70%)] p-4 text-white">
+                              <div>
+                                <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/72">Sin foto disponible</p>
+                                <p className="mt-2 max-w-[12rem] font-display text-[2rem] leading-none">{product.name}</p>
+                              </div>
+                            </div>
+                          )}
                           <div className="gradient-overlay absolute inset-0" />
                           <div className="absolute left-3 top-3 flex flex-wrap gap-2">
                             {product.bestseller ? (

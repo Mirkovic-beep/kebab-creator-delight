@@ -62,14 +62,23 @@ const MenuSection = () => {
           {featuredProducts.map((product) => (
             <Card key={product.id} className="group overflow-hidden rounded-[30px] border-border/60 bg-card/85 shadow-[0_18px_60px_rgba(0,0,0,0.16)]">
               <div className="relative aspect-[4/3] overflow-hidden">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  loading="lazy"
-                  width={640}
-                  height={640}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
+                {product.image ? (
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    loading="lazy"
+                    width={640}
+                    height={640}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-end bg-[radial-gradient(circle_at_top,_rgba(196,152,73,0.34),_rgba(27,20,16,0.98)_70%)] p-5 text-white">
+                    <div>
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/72">Sin foto disponible</p>
+                      <p className="mt-2 font-display text-[2rem] leading-none">{product.name}</p>
+                    </div>
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
                 <div className="absolute left-4 top-4 flex flex-wrap gap-2">
                   {product.featured ? <Badge className="bg-gold text-gold-foreground">Destacado</Badge> : null}

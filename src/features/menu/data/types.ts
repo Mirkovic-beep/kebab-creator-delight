@@ -103,7 +103,7 @@ export interface MenuProduct {
   longDescription: string;
   price: number;
   priceLabel?: string;
-  image: string;
+  image: string | null;
   featured?: boolean;
   bestseller?: boolean;
   vegetarian?: boolean;
@@ -116,7 +116,7 @@ export interface MenuProduct {
 }
 
 export interface MenuProductSeed extends Omit<MenuProduct, "categoryId" | "image"> {
-  imageKey: MenuImageKey;
+  imageKey: MenuImageKey | null;
 }
 
 export interface MenuCatalogCategory extends MenuCategory {

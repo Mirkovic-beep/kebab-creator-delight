@@ -758,17 +758,10 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
         "description": "",
         "items": [
           {
-            "id": "patatas",
-            "title": "Patatas fritas",
-            "description": "Bravas, mixtas o alioli.",
-            "price": "5,00 €",
-            "imageKey": "patatas-bravas"
-          },
-          {
-            "id": "patatas-fritas-1-2-racion",
-            "title": "Patatas fritas 1/2 racion",
-            "description": "Bravas, mixtas o alioli.",
-            "price": "2,80 €",
+            "id": "patatas-mixtas-bravas-o-alioli",
+            "title": "Patatas mixtas, bravas o alioli",
+            "description": "Racion de patatas mixtas, bravas o alioli.",
+            "price": "8,90 €",
             "imageKey": "patatas-bravas"
           },
           {
@@ -1019,7 +1012,7 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
             "id": "menu-platos-combinados",
             "title": "Menu platos combinados",
             "description": "",
-            "price": "14,00 €"
+            "price": "14,50 €"
           }
         ]
       }
@@ -1459,7 +1452,7 @@ function buildTurkishSpecialtiesProducts() {
       name: "Kebab de falafel",
       description: "Falafel con ensalada de repollo, tomate y cebolla, y salsas.",
       longDescription: "Kebab de falafel con ensalada de repollo, tomate y cebolla, y salsas. Se mantiene como opcion vegetariana separada.",
-      imageKey: "falafel",
+      imageKey: "kebab",
       highlight: "Falafel, verdura y salsas",
       tags: mergeTags(kebabFalafel.tags, ["Vegetariano"]),
       modifierGroups: [sauceGroup, legacyTurkishExtrasGroup],
@@ -1481,7 +1474,7 @@ function buildTurkishSpecialtiesProducts() {
       name: "Shawarma de falafel",
       description: "Falafel con ensalada de repollo, tomate y cebolla, y salsas.",
       longDescription: "Shawarma de falafel con ensalada de repollo, tomate y cebolla, y salsas. Opcion vegetariana separada del resto.",
-      imageKey: "falafel",
+      imageKey: "shawarma",
       highlight: "Falafel, verdura y salsas",
       tags: mergeTags(shawarmaFalafel.tags, ["Vegetariano"]),
       modifierGroups: [sauceGroup, legacyTurkishExtrasGroup],
@@ -1499,7 +1492,7 @@ function buildPlatesProducts() {
       longDescription:
         "Plato combi simple con guarnicion a elegir. Precio segun version: pollo 9,50 €, mixto 10,00 €, ternera 11,50 € y falafel 8,20 €.",
       priceLabel: "Pollo 9,50 / Mixto 10,00 / Ternera 11,50 / Falafel 8,20",
-      imageKey: "plate-deja-vu",
+      imageKey: null,
       highlight: "Precio segun version",
       tags: mergeTags(getFlatProduct("plates", "combi-simple-de-pollo").tags, ["Elige version"]),
       modifierGroups: [combiSimpleProteinGroup, sideGroup, sauceGroup, legacyPlateExtrasGroup],
@@ -1509,7 +1502,7 @@ function buildPlatesProducts() {
       name: "Combi simple de falafel",
       description: "Falafel con arroz, patatas o ensalada.",
       longDescription: "Plato combi simple de falafel con guarnicion a elegir y extras del local.",
-      imageKey: "falafel",
+      imageKey: null,
       highlight: "Falafel y guarnicion",
       tags: mergeTags(getFlatProduct("plates", "combi-simple-de-falafel").tags, ["Vegetariano"]),
       modifierGroups: [sideGroup, sauceGroup, legacyPlateExtrasGroup],
@@ -1521,7 +1514,7 @@ function buildPlatesProducts() {
       longDescription:
         "Plato combi doble con guarnicion a elegir. Precio segun version: pollo 11,50 €, mixto 12,00 €, ternera 13,50 € y falafel 11,50 €.",
       priceLabel: "Pollo 11,50 / Mixto 12,00 / Ternera 13,50 / Falafel 11,50",
-      imageKey: "plate-deja-vu",
+      imageKey: null,
       highlight: "Precio segun version",
       tags: mergeTags(getFlatProduct("plates", "combi-doble-de-pollo").tags, ["Elige version"]),
       modifierGroups: [combiDoubleProteinGroup, sideGroup, sauceGroup, legacyPlateExtrasGroup],
@@ -1531,7 +1524,7 @@ function buildPlatesProducts() {
       name: "Combi doble de falafel",
       description: "Doble de falafel con arroz, patatas o ensalada.",
       longDescription: "Version doble del combi de falafel con guarnicion a elegir y extras del local.",
-      imageKey: "falafel",
+      imageKey: null,
       highlight: "Doble de falafel",
       tags: mergeTags(getFlatProduct("plates", "combi-doble-de-falafel").tags, ["Vegetariano"]),
       modifierGroups: [sideGroup, sauceGroup, legacyPlateExtrasGroup],
@@ -1555,7 +1548,7 @@ function buildPlatesProducts() {
       name: "Plato Deja Vu de falafel",
       description: "Falafel con patatas o arroz, repollo, tomate, cebolla y salsas.",
       longDescription: "Version vegetariana del Plato Deja Vu con falafel, guarnicion a elegir y extras del local.",
-      imageKey: "falafel",
+      imageKey: "plate-deja-vu",
       highlight: "Falafel y guarnicion",
       tags: mergeTags(getFlatProduct("plates", "plato-deja-vu-de-falafel").tags, ["Vegetariano"]),
       modifierGroups: [sideGroup, sauceGroup, legacyPlateExtrasGroup],
@@ -1602,7 +1595,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
       description: "Kebab de falafel con ensalada de repollo, tomate y cebolla, patatas fritas y bebida.",
       longDescription: "Menu de kebab de falafel con ensalada de repollo, tomate y cebolla, patatas fritas, bebida incluida y salsas a elegir.",
       highlight: "Falafel, patatas y bebida",
-      imageKey: "falafel",
+      imageKey: "kebab",
       tags: mergeTags(getFlatProduct("menus", "menu-kebab-de-falafel").tags, ["Vegetariano"]),
       modifierGroups: [drinkGroup, sauceGroup],
     }),
@@ -1624,7 +1617,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
       description: "Shawarma de falafel con ensalada de repollo, tomate y cebolla, patatas fritas y bebida.",
       longDescription: "Menu de shawarma de falafel con ensalada de repollo, tomate y cebolla, patatas fritas, bebida incluida y salsas a elegir.",
       highlight: "Falafel, patatas y bebida",
-      imageKey: "falafel",
+      imageKey: "shawarma",
       tags: mergeTags(getFlatProduct("menus", "menu-shawarma-de-falafel").tags, ["Vegetariano"]),
       modifierGroups: [drinkGroup, sauceGroup],
     }),
@@ -1636,7 +1629,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
         "Menu combi simple con patatas, arroz o ensalada, bebida incluida y salsas. Precio segun version: pollo 11,50 €, mixto 12,00 €, ternera 13,50 € y falafel 10,20 €.",
       priceLabel: "Pollo 11,50 / Mixto 12,00 / Ternera 13,50 / Falafel 10,20",
       highlight: "Combi simple y bebida",
-      imageKey: "plate-deja-vu",
+      imageKey: null,
       tags: mergeTags(getFlatProduct("menus", "menu-combi-simple-de-pollo").tags, ["Elige version"]),
       modifierGroups: [menuCombiSimpleProteinGroup, sideGroup, drinkGroup, sauceGroup],
     }),
@@ -1646,7 +1639,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
       description: "Combi simple de falafel con guarnicion, bebida y salsas.",
       longDescription: "Menu combi simple de falafel con patatas, arroz o ensalada, bebida incluida y salsas a elegir.",
       highlight: "Falafel, guarnicion y bebida",
-      imageKey: "falafel",
+      imageKey: null,
       tags: mergeTags(getFlatProduct("menus", "menu-combi-simple-de-falafel").tags, ["Vegetariano"]),
       modifierGroups: [sideGroup, drinkGroup, sauceGroup],
     }),
@@ -1658,7 +1651,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
         "Menu combi doble con patatas, arroz o ensalada, bebida incluida y salsas. Precio segun version: pollo 13,50 €, mixto 14,00 €, ternera 15,50 € y falafel 11,50 €.",
       priceLabel: "Pollo 13,50 / Mixto 14,00 / Ternera 15,50 / Falafel 11,50",
       highlight: "Combi doble y bebida",
-      imageKey: "plate-deja-vu",
+      imageKey: null,
       tags: mergeTags(getFlatProduct("menus", "menu-combi-doble-de-pollo").tags, ["Elige version"]),
       modifierGroups: [menuCombiDoubleProteinGroup, sideGroup, drinkGroup, sauceGroup],
     }),
@@ -1668,7 +1661,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
       description: "Combi doble de falafel con guarnicion, bebida y salsas.",
       longDescription: "Menu combi doble de falafel con patatas, arroz o ensalada, bebida incluida y salsas a elegir.",
       highlight: "Doble de falafel y bebida",
-      imageKey: "falafel",
+      imageKey: null,
       tags: mergeTags(getFlatProduct("menus", "menu-combi-doble-de-falafel").tags, ["Vegetariano"]),
       modifierGroups: [sideGroup, drinkGroup, sauceGroup],
     }),
@@ -1690,7 +1683,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
       description: "Plato Deja Vu de falafel con guarnicion, bebida y salsas.",
       longDescription: "Version vegetariana del Menu Deja Vu con falafel, guarnicion a elegir, bebida y salsas.",
       highlight: "Falafel, guarnicion y bebida",
-      imageKey: "falafel",
+      imageKey: "plate-deja-vu",
       tags: mergeTags(getFlatProduct("menus", "menu-deja-vu-de-falafel").tags, ["Vegetariano"]),
       modifierGroups: [sideGroup, drinkGroup, sauceGroup],
     }),
@@ -1787,7 +1780,7 @@ export const menuProducts: MenuProduct[] = menuCatalog.flatMap((category) =>
   category.products.map(({ imageKey, ...product }) => ({
     ...product,
     categoryId: category.id,
-    image: menuImageMap[imageKey],
+    image: imageKey ? menuImageMap[imageKey] : null,
   })),
 );
 

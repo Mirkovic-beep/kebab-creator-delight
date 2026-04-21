@@ -24,7 +24,7 @@ export interface CartItem {
   id: string;
   productId: string;
   name: string;
-  image: string;
+  image: string | null;
   quantity: number;
   notes: string;
   basePrice: number;

@@ -114,13 +114,20 @@ const CartPanel = ({
               {cartItems.map((item) => (
                 <div key={item.id} className="rounded-3xl border border-border/60 bg-background/25 p-4">
                   <div className="flex items-start gap-4">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="h-20 w-20 rounded-2xl object-cover"
-                      width={160}
-                      height={160}
-                    />
+                    {item.image ? (
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="h-20 w-20 rounded-2xl object-cover"
+                        width={160}
+                        height={160}
+                      />
+                    ) : (
+                      <div className="flex h-20 w-20 shrink-0 flex-col justify-between rounded-2xl border border-border/60 bg-[linear-gradient(160deg,#17130f,#2b241c)] p-2 text-white">
+                        <span className="text-[8px] font-semibold uppercase tracking-[0.18em] text-white/70">Sin foto</span>
+                        <span className="font-display text-sm leading-none">{item.name}</span>
+                      </div>
+                    )}
                     <div className="min-w-0 flex-1">
                       <div className="flex items-start justify-between gap-3">
                         <div>

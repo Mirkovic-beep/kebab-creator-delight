@@ -68,6 +68,7 @@ const ProductCustomizerDialog = ({
     return null;
   }
 
+  const hasImage = Boolean(product.image);
   const extraPrice = calculateSelectionPrice(product, selections);
   const unitPrice = product.price + extraPrice;
   const priceText = formatProductPrice(product);
@@ -117,15 +118,24 @@ const ProductCustomizerDialog = ({
       <DialogContent className="max-h-[92vh] max-w-5xl overflow-hidden border-white/10 bg-[#120f0d] p-0 text-stone-100">
         <div className="grid max-h-[92vh] grid-cols-1 overflow-y-auto lg:grid-cols-[0.95fr,1.05fr]">
           <div className="relative min-h-[260px] overflow-hidden border-b border-white/10 lg:min-h-full lg:border-b-0 lg:border-r">
-            <img
-              src={product.image}
-              alt={product.name}
-              className="absolute inset-0 h-full w-full object-cover"
-              width={960}
-              height={960}
-            />
+            {hasImage ? (
+              <img
+                src={product.image ?? undefined}
+                alt={product.name}
+                className="absolute inset-0 h-full w-full object-cover"
+                width={960}
+                height={960}
+              />
+            ) : (
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(196,152,73,0.38),_rgba(25,18,14,0.96)_68%)]" />
+            )}
             <div className="absolute inset-0 bg-gradient-to-t from-[rgba(10,9,8,0.94)] via-[rgba(10,9,8,0.45)] to-transparent" />
             <div className="relative flex h-full flex-col justify-end gap-4 p-6 lg:p-8">
+              {hasImage ? null : (
+                <div className="mb-1 inline-flex w-fit border border-white/12 bg-black/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-stone-200">
+                  Sin foto disponible
+                </div>
+              )}
               <ProductStatusBadges product={product} />
               <div>
                 <p className="mb-2 text-sm uppercase tracking-[0.28em] text-gold">{product.highlight}</p>

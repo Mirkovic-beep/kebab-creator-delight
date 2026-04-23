@@ -17,20 +17,25 @@ describe("menu images", () => {
     expect(getProduct("menus-menu-shawarma-falafel").image).toBe(getProduct("menus-menu-shawarma").image);
   });
 
-  it("keeps the Deja Vu plate photo on the falafel version", () => {
-    expect(getProduct("plates-plato-deja-vu-falafel").image).toBe(getProduct("plates-plato-deja-vu").image);
-    expect(getProduct("menus-menu-deja-vu-falafel").image).toBe(getProduct("menus-menu-deja-vu").image);
+  it("removes the Deja Vu photo from falafel variants", () => {
+    expect(getProduct("plates-plato-deja-vu").image).toBeTruthy();
+    expect(getProduct("menus-menu-deja-vu").image).toBeTruthy();
+    expect(getProduct("plates-plato-deja-vu-falafel").image).toBeNull();
+    expect(getProduct("menus-menu-deja-vu-falafel").image).toBeNull();
   });
 
-  it("leaves the combi products without photo when there is no matching image", () => {
+  it("keeps the generic combi products without photo", () => {
     expect(getProduct("plates-combi-simple").image).toBeNull();
-    expect(getProduct("plates-combi-simple-falafel").image).toBeNull();
     expect(getProduct("plates-combi-doble").image).toBeNull();
-    expect(getProduct("plates-combi-doble-falafel").image).toBeNull();
     expect(getProduct("menus-menu-combi-simple").image).toBeNull();
-    expect(getProduct("menus-menu-combi-simple-falafel").image).toBeNull();
     expect(getProduct("menus-menu-combi-doble").image).toBeNull();
-    expect(getProduct("menus-menu-combi-doble-falafel").image).toBeNull();
+  });
+
+  it("uses the falafel plate photo on combi falafel products", () => {
+    expect(getProduct("plates-combi-simple-falafel").image).toContain("falafel.jpg");
+    expect(getProduct("plates-combi-doble-falafel").image).toContain("falafel.jpg");
+    expect(getProduct("menus-menu-combi-simple-falafel").image).toContain("falafel.jpg");
+    expect(getProduct("menus-menu-combi-doble-falafel").image).toContain("falafel.jpg");
   });
 
   it("uses the patatas mixtas photo on the new ration", () => {

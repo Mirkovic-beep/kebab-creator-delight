@@ -14,6 +14,7 @@ const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^
 
 const localKebabImage = withBase("/images/menu/kebab.jpg");
 const localShawarmaImage = withBase("/images/menu/shawarma.jpg");
+const localCombiImage = withBase("/images/menu/combi.png");
 const localFalafelImage = withBase("/images/menu/falafel.jpg");
 const localSaladImage = withBase("/images/ensalada_carta.jpg");
 const localSaladCesarImage = withBase("/images/menu/ensalada-cesar.jpg");
@@ -47,6 +48,7 @@ export const menuImageMap: Record<MenuImageKey, string> = {
   kebab: localKebabImage,
   doner: donerImage,
   shawarma: localShawarmaImage,
+  combi: localCombiImage,
   lahmacun: lahmacunImage,
   falafel: localFalafelImage,
   adana: adanaImage,

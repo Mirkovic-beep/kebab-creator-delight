@@ -8,6 +8,7 @@ export type MenuImageKey =
   | "kebab"
   | "doner"
   | "shawarma"
+  | "combi"
   | "lahmacun"
   | "falafel"
   | "adana"

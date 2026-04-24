@@ -24,11 +24,11 @@ describe("menu images", () => {
     expect(getProduct("menus-menu-deja-vu-falafel").image).toBeNull();
   });
 
-  it("keeps the generic combi products without photo", () => {
-    expect(getProduct("plates-combi-simple").image).toBeNull();
-    expect(getProduct("plates-combi-doble").image).toBeNull();
-    expect(getProduct("menus-menu-combi-simple").image).toBeNull();
-    expect(getProduct("menus-menu-combi-doble").image).toBeNull();
+  it("uses the new combi photo on generic combi products", () => {
+    expect(getProduct("plates-combi-simple").image).toContain("combi.png");
+    expect(getProduct("plates-combi-doble").image).toContain("combi.png");
+    expect(getProduct("menus-menu-combi-simple").image).toContain("combi.png");
+    expect(getProduct("menus-menu-combi-doble").image).toContain("combi.png");
   });
 
   it("uses the falafel plate photo on combi falafel products", () => {

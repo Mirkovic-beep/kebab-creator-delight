@@ -2,8 +2,8 @@ import { ArrowRight, MapPin, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import adanaImage from "@/assets/adana.jpg";
-import heroHeaderImage from "@/assets/hero-cabecera.jpg";
 import Footer from "@/features/layout/components/Footer";
+import { getInstagramHandle, InstagramFeedEmbed } from "@/features/marketing/components/InstagramFeedSection";
 import VenueGallery from "@/features/marketing/components/VenueGallery";
 import Navbar from "@/features/layout/components/Navbar";
 import { Badge } from "@/shared/ui/badge";
@@ -23,6 +23,7 @@ const housePrinciples = [
 
 const Index = () => {
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(restaurantInfo.mapsQuery)}`;
+  const instagramHandle = getInstagramHandle(restaurantInfo.instagramProfileUrl);
 
   return (
     <div className="min-h-screen">
@@ -75,24 +76,27 @@ const Index = () => {
               </div>
             </article>
 
-            <article className="relative min-h-[300px] bg-black sm:min-h-[420px] lg:min-h-0">
-              <img
-                src={heroHeaderImage}
-                alt="Asadores de kebab de pollo y ternera en cocina"
-                className="h-full w-full object-cover object-[center_32%]"
-                width={1400}
-                height={1200}
-              />
-              <div className="gradient-overlay absolute inset-0" />
-              <div className="absolute inset-x-0 bottom-0 grid gap-3 px-4 pb-4 pt-10 text-white sm:px-7 sm:pb-6 lg:grid-cols-[1fr_auto] lg:items-end lg:px-6 lg:pt-14 xl:px-8">
+            <article className="grid bg-black lg:grid-rows-[minmax(0,1fr)_auto]">
+              <div className="bg-[#f4ecde] p-3 sm:p-4">
+                <div className="border border-black/10 bg-white p-2 sm:p-3">
+                  <InstagramFeedEmbed
+                    widgetUrl={restaurantInfo.lightwidgetEmbedUrl}
+                    profileUrl={restaurantInfo.instagramProfileUrl}
+                    iframeClassName="min-h-[360px] sm:min-h-[420px] lg:min-h-[520px]"
+                    fallbackClassName="min-h-[360px] sm:min-h-[420px] lg:min-h-[520px]"
+                  />
+                </div>
+              </div>
+
+              <div className="grid gap-3 border-t border-white/10 px-4 pb-4 pt-4 text-white sm:px-7 sm:pb-6 lg:grid-cols-[1fr_auto] lg:items-end lg:px-6 xl:px-8">
                 <div>
-                  <p className="editorial-kicker text-white/72">DejaVu Kebab</p>
-                  <p className="mt-2 max-w-[20rem] font-display text-[2.35rem] leading-none sm:max-w-[22rem] sm:text-[2.7rem] lg:max-w-[19rem] lg:text-[2.4rem] xl:max-w-[21rem] xl:text-[2.65rem]">
-                    Local, recogida o domicilio.
+                  <p className="editorial-kicker text-white/72">Instagram del local</p>
+                  <p className="mt-2 max-w-[20rem] font-display text-[2.2rem] leading-none sm:max-w-[22rem] sm:text-[2.55rem] lg:max-w-[19rem] lg:text-[2.2rem] xl:max-w-[21rem] xl:text-[2.45rem]">
+                    {instagramHandle || "Publicaciones de DejaVu Kebab."}
                   </p>
                 </div>
                 <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/72">
-                  Rivas-Vaciamadrid / directo desde cocina
+                  Rivas-Vaciamadrid / fotos y reels del local
                 </p>
               </div>
             </article>

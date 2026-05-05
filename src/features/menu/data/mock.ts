@@ -44,6 +44,8 @@ export const restaurantInfo: RestaurantInfo = {
   city: "28523 Rivas-Vaciamadrid, Madrid",
   mapsQuery: "Bar DejaVu Kebab Rivas",
   website: "https://bar-dejavu-kebab.es",
+  instagramProfileUrl: "https://www.instagram.com/dejavu_rivas/",
+  lightwidgetEmbedUrl: "https://cdn.lightwidget.com/widgets/1954159dde735905a0655fda1a8bbb1d.html",
   openingHours: [
     { day: "Lunes", time: "Cerrado" },
     { day: "Martes", time: "19:00 - 22:45" },

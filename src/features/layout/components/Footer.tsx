@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Instagram } from "lucide-react";
 
 import BrandLogo from "@/features/layout/components/BrandLogo";
 import CheckerDivider from "@/features/layout/components/CheckerDivider";
@@ -6,6 +7,7 @@ import { menuProducts, restaurantInfo } from "@/features/menu/data";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const instagramUrl = restaurantInfo.instagramProfileUrl;
 
   return (
     <footer className="px-5 pb-10 pt-16 sm:px-6 lg:px-8">
@@ -29,6 +31,18 @@ const Footer = () => {
             <Link to="/contacto" className="block hover:text-black">
               Contacto
             </Link>
+            {instagramUrl ? (
+              <a
+                href={instagramUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Abrir Instagram de DejaVu Kebab"
+                className="inline-flex items-center gap-2 border border-black/12 px-3 py-2 text-black transition-colors hover:border-black hover:bg-black hover:text-white"
+              >
+                <Instagram className="h-4 w-4" />
+                Instagram
+              </a>
+            ) : null}
           </div>
 
           <div className="space-y-2 text-right text-[11px] font-semibold uppercase tracking-[0.24em] text-black/72">

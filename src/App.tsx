@@ -19,7 +19,10 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter basename={routerBase}>
+      <BrowserRouter
+        basename={routerBase}
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
         <ScrollManager />
         <Routes>
           <Route path="/" element={<Index />} />

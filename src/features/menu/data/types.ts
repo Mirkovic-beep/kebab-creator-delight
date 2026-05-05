@@ -52,6 +52,8 @@ export interface RestaurantInfo {
   city: string;
   mapsQuery: string;
   website: string;
+  instagramProfileUrl?: string;
+  lightwidgetEmbedUrl?: string;
   openingHours: { day: string; time: string }[];
   serviceAreas: string[];
 }

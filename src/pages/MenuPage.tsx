@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { AlertTriangle, ArrowRight } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
 
 import heroHeaderImage from "@/assets/hero-cabecera.jpg";
@@ -44,6 +44,55 @@ const MenuPage = () => {
       }
     });
   }, [highlightedProductId]);
+
+  const activeCategoryNotices = [
+    activeCategory?.id === "menus"
+      ? {
+          id: "menus-service",
+          label: "Aviso de servicio",
+          title: "Menus disponibles para recoger y a domicilio.",
+          description: "En local, solo se sirven en horario de comida.",
+          tone: "alert" as const,
+        }
+      : null,
+    activeCategory?.id === "turkish-specialties"
+      ? {
+          id: "turkish-bread",
+          label: "Pan artesano",
+          title: "Nuestros kebabs van con pan artesano.",
+          description: "Trabajamos con masa madre y sin conservantes.",
+          tone: "highlight" as const,
+        }
+      : null,
+    activeCategory?.id === "hamburgers"
+      ? {
+          id: "burger-bread",
+          label: "Pan artesano",
+          title: "Todas las hamburguesas van con pan artesano.",
+          description: "Trabajamos con masa madre y sin conservantes.",
+          tone: "highlight" as const,
+        }
+      : null,
+    activeCategory?.id === "menus"
+      ? {
+          id: "menus-bread",
+          label: "Pan artesano",
+          title: "Los menus de kebab y hamburguesa llevan pan artesano.",
+          description: "Trabajamos con masa madre y sin conservantes.",
+          tone: "highlight" as const,
+        }
+      : null,
+  ].filter(
+    (
+      notice,
+    ): notice is {
+      id: string;
+      label: string;
+      title: string;
+      description: string;
+      tone: "alert" | "highlight";
+    } => Boolean(notice),
+  );
 
   return (
     <div className="min-h-screen">
@@ -198,6 +247,50 @@ const MenuPage = () => {
                     {activeProducts.length} platos visibles
                   </p>
                 </div>
+
+                {activeCategoryNotices.length > 0 ? (
+                  <div className="mt-4 grid gap-4 border-t border-black/12 pt-4 md:grid-cols-2">
+                    {activeCategoryNotices.map((notice) => (
+                      <div
+                        key={notice.id}
+                        className={cn(
+                          "border px-4 py-4 sm:px-5",
+                          notice.tone === "alert"
+                            ? "border-[#9a5844]/28 border-l-4 border-l-[#9a5844] bg-[rgba(154,88,68,0.12)] md:col-span-2"
+                            : "border-gold/40 bg-gold/12",
+                        )}
+                      >
+                        <p
+                          className={cn(
+                            "inline-flex items-center gap-2 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.22em]",
+                            notice.tone === "alert"
+                              ? "bg-[rgba(154,88,68,0.14)] text-[#7d3f2d]"
+                              : "bg-white/65 text-black/62",
+                          )}
+                        >
+                          {notice.tone === "alert" ? <AlertTriangle className="h-3.5 w-3.5" aria-hidden="true" /> : null}
+                          {notice.label}
+                        </p>
+                        <p
+                          className={cn(
+                            "mt-2 text-sm font-semibold leading-6 sm:text-[15px]",
+                            notice.tone === "alert" ? "text-[#4d1f17]" : "text-black",
+                          )}
+                        >
+                          {notice.title}
+                        </p>
+                        <p
+                          className={cn(
+                            "mt-1 text-[13px] leading-5 sm:text-sm sm:leading-6",
+                            notice.tone === "alert" ? "text-[#5b2d23]/85" : "text-black/68",
+                          )}
+                        >
+                          {notice.description}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
               </article>
 
               <section id="products-grid" aria-labelledby="products-grid-heading">

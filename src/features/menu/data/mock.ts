@@ -1029,7 +1029,7 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
     "tone": "gold",
     "imageKey": "generic",
     "prepTime": "15 min",
-    "mainText": "Todos los menus son para recoger o enviar.",
+    "mainText": "Los menus son para recoger y a domicilio. En local, solo se sirven en horario de comida.",
     "sections": [
       {
         "title": "Menus Kebabs",
@@ -1412,6 +1412,19 @@ function mergeTags(...groups: Array<string[] | undefined>) {
   return [...new Set(groups.flatMap((group) => group ?? []))].slice(0, 4);
 }
 
+const artisanBreadTag = ["Pan artesano"];
+const artisanBreadDescription = "Pan artesano con masa madre y sin conservantes.";
+const artisanBreadLongDescription = "El pan es artesano, con masa madre y sin conservantes.";
+
+function applyArtisanBread(product: MenuProductSeed): MenuProductSeed {
+  return {
+    ...product,
+    description: `${product.description} ${artisanBreadDescription}`,
+    longDescription: `${product.longDescription} ${artisanBreadLongDescription}`,
+    tags: mergeTags(artisanBreadTag, product.tags),
+  };
+}
+
 function deriveProduct(
   categoryId: string,
   itemId: string,
@@ -1435,7 +1448,7 @@ function buildTurkishSpecialtiesProducts() {
   const shawarmaFalafel = getFlatProduct("turkish-specialties", "shawarma-de-falafel");
 
   return [
-    deriveProduct("turkish-specialties", "kebab-de-pollo", {
+    applyArtisanBread(deriveProduct("turkish-specialties", "kebab-de-pollo", {
       id: "turkish-specialties-kebab",
       name: "Kebab",
       description: "Pollo 7,00 €, mixto 7,50 €, ternera 8,50 € y falafel 6,00 €. Con ensalada de repollo, tomate y cebolla, y salsas.",
@@ -1448,8 +1461,8 @@ function buildTurkishSpecialtiesProducts() {
       bestseller: true,
       tags: mergeTags(kebabBase.tags, ["Elige version"]),
       modifierGroups: [kebabProteinGroup, sauceGroup, legacyTurkishExtrasGroup],
-    }),
-    deriveProduct("turkish-specialties", "kebab-de-falafel", {
+    })),
+    applyArtisanBread(deriveProduct("turkish-specialties", "kebab-de-falafel", {
       id: "turkish-specialties-kebab-falafel",
       name: "Kebab de falafel",
       description: "Falafel con ensalada de repollo, tomate y cebolla, y salsas.",
@@ -1458,7 +1471,7 @@ function buildTurkishSpecialtiesProducts() {
       highlight: "Falafel, verdura y salsas",
       tags: mergeTags(kebabFalafel.tags, ["Vegetariano"]),
       modifierGroups: [sauceGroup, legacyTurkishExtrasGroup],
-    }),
+    })),
     deriveProduct("turkish-specialties", "shawarma-de-pollo", {
       id: "turkish-specialties-shawarma",
       name: "Shawarma",
@@ -1559,13 +1572,15 @@ function buildPlatesProducts() {
 }
 
 function buildHamburgerProducts(category: MenuCatalogCategory) {
-  return category.products.map((product) => ({
-    ...product,
-    description: `${product.description} Ternera o pollo crunchy.`,
-    longDescription: `${product.longDescription} Disponible en ternera o pollo crunchy con el mismo precio base.`,
-    tags: mergeTags(product.tags, ["Elige carne"]),
-    modifierGroups: [burgerProteinChoiceGroup, legacyBurgerExtrasGroup],
-  }));
+  return category.products.map((product) =>
+    applyArtisanBread({
+      ...product,
+      description: `${product.description} Ternera o pollo crunchy.`,
+      longDescription: `${product.longDescription} Disponible en ternera o pollo crunchy con el mismo precio base.`,
+      tags: mergeTags(product.tags, ["Elige carne"]),
+      modifierGroups: [burgerProteinChoiceGroup, legacyBurgerExtrasGroup],
+    }),
+  );
 }
 
 function buildMenuProducts(category: MenuCatalogCategory) {
@@ -1579,7 +1594,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
   ]);
 
   return [
-    deriveProduct("menus", "menu-kebab-de-pollo", {
+    applyArtisanBread(deriveProduct("menus", "menu-kebab-de-pollo", {
       id: "menus-menu-kebab",
       name: "Menu Kebab",
       description: "Pollo 11,50 €, mixto 12,00 €, ternera 13,00 € y falafel 10,50 €. Con ensalada de repollo, tomate y cebolla, patatas fritas y bebida.",
@@ -1590,8 +1605,8 @@ function buildMenuProducts(category: MenuCatalogCategory) {
       imageKey: "kebab",
       tags: mergeTags(getFlatProduct("menus", "menu-kebab-de-pollo").tags, ["Elige version"]),
       modifierGroups: [menuProteinGroup, drinkGroup, sauceGroup],
-    }),
-    deriveProduct("menus", "menu-kebab-de-falafel", {
+    })),
+    applyArtisanBread(deriveProduct("menus", "menu-kebab-de-falafel", {
       id: "menus-menu-kebab-falafel",
       name: "Menu Kebab de falafel",
       description: "Kebab de falafel con ensalada de repollo, tomate y cebolla, patatas fritas y bebida.",
@@ -1600,7 +1615,7 @@ function buildMenuProducts(category: MenuCatalogCategory) {
       imageKey: "kebab",
       tags: mergeTags(getFlatProduct("menus", "menu-kebab-de-falafel").tags, ["Vegetariano"]),
       modifierGroups: [drinkGroup, sauceGroup],
-    }),
+    })),
     deriveProduct("menus", "menu-shawarma-de-pollo", {
       id: "menus-menu-shawarma",
       name: "Menu Shawarma",
@@ -1702,14 +1717,16 @@ function buildMenuProducts(category: MenuCatalogCategory) {
     }),
     ...category.products
       .filter((product) => burgerMenuIds.has(product.id))
-      .map((product) => ({
-        ...product,
-        description: `${product.description} Ternera o pollo crunchy.`,
-        longDescription: `${product.longDescription} Disponible en ternera o pollo crunchy con el mismo precio base.`,
-        imageKey: product.imageKey === "generic" ? "burger" : product.imageKey,
-        tags: mergeTags(product.tags, ["Elige carne"]),
-        modifierGroups: [burgerProteinChoiceGroup, drinkGroup, legacyBurgerExtrasGroup],
-      })),
+      .map((product) =>
+        applyArtisanBread({
+          ...product,
+          description: `${product.description} Ternera o pollo crunchy.`,
+          longDescription: `${product.longDescription} Disponible en ternera o pollo crunchy con el mismo precio base.`,
+          imageKey: product.imageKey === "generic" ? "burger" : product.imageKey,
+          tags: mergeTags(product.tags, ["Elige carne"]),
+          modifierGroups: [burgerProteinChoiceGroup, drinkGroup, legacyBurgerExtrasGroup],
+        }),
+      ),
   ];
 }
 

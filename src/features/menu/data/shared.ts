@@ -12,8 +12,10 @@ import type { AllergenDefinition, AllergenId, MenuAllergen, MenuImageKey, MenuMo
 
 const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
 
-const localKebabImage = withBase("/images/menu/kebab.jpg");
-const localShawarmaImage = withBase("/images/menu/shawarma.jpg");
+const localKebabImage = withBase("/images/menu/kebab-normal.png");
+const localMenuKebabImage = withBase("/images/menu/kebab.jpg");
+const localShawarmaImage = withBase("/images/menu/shawarma-normal.png");
+const localMenuShawarmaImage = withBase("/images/menu/shawarma.jpg");
 const localCombiImage = withBase("/images/menu/combi.png");
 const localFalafelImage = withBase("/images/menu/falafel.jpg");
 const localSaladImage = withBase("/images/ensalada_carta.jpg");
@@ -46,8 +48,10 @@ const localCheesecakeImage = withBase("/images/menu/tarta-queso.jpg");
 export const menuImageMap: Record<MenuImageKey, string> = {
   hero: heroImage,
   kebab: localKebabImage,
+  "menu-kebab": localMenuKebabImage,
   doner: donerImage,
   shawarma: localShawarmaImage,
+  "menu-shawarma": localMenuShawarmaImage,
   combi: localCombiImage,
   lahmacun: lahmacunImage,
   falafel: localFalafelImage,

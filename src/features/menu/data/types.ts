@@ -6,8 +6,10 @@ export type AllergenLevel = "contains" | "may-contain";
 export type MenuImageKey =
   | "hero"
   | "kebab"
+  | "menu-kebab"
   | "doner"
   | "shawarma"
+  | "menu-shawarma"
   | "combi"
   | "lahmacun"
   | "falafel"

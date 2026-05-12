@@ -10,11 +10,23 @@ function getProduct(productId: string) {
 }
 
 describe("menu images", () => {
-  it("reuses the normal kebab and shawarma photos for falafel wraps", () => {
+  it("reuses the normal kebab and shawarma photos for normal falafel wraps", () => {
     expect(getProduct("turkish-specialties-kebab-falafel").image).toBe(getProduct("turkish-specialties-kebab").image);
     expect(getProduct("turkish-specialties-shawarma-falafel").image).toBe(getProduct("turkish-specialties-shawarma").image);
+  });
+
+  it("reuses the menu kebab and shawarma photos for menu falafel wraps", () => {
     expect(getProduct("menus-menu-kebab-falafel").image).toBe(getProduct("menus-menu-kebab").image);
     expect(getProduct("menus-menu-shawarma-falafel").image).toBe(getProduct("menus-menu-shawarma").image);
+  });
+
+  it("uses no-fries photos on normal kebab and shawarma, and keeps fries photos for menus", () => {
+    expect(getProduct("turkish-specialties-kebab").image).toContain("kebab-normal.png");
+    expect(getProduct("turkish-specialties-shawarma").image).toContain("shawarma-normal.png");
+    expect(getProduct("menus-menu-kebab").image).toContain("kebab.jpg");
+    expect(getProduct("menus-menu-shawarma").image).toContain("shawarma.jpg");
+    expect(getProduct("turkish-specialties-kebab").image).not.toBe(getProduct("menus-menu-kebab").image);
+    expect(getProduct("turkish-specialties-shawarma").image).not.toBe(getProduct("menus-menu-shawarma").image);
   });
 
   it("removes the Deja Vu photo from falafel variants", () => {

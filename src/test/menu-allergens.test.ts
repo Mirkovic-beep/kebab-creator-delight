@@ -40,8 +40,6 @@ const expectedAllergensByProductId: Record<string, AllergenId[]> = {
   "hamburgers-deja-vu-deluxe": ["gluten", "milk", "egg"],
   "hamburgers-dracula": ["gluten", "milk"],
 
-  "bocadillos-bocadillo": ["gluten"],
-
   "combined-plates-plato-combinado": ["egg"],
 
   "menus-menu-kebab": ["gluten"],

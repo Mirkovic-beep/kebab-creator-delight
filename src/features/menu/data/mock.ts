@@ -1781,8 +1781,10 @@ function buildProductsForCategory(category: MenuCatalogCategory) {
   }
 }
 
+const disabledMenuCategoryIds = new Set<string>(["bocadillos"]);
+
 export const menuCatalog: MenuCatalogCategory[] = flatMenuCatalog
-  .filter((category) => category.id !== "plates")
+  .filter((category) => category.id !== "plates" && !disabledMenuCategoryIds.has(category.id))
   .map((category) => ({
     id: category.id,
     name: category.name,

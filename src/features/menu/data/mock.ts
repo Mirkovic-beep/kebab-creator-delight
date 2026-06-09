@@ -334,7 +334,7 @@ function inferTags(category: LegacyCategorySeed, section: LegacySection, item: L
     tags.push("Desde");
   }
 
-  if (/1\/2 racion/i.test(item.title)) {
+  if (/(1\/2|media)\s*racion/i.test(item.title)) {
     tags.push("Media racion");
   }
 
@@ -369,6 +369,10 @@ function buildHighlight(category: LegacyCategorySeed, section: LegacySection, it
 
 function inferModifierGroups(category: LegacyCategorySeed, section: LegacySection, item: LegacyItem): MenuModifierGroup[] {
   const sectionTitle = cleanSectionTitle(section.title);
+
+  if (/^(racion|media racion) de patatas fritas$/i.test(item.title)) {
+    return [];
+  }
 
   if (category.id === "turkish-specialties") {
     return [sauceGroup, legacyTurkishExtrasGroup];
@@ -643,6 +647,23 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
             "description": "4 unidades con ensalada de repollo, tomate y cebolla, y salsas.",
             "price": "7,00 €",
             "vegetarian": true
+          },
+          {
+            "id": "racion-de-patatas-fritas",
+            "title": "Racion de patatas fritas",
+            "description": "Racion de patatas fritas.",
+            "price": "5,00",
+            "imageKey": "patatas-bravas"
+          },
+          {
+            "id": "media-racion-de-patatas-fritas",
+            "title": "Media racion de patatas fritas",
+            "description": "Media racion de patatas fritas.",
+            "price": "2,50",
+            "imageKey": "patatas-bravas",
+            "tags": [
+              "Media racion"
+            ]
           }
         ]
       }
@@ -765,6 +786,23 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
             "description": "Racion de patatas mixtas, bravas o alioli.",
             "price": "8,90 €",
             "imageKey": "patatas-bravas"
+          },
+          {
+            "id": "racion-de-patatas-fritas",
+            "title": "Racion de patatas fritas",
+            "description": "Racion de patatas fritas.",
+            "price": "5,00",
+            "imageKey": "patatas-bravas"
+          },
+          {
+            "id": "media-racion-de-patatas-fritas",
+            "title": "Media racion de patatas fritas",
+            "description": "Media racion de patatas fritas.",
+            "price": "2,50",
+            "imageKey": "patatas-bravas",
+            "tags": [
+              "Media racion"
+            ]
           },
           {
             "id": "salchipapas",
@@ -1446,6 +1484,8 @@ function buildTurkishSpecialtiesProducts() {
   const kebabFalafel = getFlatProduct("turkish-specialties", "kebab-de-falafel");
   const shawarmaBase = getFlatProduct("turkish-specialties", "shawarma-de-pollo");
   const shawarmaFalafel = getFlatProduct("turkish-specialties", "shawarma-de-falafel");
+  const friesPortion = getFlatProduct("turkish-specialties", "racion-de-patatas-fritas");
+  const halfFriesPortion = getFlatProduct("turkish-specialties", "media-racion-de-patatas-fritas");
 
   return [
     applyArtisanBread(deriveProduct("turkish-specialties", "kebab-de-pollo", {
@@ -1494,6 +1534,8 @@ function buildTurkishSpecialtiesProducts() {
       tags: mergeTags(shawarmaFalafel.tags, ["Vegetariano"]),
       modifierGroups: [sauceGroup, legacyTurkishExtrasGroup],
     }),
+    friesPortion,
+    halfFriesPortion,
     ...buildPlatesProducts(),
   ];
 }

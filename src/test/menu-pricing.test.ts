@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { menuProducts } from "@/features/menu/data";
+import { menuCatalog, menuProducts } from "@/features/menu/data";
 import { calculateSelectionPrice, getDefaultSelections } from "@/features/menu/lib/menu";
 
 function getProduct(productId: string) {
@@ -50,5 +50,36 @@ describe("menu pricing", () => {
   );
   it("keeps menu platos combinados at 14,50", () => {
     expect(getProduct("menus-menu-platos-combinados").price).toBeCloseTo(14.5, 2);
+  });
+
+  it("shows fries as standalone portions and removes them from kebab extras", () => {
+    const rationsCategory = menuCatalog.find((category) => category.id === "rations");
+
+    expect(rationsCategory?.products.slice(0, 3).map((product) => product.id)).toEqual([
+      "rations-patatas-mixtas-bravas-o-alioli",
+      "rations-racion-de-patatas-fritas",
+      "rations-media-racion-de-patatas-fritas",
+    ]);
+
+    for (const productId of ["turkish-specialties-kebab", "turkish-specialties-shawarma"]) {
+      const product = getProduct(productId);
+      const optionNames = product.modifierGroups.flatMap((group) => group.options.map((option) => option.name));
+
+      expect(optionNames).not.toContain("Patatas mixtas, bravas o alioli");
+    }
+
+    for (const productId of [
+      "rations-racion-de-patatas-fritas",
+      "turkish-specialties-racion-de-patatas-fritas",
+    ]) {
+      expect(getProduct(productId).price).toBeCloseTo(5, 2);
+    }
+
+    for (const productId of [
+      "rations-media-racion-de-patatas-fritas",
+      "turkish-specialties-media-racion-de-patatas-fritas",
+    ]) {
+      expect(getProduct(productId).price).toBeCloseTo(2.5, 2);
+    }
   });
 });

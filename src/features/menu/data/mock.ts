@@ -323,6 +323,9 @@ function inferTags(category: LegacyCategorySeed, section: LegacySection, item: L
     case "desserts":
       tags.push("Postre");
       break;
+    case "smoothies":
+      tags.push("Natural");
+      break;
     case "drinks":
       tags.push("Bebida");
       break;
@@ -1267,8 +1270,8 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
     "id": "desserts",
     "name": "Postres",
     "shortName": "Postres",
-    "description": "Profiteroles, bolas de helado, tarta de queso, smoothies y milkshakes.",
-    "note": "Helados y batidos",
+    "description": "Profiteroles, bolas de helado, tarta de queso y milkshakes.",
+    "note": "Postres y batidos",
     "tone": "stone",
     "imageKey": "dessert",
     "prepTime": "5 min",
@@ -1304,12 +1307,159 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
             "title": "Milkshake",
             "description": "Vainilla, fresa, chocolate o cookies.",
             "price": "5,50 €"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "smoothies",
+    "name": "Smoothies",
+    "shortName": "Smoothies",
+    "description": "Smoothies naturales Zumit hechos al momento con fruta y verdura.",
+    "note": "Zumit natural",
+    "tone": "olive",
+    "imageKey": "smoothie-tropical-heaven",
+    "prepTime": "4 min",
+    "mainText": "Elaborados al momento con fruta ultracongelada Zumit y zumo base de manzana.",
+    "sections": [
+      {
+        "title": "Zumit",
+        "description": "Hechos al momento.",
+        "items": [
+          {
+            "id": "tropical-heaven",
+            "title": "Tropical Heaven",
+            "description": "Melon, mango, kiwi y pina.",
+            "price": "5,90 EUR",
+            "imageKey": "smoothie-tropical-heaven",
+            "vegetarian": true,
+            "tags": [
+              "Hecho al momento"
+            ],
+            "featured": true
           },
           {
-            "id": "smoothie",
-            "title": "Smoothie",
-            "description": "Sabores varios.",
-            "price": "5,50 €"
+            "id": "caribbean-passion",
+            "title": "Caribbean Passion",
+            "description": "Mango, papaya y pina.",
+            "price": "5,90 EUR",
+            "imageKey": "smoothie-caribbean-passion",
+            "vegetarian": true,
+            "tags": [
+              "Hecho al momento"
+            ],
+            "bestseller": true
+          },
+          {
+            "id": "berries-paradise",
+            "title": "Berries Paradise",
+            "description": "Mango, cereza, arandano y fresa.",
+            "price": "5,90 EUR",
+            "imageKey": "smoothie-berries-paradise",
+            "vegetarian": true,
+            "tags": [
+              "Hecho al momento"
+            ]
+          },
+          {
+            "id": "colada-jungle",
+            "title": "Colada Jungle",
+            "description": "Platano, coco y pina.",
+            "price": "5,90 EUR",
+            "imageKey": "smoothie-colada-jungle",
+            "vegetarian": true,
+            "tags": [
+              "Hecho al momento"
+            ]
+          },
+          {
+            "id": "vitality",
+            "title": "Vitality",
+            "description": "Platano y fresa.",
+            "price": "5,90 EUR",
+            "imageKey": "smoothie-vitality",
+            "vegetarian": true,
+            "tags": [
+              "Hecho al momento"
+            ]
+          },
+          {
+            "id": "red-bliss",
+            "title": "Red Bliss",
+            "description": "Platano, arandano y frambuesa.",
+            "price": "5,90 EUR",
+            "imageKey": "smoothie-red-bliss",
+            "vegetarian": true,
+            "tags": [
+              "Hecho al momento"
+            ]
+          },
+          {
+            "id": "green-power",
+            "title": "Green Power",
+            "description": "Pepino, col rizada, pina y espinaca.",
+            "price": "5,90 EUR",
+            "imageKey": "smoothie-green-power",
+            "vegetarian": true,
+            "tags": [
+              "Hecho al momento"
+            ]
+          },
+          {
+            "id": "sunny-splash",
+            "title": "Sunny Splash",
+            "description": "Mango, limon, pina y fruta de la pasion.",
+            "price": "5,90 EUR",
+            "imageKey": "smoothie-sunny-splash",
+            "vegetarian": true,
+            "tags": [
+              "Hecho al momento"
+            ]
+          },
+          {
+            "id": "dragon-fruit-mix",
+            "title": "Dragon Fruit Mix",
+            "description": "Mango, fresa y pitaya.",
+            "price": "5,90 EUR",
+            "imageKey": "smoothie-dragon-fruit-mix",
+            "vegetarian": true,
+            "tags": [
+              "Hecho al momento"
+            ]
+          },
+          {
+            "id": "squeeze-nature",
+            "title": "Squeeze Nature",
+            "description": "Mango, zanahoria, pina y fruta de la pasion.",
+            "price": "5,90 EUR",
+            "imageKey": "smoothie-squeeze-nature",
+            "vegetarian": true,
+            "tags": [
+              "Hecho al momento"
+            ]
+          },
+          {
+            "id": "delightful",
+            "title": "Delightful",
+            "description": "Platano, arandano, mango y acai.",
+            "price": "5,90 EUR",
+            "imageKey": "smoothie-delightful",
+            "vegetarian": true,
+            "tags": [
+              "Hecho al momento"
+            ]
+          },
+          {
+            "id": "blue-lightning",
+            "title": "Blue Lightning",
+            "description": "Mango, platano, pina, melocoton, coco y espirulina azul.",
+            "price": "5,90 EUR",
+            "imageKey": "smoothie-blue-lightning",
+            "vegetarian": true,
+            "tags": [
+              "Hecho al momento"
+            ]
           }
         ]
       }
@@ -1855,7 +2005,7 @@ export const experienceHighlights: ExperienceHighlight[] = [
   },
   {
     title: "Categorias",
-    description: "Ensaladas, kebabs, platos, raciones, burgers, postres y mas.",
+    description: "Ensaladas, kebabs, platos, raciones, burgers, smoothies, postres y mas.",
     value: String(menuCategories.length),
   },
   {
@@ -1868,7 +2018,7 @@ export const experienceHighlights: ExperienceHighlight[] = [
 export const orderingSteps: OrderingStep[] = [
   {
     title: "Explora la carta",
-    description: "Revisa ensaladas, kebabs, platos, raciones, menus, postres y bebidas desde una sola carta.",
+    description: "Revisa ensaladas, kebabs, platos, raciones, menus, smoothies, postres y bebidas desde una sola carta.",
   },
   {
     title: "Elige el formato",

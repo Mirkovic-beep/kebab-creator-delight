@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AlertTriangle, ArrowRight } from "lucide-react";
+import { AlertTriangle, ArrowRight, Sun } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
 
 import heroHeaderImage from "@/assets/hero-cabecera.jpg";
@@ -18,6 +18,7 @@ const MenuPage = () => {
 
   const activeCategory = menuCategories.find((category) => category.id === activeCategoryId) ?? menuCategories[0];
   const activeProducts = menuProducts.filter((product) => product.categoryId === activeCategory?.id);
+  const smoothiesProduct = menuProducts.find((product) => product.id === "smoothies-caribbean-passion");
   const categoryCounts = menuProducts.reduce<Record<string, number>>((accumulator, product) => {
     accumulator[product.categoryId] = (accumulator[product.categoryId] ?? 0) + 1;
     return accumulator;
@@ -246,6 +247,46 @@ const MenuPage = () => {
                   <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-black/58 sm:text-[11px] sm:tracking-[0.24em]">
                     {activeProducts.length} platos visibles
                   </p>
+                </div>
+
+                <div className="mt-4 overflow-hidden border border-black/12 bg-white sm:mt-5 lg:grid lg:grid-cols-[1fr_180px]">
+                  <div className="flex flex-col justify-between gap-4 px-4 py-4 sm:px-5 sm:py-5">
+                    <div>
+                      <p className="inline-flex items-center gap-2 bg-gold px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-gold-foreground">
+                        <Sun className="h-3.5 w-3.5" aria-hidden="true" />
+                        Promo verano
+                      </p>
+                      <h3 className="mt-3 font-display text-[2rem] leading-none text-black sm:text-[2.8rem]">
+                        Smoothies Zumit naturales, hechos al momento.
+                      </h3>
+                      <p className="mt-2 max-w-2xl text-[13px] leading-5 text-black/68 sm:text-sm sm:leading-6">
+                        Sabores frescos de temporada para los dias de calor. Mango, frutos rojos, coco, pina y opciones verdes.
+                      </p>
+                    </div>
+                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                      <p className="font-display text-[1.8rem] leading-none text-black">5,90 EUR</p>
+                      <Button
+                        type="button"
+                        onClick={() => setActiveCategoryId("smoothies")}
+                        className="h-10 border border-black bg-black px-4 text-[10px] font-semibold uppercase tracking-[0.22em] text-white hover:bg-black/85"
+                      >
+                        Ver smoothies
+                        <ArrowRight className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                  {smoothiesProduct?.image ? (
+                    <div className="hidden min-h-full bg-gold/15 lg:block">
+                      <img
+                        src={smoothiesProduct.image}
+                        alt="Smoothie Zumit Caribbean Passion"
+                        loading="lazy"
+                        className="h-full w-full object-cover"
+                        width={360}
+                        height={300}
+                      />
+                    </div>
+                  ) : null}
                 </div>
 
                 {activeCategoryNotices.length > 0 ? (

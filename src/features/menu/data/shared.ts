@@ -44,6 +44,18 @@ const localDrinksImage = withBase("/images/drinks-placeholder.png");
 const localGenericImage = withBase("/images/imagenCarta.jpg");
 const localProfiterolesImage = withBase("/images/menu/profiteroles.jpg");
 const localCheesecakeImage = withBase("/images/menu/tarta-queso.jpg");
+const localSmoothieTropicalHeavenImage = withBase("/images/menu/smoothie-tropical-heaven.png");
+const localSmoothieCaribbeanPassionImage = withBase("/images/menu/smoothie-caribbean-passion.png");
+const localSmoothieBerriesParadiseImage = withBase("/images/menu/smoothie-berries-paradise.png");
+const localSmoothieColadaJungleImage = withBase("/images/menu/smoothie-colada-jungle.png");
+const localSmoothieVitalityImage = withBase("/images/menu/smoothie-vitality.png");
+const localSmoothieRedBlissImage = withBase("/images/menu/smoothie-red-bliss.png");
+const localSmoothieGreenPowerImage = withBase("/images/menu/smoothie-green-power.png");
+const localSmoothieSunnySplashImage = withBase("/images/menu/smoothie-sunny-splash.png");
+const localSmoothieDragonFruitMixImage = withBase("/images/menu/smoothie-dragon-fruit-mix.png");
+const localSmoothieSqueezeNatureImage = withBase("/images/menu/smoothie-squeeze-nature.png");
+const localSmoothieDelightfulImage = withBase("/images/menu/smoothie-delightful.png");
+const localSmoothieBlueLightningImage = withBase("/images/menu/smoothie-blue-lightning.png");
 
 export const menuImageMap: Record<MenuImageKey, string> = {
   hero: heroImage,
@@ -85,6 +97,18 @@ export const menuImageMap: Record<MenuImageKey, string> = {
   dessert: dessertImage,
   "dessert-profiteroles": localProfiterolesImage,
   "dessert-cheesecake": localCheesecakeImage,
+  "smoothie-tropical-heaven": localSmoothieTropicalHeavenImage,
+  "smoothie-caribbean-passion": localSmoothieCaribbeanPassionImage,
+  "smoothie-berries-paradise": localSmoothieBerriesParadiseImage,
+  "smoothie-colada-jungle": localSmoothieColadaJungleImage,
+  "smoothie-vitality": localSmoothieVitalityImage,
+  "smoothie-red-bliss": localSmoothieRedBlissImage,
+  "smoothie-green-power": localSmoothieGreenPowerImage,
+  "smoothie-sunny-splash": localSmoothieSunnySplashImage,
+  "smoothie-dragon-fruit-mix": localSmoothieDragonFruitMixImage,
+  "smoothie-squeeze-nature": localSmoothieSqueezeNatureImage,
+  "smoothie-delightful": localSmoothieDelightfulImage,
+  "smoothie-blue-lightning": localSmoothieBlueLightningImage,
   drinks: localDrinksImage,
   generic: localGenericImage,
 };

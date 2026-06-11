@@ -53,4 +53,25 @@ describe("menu images", () => {
   it("uses the patatas mixtas photo on the new ration", () => {
     expect(getProduct("rations-patatas-mixtas-bravas-o-alioli").image).toContain("patatas-bravas");
   });
+
+  it("uses the specific Zumit photo on every smoothie", () => {
+    const smoothieIds = [
+      "tropical-heaven",
+      "caribbean-passion",
+      "berries-paradise",
+      "colada-jungle",
+      "vitality",
+      "red-bliss",
+      "green-power",
+      "sunny-splash",
+      "dragon-fruit-mix",
+      "squeeze-nature",
+      "delightful",
+      "blue-lightning",
+    ];
+
+    for (const smoothieId of smoothieIds) {
+      expect(getProduct(`smoothies-${smoothieId}`).image).toContain(`smoothie-${smoothieId}.png`);
+    }
+  });
 });

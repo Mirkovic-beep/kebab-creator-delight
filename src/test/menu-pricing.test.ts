@@ -52,6 +52,16 @@ describe("menu pricing", () => {
     expect(getProduct("menus-menu-platos-combinados").price).toBeCloseTo(14.5, 2);
   });
 
+  it("sets every Zumit smoothie at 5,90", () => {
+    const smoothieCategory = menuCatalog.find((category) => category.id === "smoothies");
+
+    expect(smoothieCategory?.products).toHaveLength(12);
+
+    for (const product of smoothieCategory!.products) {
+      expect(product.price, product.id).toBeCloseTo(5.9, 2);
+    }
+  });
+
   it("shows fries as standalone portions and removes them from kebab extras", () => {
     const rationsCategory = menuCatalog.find((category) => category.id === "rations");
 

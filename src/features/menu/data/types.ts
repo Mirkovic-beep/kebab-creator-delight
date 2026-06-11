@@ -43,6 +43,18 @@ export type MenuImageKey =
   | "dessert"
   | "dessert-profiteroles"
   | "dessert-cheesecake"
+  | "smoothie-tropical-heaven"
+  | "smoothie-caribbean-passion"
+  | "smoothie-berries-paradise"
+  | "smoothie-colada-jungle"
+  | "smoothie-vitality"
+  | "smoothie-red-bliss"
+  | "smoothie-green-power"
+  | "smoothie-sunny-splash"
+  | "smoothie-dragon-fruit-mix"
+  | "smoothie-squeeze-nature"
+  | "smoothie-delightful"
+  | "smoothie-blue-lightning"
   | "drinks"
   | "generic";
 

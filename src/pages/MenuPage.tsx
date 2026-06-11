@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { AlertTriangle, ArrowRight, Sun } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
 
-import heroHeaderImage from "@/assets/hero-cabecera.jpg";
 import Footer from "@/features/layout/components/Footer";
 import MenuProductCard from "@/features/menu/components/MenuProductCard";
 import Navbar from "@/features/layout/components/Navbar";
@@ -10,21 +9,37 @@ import { Button } from "@/shared/ui/button";
 import { menuCategories, menuProducts } from "@/features/menu/data";
 import { cn } from "@/shared/lib/utils";
 
+const promotedCategoryId = "smoothies";
+
 const MenuPage = () => {
   const [searchParams] = useSearchParams();
   const requestedProductId = searchParams.get("producto") ?? "";
   const requestedProduct = menuProducts.find((product) => product.id === requestedProductId);
-  const [activeCategoryId, setActiveCategoryId] = useState(requestedProduct?.categoryId ?? menuCategories[0]?.id ?? "");
+  const orderedMenuCategories = [
+    ...menuCategories.filter((category) => category.id === promotedCategoryId),
+    ...menuCategories.filter((category) => category.id !== promotedCategoryId),
+  ];
+  const defaultCategoryId = orderedMenuCategories[0]?.id ?? menuCategories[0]?.id ?? "";
+  const [activeCategoryId, setActiveCategoryId] = useState(requestedProduct?.categoryId ?? defaultCategoryId);
 
-  const activeCategory = menuCategories.find((category) => category.id === activeCategoryId) ?? menuCategories[0];
+  const activeCategory = menuCategories.find((category) => category.id === activeCategoryId) ?? orderedMenuCategories[0] ?? menuCategories[0];
   const activeProducts = menuProducts.filter((product) => product.categoryId === activeCategory?.id);
-  const smoothiesProduct = menuProducts.find((product) => product.id === "smoothies-caribbean-passion");
+  const smoothiesProduct =
+    menuProducts.find((product) => product.id === "smoothies-dragon-fruit-mix") ??
+    menuProducts.find((product) => product.id === "smoothies-caribbean-passion");
   const categoryCounts = menuProducts.reduce<Record<string, number>>((accumulator, product) => {
     accumulator[product.categoryId] = (accumulator[product.categoryId] ?? 0) + 1;
     return accumulator;
   }, {});
   const highlightedProductId =
     requestedProduct && requestedProduct.categoryId === activeCategory?.id ? requestedProduct.id : undefined;
+
+  const showSmoothies = () => {
+    setActiveCategoryId(promotedCategoryId);
+    window.requestAnimationFrame(() => {
+      document.getElementById("products-grid")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  };
 
   useEffect(() => {
     if (requestedProduct?.categoryId) {
@@ -101,43 +116,57 @@ const MenuPage = () => {
 
       <main className="pb-6">
         <section className="px-5 py-3 sm:px-6 sm:py-6 lg:px-8 lg:py-8">
-          <div className="mx-auto max-w-7xl overflow-hidden border border-black/12 lg:grid lg:grid-cols-[0.44fr_0.56fr]">
-            <article className="bg-primary px-5 py-5 text-primary-foreground sm:px-10 sm:py-10 lg:px-12 lg:py-12">
-              <p className="editorial-kicker text-gold">Carta</p>
-              <h1 className="mt-2 font-display text-[clamp(2.65rem,11vw,8rem)] leading-[0.9]">Carta completa.</h1>
-              <p className="mt-3 max-w-md text-[13px] leading-5 text-primary-foreground/72 sm:text-lg sm:leading-8">
-                Carta sencilla de recorrer, con categorias claras y alergenos visibles en cada plato.
-              </p>
+          <article className="relative mx-auto min-h-[570px] max-w-7xl overflow-hidden border border-black/12 bg-gold/20 sm:min-h-[620px] lg:min-h-[560px]">
+            <div className="absolute inset-0">
+              {smoothiesProduct?.image ? (
+                <img
+                  src={smoothiesProduct.image}
+                  alt="Smoothie Zumit Dragon Fruit Mix"
+                  className="h-full w-full object-cover object-center"
+                  width={1400}
+                  height={1200}
+                />
+              ) : null}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/42 via-black/4 to-transparent" />
+            </div>
 
-              <div className="mt-4 grid grid-cols-2 gap-3 border-t border-white/12 pt-4 sm:mt-10 sm:pt-6">
-                <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-primary-foreground/55">Categorias</p>
-                  <p className="mt-2 font-display text-[1.9rem] leading-none sm:text-5xl">{menuCategories.length}</p>
+            <div className="absolute inset-x-0 bottom-0 border-t border-white/40 bg-gold/95 text-gold-foreground shadow-[0_-18px_48px_rgba(0,0,0,0.22)] backdrop-blur-sm">
+              <div className="grid gap-4 px-4 py-4 sm:px-7 sm:py-6 lg:grid-cols-[1fr_auto] lg:items-end lg:px-9">
+                <div className="max-w-4xl">
+                  <p className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-black/62">
+                    <Sun className="h-3.5 w-3.5" aria-hidden="true" />
+                    Promo verano
+                  </p>
+                  <h1 className="mt-2 font-display text-[2.55rem] leading-none text-black sm:text-[4.6rem] lg:text-[6rem]">
+                    Smoothies Zumit.
+                  </h1>
+                  <p className="mt-2 max-w-2xl text-[13px] font-semibold leading-5 text-black/70 sm:text-base sm:leading-7">
+                    Naturales, hechos al momento con fruta, verdura y zumo base de manzana.
+                  </p>
                 </div>
-                <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-primary-foreground/55">Platos</p>
-                  <p className="mt-2 font-display text-[1.9rem] leading-none sm:text-5xl">{menuProducts.length}+</p>
+
+                <div className="grid gap-3 border-t border-black/14 pt-4 sm:grid-cols-[auto_1fr] sm:items-end lg:min-w-[25rem] lg:border-t-0 lg:pt-0">
+                  <div>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-black/55">Temporada</p>
+                    <p className="mt-1 font-display text-[2.15rem] leading-none text-black sm:text-[2.8rem]">5,90 EUR</p>
+                  </div>
+                  <Button
+                    type="button"
+                    onClick={showSmoothies}
+                    className="h-11 justify-center border border-black bg-black px-5 text-[10px] font-semibold uppercase tracking-[0.22em] text-white hover:bg-black/85 sm:h-12"
+                  >
+                    Ver smoothies
+                    <ArrowRight className="h-4 w-4" />
+                  </Button>
+                  <div className="grid grid-cols-3 gap-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-black/60 sm:col-span-2">
+                    <span>Mango</span>
+                    <span>Frutos rojos</span>
+                    <span>Coco</span>
+                  </div>
                 </div>
               </div>
-            </article>
-
-            <article className="relative min-h-[260px] bg-muted sm:min-h-[340px] lg:min-h-[420px]">
-              <img
-                src={heroHeaderImage}
-                alt="Asadores de kebab de pollo y ternera en cocina"
-                className="h-full w-full object-cover object-[center_32%]"
-                width={1400}
-                height={1200}
-              />
-              <div className="gradient-overlay absolute inset-0" />
-              <div className="absolute bottom-0 left-0 bg-gold px-6 py-5 text-gold-foreground sm:px-8 sm:py-6">
-                <p className="editorial-kicker text-black/58">DejaVu Kebab</p>
-                <p className="mt-2 max-w-[15rem] font-display text-[2.2rem] leading-none sm:max-w-none sm:text-6xl">
-                  Kebabs, platos y especialidades de la casa.
-                </p>
-              </div>
-            </article>
-          </div>
+            </div>
+          </article>
         </section>
 
         <section className="px-5 py-5 sm:px-6 sm:py-8 lg:px-8">
@@ -151,7 +180,7 @@ const MenuPage = () => {
               </div>
 
               <div className="mt-2 grid grid-cols-3 gap-2" aria-label="Categorias de la carta">
-                {menuCategories.map((category) => (
+                {orderedMenuCategories.map((category) => (
                   <button
                     key={category.id}
                     type="button"
@@ -161,8 +190,12 @@ const MenuPage = () => {
                     className={cn(
                       "min-w-0 border px-2 py-2 text-left transition-colors",
                       category.id === activeCategory?.id
-                        ? "border-black bg-black text-white"
-                        : "border-black/10 bg-white text-black",
+                        ? category.id === promotedCategoryId
+                          ? "border-gold bg-gold text-gold-foreground shadow-[0_10px_26px_rgba(0,0,0,0.16)]"
+                          : "border-black bg-black text-white"
+                        : category.id === promotedCategoryId
+                          ? "border-gold/70 bg-gold/25 text-black shadow-[0_8px_22px_rgba(0,0,0,0.08)] hover:bg-gold/35"
+                          : "border-black/10 bg-white text-black",
                     )}
                   >
                     <div className="flex items-end justify-between gap-2">
@@ -170,7 +203,13 @@ const MenuPage = () => {
                       <span
                         className={cn(
                           "text-[10px] font-semibold uppercase tracking-[0.16em]",
-                          category.id === activeCategory?.id ? "text-white/72" : "text-black/54",
+                          category.id === activeCategory?.id
+                            ? category.id === promotedCategoryId
+                              ? "text-black/62"
+                              : "text-white/72"
+                            : category.id === promotedCategoryId
+                              ? "text-black/62"
+                              : "text-black/54",
                         )}
                       >
                         {categoryCounts[category.id] ?? 0}
@@ -184,7 +223,7 @@ const MenuPage = () => {
             <aside className="hidden h-fit border border-black/12 bg-white p-5 lg:sticky lg:top-6 lg:block">
               <p className="editorial-kicker text-black/55">Categorias</p>
               <div className="mt-5 grid gap-2">
-                {menuCategories.map((category) => (
+                {orderedMenuCategories.map((category) => (
                   <button
                     key={category.id}
                     type="button"
@@ -194,8 +233,12 @@ const MenuPage = () => {
                     className={cn(
                       "border px-4 py-4 text-left transition-colors",
                       category.id === activeCategory?.id
-                        ? "border-black bg-black text-white"
-                        : "border-black/10 bg-white text-black hover:bg-gold/10",
+                        ? category.id === promotedCategoryId
+                          ? "border-gold bg-gold text-gold-foreground shadow-[0_14px_32px_rgba(0,0,0,0.14)]"
+                          : "border-black bg-black text-white"
+                        : category.id === promotedCategoryId
+                          ? "border-gold/70 bg-gold/20 text-black shadow-[0_10px_24px_rgba(0,0,0,0.08)] hover:bg-gold/30"
+                          : "border-black/10 bg-white text-black hover:bg-gold/10",
                     )}
                   >
                     <div className="flex items-start justify-between gap-3">
@@ -203,7 +246,13 @@ const MenuPage = () => {
                         <p
                           className={cn(
                             "text-[10px] font-semibold uppercase tracking-[0.24em]",
-                            category.id === activeCategory?.id ? "text-white/58" : "text-black/52",
+                            category.id === activeCategory?.id
+                              ? category.id === promotedCategoryId
+                                ? "text-black/58"
+                                : "text-white/58"
+                              : category.id === promotedCategoryId
+                                ? "text-black/58"
+                                : "text-black/52",
                           )}
                         >
                           {category.note}
@@ -213,7 +262,13 @@ const MenuPage = () => {
                       <span
                         className={cn(
                           "text-[11px] font-semibold uppercase tracking-[0.2em]",
-                          category.id === activeCategory?.id ? "text-white/72" : "text-black/58",
+                          category.id === activeCategory?.id
+                            ? category.id === promotedCategoryId
+                              ? "text-black/62"
+                              : "text-white/72"
+                            : category.id === promotedCategoryId
+                              ? "text-black/62"
+                              : "text-black/58",
                         )}
                       >
                         {categoryCounts[category.id] ?? 0}
@@ -222,7 +277,13 @@ const MenuPage = () => {
                     <p
                       className={cn(
                         "mt-3 text-sm leading-6",
-                        category.id === activeCategory?.id ? "text-white/74" : "text-black/64",
+                        category.id === activeCategory?.id
+                          ? category.id === promotedCategoryId
+                            ? "text-black/70"
+                            : "text-white/74"
+                          : category.id === promotedCategoryId
+                            ? "text-black/68"
+                            : "text-black/64",
                       )}
                     >
                       {category.description}
@@ -247,46 +308,6 @@ const MenuPage = () => {
                   <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-black/58 sm:text-[11px] sm:tracking-[0.24em]">
                     {activeProducts.length} platos visibles
                   </p>
-                </div>
-
-                <div className="mt-4 overflow-hidden border border-black/12 bg-white sm:mt-5 lg:grid lg:grid-cols-[1fr_180px]">
-                  <div className="flex flex-col justify-between gap-4 px-4 py-4 sm:px-5 sm:py-5">
-                    <div>
-                      <p className="inline-flex items-center gap-2 bg-gold px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-gold-foreground">
-                        <Sun className="h-3.5 w-3.5" aria-hidden="true" />
-                        Promo verano
-                      </p>
-                      <h3 className="mt-3 font-display text-[2rem] leading-none text-black sm:text-[2.8rem]">
-                        Smoothies Zumit naturales, hechos al momento.
-                      </h3>
-                      <p className="mt-2 max-w-2xl text-[13px] leading-5 text-black/68 sm:text-sm sm:leading-6">
-                        Sabores frescos de temporada para los dias de calor. Mango, frutos rojos, coco, pina y opciones verdes.
-                      </p>
-                    </div>
-                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                      <p className="font-display text-[1.8rem] leading-none text-black">5,90 EUR</p>
-                      <Button
-                        type="button"
-                        onClick={() => setActiveCategoryId("smoothies")}
-                        className="h-10 border border-black bg-black px-4 text-[10px] font-semibold uppercase tracking-[0.22em] text-white hover:bg-black/85"
-                      >
-                        Ver smoothies
-                        <ArrowRight className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                  {smoothiesProduct?.image ? (
-                    <div className="hidden min-h-full bg-gold/15 lg:block">
-                      <img
-                        src={smoothiesProduct.image}
-                        alt="Smoothie Zumit Caribbean Passion"
-                        loading="lazy"
-                        className="h-full w-full object-cover"
-                        width={360}
-                        height={300}
-                      />
-                    </div>
-                  ) : null}
                 </div>
 
                 {activeCategoryNotices.length > 0 ? (

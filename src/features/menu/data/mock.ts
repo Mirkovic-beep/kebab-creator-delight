@@ -1315,7 +1315,7 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
   {
     "id": "smoothies",
     "name": "Smoothies",
-    "shortName": "Smoothies",
+    "shortName": "Zumit",
     "description": "Smoothies naturales Zumit hechos al momento con fruta y verdura.",
     "note": "Zumit natural",
     "tone": "olive",

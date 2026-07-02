@@ -43,6 +43,7 @@ export type MenuImageKey =
   | "dessert"
   | "dessert-profiteroles"
   | "dessert-cheesecake"
+  | "smoothies-header"
   | "smoothie-tropical-heaven"
   | "smoothie-caribbean-passion"
   | "smoothie-berries-paradise"

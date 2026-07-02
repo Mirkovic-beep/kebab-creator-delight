@@ -6,7 +6,7 @@ import Footer from "@/features/layout/components/Footer";
 import MenuProductCard from "@/features/menu/components/MenuProductCard";
 import Navbar from "@/features/layout/components/Navbar";
 import { Button } from "@/shared/ui/button";
-import { menuCategories, menuProducts } from "@/features/menu/data";
+import { menuCategories, menuImageMap, menuProducts } from "@/features/menu/data";
 import { cn } from "@/shared/lib/utils";
 
 const promotedCategoryId = "smoothies";
@@ -24,9 +24,7 @@ const MenuPage = () => {
 
   const activeCategory = menuCategories.find((category) => category.id === activeCategoryId) ?? orderedMenuCategories[0] ?? menuCategories[0];
   const activeProducts = menuProducts.filter((product) => product.categoryId === activeCategory?.id);
-  const smoothiesProduct =
-    menuProducts.find((product) => product.id === "smoothies-dragon-fruit-mix") ??
-    menuProducts.find((product) => product.id === "smoothies-caribbean-passion");
+  const smoothiesHeaderImage = menuImageMap["smoothies-header"];
   const categoryCounts = menuProducts.reduce<Record<string, number>>((accumulator, product) => {
     accumulator[product.categoryId] = (accumulator[product.categoryId] ?? 0) + 1;
     return accumulator;
@@ -118,13 +116,13 @@ const MenuPage = () => {
         <section className="px-5 py-3 sm:px-6 sm:py-6 lg:px-8 lg:py-8">
           <article className="relative mx-auto min-h-[570px] max-w-7xl overflow-hidden border border-black/12 bg-gold/20 sm:min-h-[620px] lg:min-h-[560px]">
             <div className="absolute inset-0">
-              {smoothiesProduct?.image ? (
+              {smoothiesHeaderImage ? (
                 <img
-                  src={smoothiesProduct.image}
-                  alt="Smoothie Zumit Dragon Fruit Mix"
+                  src={smoothiesHeaderImage}
+                  alt="Smoothies Zumit de frutas"
                   className="h-full w-full object-cover object-center"
-                  width={1400}
-                  height={1200}
+                  width={1280}
+                  height={592}
                 />
               ) : null}
               <div className="absolute inset-0 bg-gradient-to-t from-black/42 via-black/4 to-transparent" />

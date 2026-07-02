@@ -488,7 +488,7 @@ function inferAllergens(category: LegacyCategorySeed, item: LegacyItem): MenuAll
         return frozenDessertAllergens;
       }
 
-      if (/smoothie/.test(text)) {
+      if (/smoothie/.test(text) || item.imageKey?.startsWith("smoothie-")) {
         return [];
       }
 
@@ -534,6 +534,143 @@ function buildLegacyProduct(category: LegacyCategorySeed, section: LegacySection
     modifierGroups: inferModifierGroups(category, section, item),
   };
 }
+
+const zumitSmoothieItems: LegacyItem[] = [
+  {
+    "id": "tropical-heaven",
+    "title": "Tropical Heaven",
+    "description": "Melon, mango, kiwi y pina.",
+    "price": "5,90 EUR",
+    "imageKey": "smoothie-tropical-heaven",
+    "vegetarian": true,
+    "tags": [
+      "Hecho al momento"
+    ],
+    "featured": true
+  },
+  {
+    "id": "caribbean-passion",
+    "title": "Caribbean Passion",
+    "description": "Mango, papaya y pina.",
+    "price": "5,90 EUR",
+    "imageKey": "smoothie-caribbean-passion",
+    "vegetarian": true,
+    "tags": [
+      "Hecho al momento"
+    ],
+    "bestseller": true
+  },
+  {
+    "id": "berries-paradise",
+    "title": "Berries Paradise",
+    "description": "Mango, cereza, arandano y fresa.",
+    "price": "5,90 EUR",
+    "imageKey": "smoothie-berries-paradise",
+    "vegetarian": true,
+    "tags": [
+      "Hecho al momento"
+    ]
+  },
+  {
+    "id": "colada-jungle",
+    "title": "Colada Jungle",
+    "description": "Platano, coco y pina.",
+    "price": "5,90 EUR",
+    "imageKey": "smoothie-colada-jungle",
+    "vegetarian": true,
+    "tags": [
+      "Hecho al momento"
+    ]
+  },
+  {
+    "id": "vitality",
+    "title": "Vitality",
+    "description": "Platano y fresa.",
+    "price": "5,90 EUR",
+    "imageKey": "smoothie-vitality",
+    "vegetarian": true,
+    "tags": [
+      "Hecho al momento"
+    ]
+  },
+  {
+    "id": "red-bliss",
+    "title": "Red Bliss",
+    "description": "Platano, arandano y frambuesa.",
+    "price": "5,90 EUR",
+    "imageKey": "smoothie-red-bliss",
+    "vegetarian": true,
+    "tags": [
+      "Hecho al momento"
+    ]
+  },
+  {
+    "id": "green-power",
+    "title": "Green Power",
+    "description": "Pepino, col rizada, pina y espinaca.",
+    "price": "5,90 EUR",
+    "imageKey": "smoothie-green-power",
+    "vegetarian": true,
+    "tags": [
+      "Hecho al momento"
+    ]
+  },
+  {
+    "id": "sunny-splash",
+    "title": "Sunny Splash",
+    "description": "Mango, limon, pina y fruta de la pasion.",
+    "price": "5,90 EUR",
+    "imageKey": "smoothie-sunny-splash",
+    "vegetarian": true,
+    "tags": [
+      "Hecho al momento"
+    ]
+  },
+  {
+    "id": "dragon-fruit-mix",
+    "title": "Dragon Fruit Mix",
+    "description": "Mango, fresa y pitaya.",
+    "price": "5,90 EUR",
+    "imageKey": "smoothie-dragon-fruit-mix",
+    "vegetarian": true,
+    "tags": [
+      "Hecho al momento"
+    ]
+  },
+  {
+    "id": "squeeze-nature",
+    "title": "Squeeze Nature",
+    "description": "Mango, zanahoria, pina y fruta de la pasion.",
+    "price": "5,90 EUR",
+    "imageKey": "smoothie-squeeze-nature",
+    "vegetarian": true,
+    "tags": [
+      "Hecho al momento"
+    ]
+  },
+  {
+    "id": "delightful",
+    "title": "Delightful",
+    "description": "Platano, arandano, mango y acai.",
+    "price": "5,90 EUR",
+    "imageKey": "smoothie-delightful",
+    "vegetarian": true,
+    "tags": [
+      "Hecho al momento"
+    ]
+  },
+  {
+    "id": "blue-lightning",
+    "title": "Blue Lightning",
+    "description": "Mango, platano, pina, melocoton, coco y espirulina azul.",
+    "price": "5,90 EUR",
+    "imageKey": "smoothie-blue-lightning",
+    "vegetarian": true,
+    "tags": [
+      "Hecho al momento"
+    ]
+  }
+];
 
 const legacyMenuCatalog: LegacyCategorySeed[] = [
   {
@@ -1306,8 +1443,9 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
             "id": "milkshake",
             "title": "Milkshake",
             "description": "Vainilla, fresa, chocolate o cookies.",
-            "price": "5,50 €"
-          }
+            "price": "5,90 EUR"
+          },
+          ...zumitSmoothieItems
         ]
       }
     ]
@@ -1326,142 +1464,7 @@ const legacyMenuCatalog: LegacyCategorySeed[] = [
       {
         "title": "Zumit",
         "description": "Hechos al momento.",
-        "items": [
-          {
-            "id": "tropical-heaven",
-            "title": "Tropical Heaven",
-            "description": "Melon, mango, kiwi y pina.",
-            "price": "5,90 EUR",
-            "imageKey": "smoothie-tropical-heaven",
-            "vegetarian": true,
-            "tags": [
-              "Hecho al momento"
-            ],
-            "featured": true
-          },
-          {
-            "id": "caribbean-passion",
-            "title": "Caribbean Passion",
-            "description": "Mango, papaya y pina.",
-            "price": "5,90 EUR",
-            "imageKey": "smoothie-caribbean-passion",
-            "vegetarian": true,
-            "tags": [
-              "Hecho al momento"
-            ],
-            "bestseller": true
-          },
-          {
-            "id": "berries-paradise",
-            "title": "Berries Paradise",
-            "description": "Mango, cereza, arandano y fresa.",
-            "price": "5,90 EUR",
-            "imageKey": "smoothie-berries-paradise",
-            "vegetarian": true,
-            "tags": [
-              "Hecho al momento"
-            ]
-          },
-          {
-            "id": "colada-jungle",
-            "title": "Colada Jungle",
-            "description": "Platano, coco y pina.",
-            "price": "5,90 EUR",
-            "imageKey": "smoothie-colada-jungle",
-            "vegetarian": true,
-            "tags": [
-              "Hecho al momento"
-            ]
-          },
-          {
-            "id": "vitality",
-            "title": "Vitality",
-            "description": "Platano y fresa.",
-            "price": "5,90 EUR",
-            "imageKey": "smoothie-vitality",
-            "vegetarian": true,
-            "tags": [
-              "Hecho al momento"
-            ]
-          },
-          {
-            "id": "red-bliss",
-            "title": "Red Bliss",
-            "description": "Platano, arandano y frambuesa.",
-            "price": "5,90 EUR",
-            "imageKey": "smoothie-red-bliss",
-            "vegetarian": true,
-            "tags": [
-              "Hecho al momento"
-            ]
-          },
-          {
-            "id": "green-power",
-            "title": "Green Power",
-            "description": "Pepino, col rizada, pina y espinaca.",
-            "price": "5,90 EUR",
-            "imageKey": "smoothie-green-power",
-            "vegetarian": true,
-            "tags": [
-              "Hecho al momento"
-            ]
-          },
-          {
-            "id": "sunny-splash",
-            "title": "Sunny Splash",
-            "description": "Mango, limon, pina y fruta de la pasion.",
-            "price": "5,90 EUR",
-            "imageKey": "smoothie-sunny-splash",
-            "vegetarian": true,
-            "tags": [
-              "Hecho al momento"
-            ]
-          },
-          {
-            "id": "dragon-fruit-mix",
-            "title": "Dragon Fruit Mix",
-            "description": "Mango, fresa y pitaya.",
-            "price": "5,90 EUR",
-            "imageKey": "smoothie-dragon-fruit-mix",
-            "vegetarian": true,
-            "tags": [
-              "Hecho al momento"
-            ]
-          },
-          {
-            "id": "squeeze-nature",
-            "title": "Squeeze Nature",
-            "description": "Mango, zanahoria, pina y fruta de la pasion.",
-            "price": "5,90 EUR",
-            "imageKey": "smoothie-squeeze-nature",
-            "vegetarian": true,
-            "tags": [
-              "Hecho al momento"
-            ]
-          },
-          {
-            "id": "delightful",
-            "title": "Delightful",
-            "description": "Platano, arandano, mango y acai.",
-            "price": "5,90 EUR",
-            "imageKey": "smoothie-delightful",
-            "vegetarian": true,
-            "tags": [
-              "Hecho al momento"
-            ]
-          },
-          {
-            "id": "blue-lightning",
-            "title": "Blue Lightning",
-            "description": "Mango, platano, pina, melocoton, coco y espirulina azul.",
-            "price": "5,90 EUR",
-            "imageKey": "smoothie-blue-lightning",
-            "vegetarian": true,
-            "tags": [
-              "Hecho al momento"
-            ]
-          }
-        ]
+        "items": zumitSmoothieItems
       }
     ]
   },

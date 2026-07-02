@@ -2,6 +2,21 @@ import { describe, expect, it } from "vitest";
 
 import { menuProducts, type AllergenId } from "@/features/menu/data";
 
+const smoothieIds = [
+  "tropical-heaven",
+  "caribbean-passion",
+  "berries-paradise",
+  "colada-jungle",
+  "vitality",
+  "red-bliss",
+  "green-power",
+  "sunny-splash",
+  "dragon-fruit-mix",
+  "squeeze-nature",
+  "delightful",
+  "blue-lightning",
+];
+
 const expectedAllergensByProductId: Record<string, AllergenId[]> = {
   "salads-ensalada-cesar": ["gluten", "milk", "egg"],
   "salads-ensalada-rulo-de-cabra": ["gluten", "milk"],
@@ -69,19 +84,6 @@ const expectedAllergensByProductId: Record<string, AllergenId[]> = {
   "desserts-tarta-de-queso": ["milk", "egg"],
   "desserts-milkshake": ["gluten", "milk"],
 
-  "smoothies-tropical-heaven": [],
-  "smoothies-caribbean-passion": [],
-  "smoothies-berries-paradise": [],
-  "smoothies-colada-jungle": [],
-  "smoothies-vitality": [],
-  "smoothies-red-bliss": [],
-  "smoothies-green-power": [],
-  "smoothies-sunny-splash": [],
-  "smoothies-dragon-fruit-mix": [],
-  "smoothies-squeeze-nature": [],
-  "smoothies-delightful": [],
-  "smoothies-blue-lightning": [],
-
   "drinks-agua-500-ml": [],
   "drinks-agua-con-gas": [],
   "drinks-refresco": [],
@@ -96,6 +98,11 @@ const expectedAllergensByProductId: Record<string, AllergenId[]> = {
   "drinks-infusiones": [],
   "drinks-latas-para-llevar": [],
 };
+
+for (const smoothieId of smoothieIds) {
+  expectedAllergensByProductId[`desserts-${smoothieId}`] = [];
+  expectedAllergensByProductId[`smoothies-${smoothieId}`] = [];
+}
 
 function getDeclaredAllergens(productId: string) {
   const product = menuProducts.find((entry) => entry.id === productId);

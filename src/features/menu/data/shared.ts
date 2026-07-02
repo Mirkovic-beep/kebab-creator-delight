@@ -44,6 +44,7 @@ const localDrinksImage = withBase("/images/drinks-placeholder.png");
 const localGenericImage = withBase("/images/imagenCarta.jpg");
 const localProfiterolesImage = withBase("/images/menu/profiteroles.jpg");
 const localCheesecakeImage = withBase("/images/menu/tarta-queso.jpg");
+const localSmoothiesHeaderImage = withBase("/images/menu/smoothies-de-frutas-scaled.jpg");
 const localSmoothieTropicalHeavenImage = withBase("/images/menu/smoothie-tropical-heaven.png");
 const localSmoothieCaribbeanPassionImage = withBase("/images/menu/smoothie-caribbean-passion.png");
 const localSmoothieBerriesParadiseImage = withBase("/images/menu/smoothie-berries-paradise.png");
@@ -97,6 +98,7 @@ export const menuImageMap: Record<MenuImageKey, string> = {
   dessert: dessertImage,
   "dessert-profiteroles": localProfiterolesImage,
   "dessert-cheesecake": localCheesecakeImage,
+  "smoothies-header": localSmoothiesHeaderImage,
   "smoothie-tropical-heaven": localSmoothieTropicalHeavenImage,
   "smoothie-caribbean-passion": localSmoothieCaribbeanPassionImage,
   "smoothie-berries-paradise": localSmoothieBerriesParadiseImage,

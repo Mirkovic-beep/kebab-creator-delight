@@ -62,6 +62,21 @@ describe("menu pricing", () => {
     }
   });
 
+  it("sets the desserts milkshake at 5,90", () => {
+    expect(getProduct("desserts-milkshake").price).toBeCloseTo(5.9, 2);
+  });
+
+  it("also shows every Zumit smoothie in desserts at 5,90", () => {
+    const dessertsCategory = menuCatalog.find((category) => category.id === "desserts");
+    const dessertSmoothies = dessertsCategory?.products.filter((product) => product.id.startsWith("desserts-") && product.imageKey?.startsWith("smoothie-"));
+
+    expect(dessertSmoothies).toHaveLength(12);
+
+    for (const product of dessertSmoothies!) {
+      expect(product.price, product.id).toBeCloseTo(5.9, 2);
+    }
+  });
+
   it("shows fries as standalone portions and removes them from kebab extras", () => {
     const rationsCategory = menuCatalog.find((category) => category.id === "rations");
 
